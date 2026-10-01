@@ -8,4 +8,13 @@ public class HelloWorldController {
     @GetMapping("/hello")
     public String helloWorld() {
         return "Hello World!";
-    }               }
+    }
+
+    @GetMapping("/hey")
+    public String hey() {
+        return "Hey there!";
+    }
+
+
+
+}
