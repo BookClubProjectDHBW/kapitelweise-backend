@@ -1,4 +1,4 @@
-package com.config;
+package com.kapitelweise.kapitelweiseBackend.config;
 
 import javax.sql.DataSource;
 
@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 
 @Configuration
-public class DatabaseConfig{
+public class DataBaseConfig{
     @Bean
     public JdbcTemplate jdbcTemplate(final DataSource dataSource) {
         return new JdbcTemplate(dataSource);
