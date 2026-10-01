@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import com.kapitelweise.kapitelweiseBackend.domain.AppUser;
 
+
+//@Service ist die Businesslogikschicht, liegt zw. Controller und DAO
+//er wird aufgerufen durch SecurityConfig, auf den geschützen Pfaden (aktuell bspw. /hey als Dummy) 
+//oder scheinbar auch vom authenticationManager im Controller
+
 @Service
 public class UserService implements UserDetailsService {
 

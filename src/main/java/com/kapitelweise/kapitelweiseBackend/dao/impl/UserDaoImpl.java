@@ -1,7 +1,6 @@
 package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import com.kapitelweise.kapitelweiseBackend.domain.AppUser;
+
+//die konkrete Implementierung, hier führen wir unten die Datenbankabfrage durch.
+//@Repository ist ein Spring Annotation, die sagt, dass diese Klasse ein Repository ist, also eine Datenzugriffsschicht.
+// d.h. UserDao --> UserDaoImpl und --> AppUser arbeiten quasi zusammen.
+
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -49,17 +53,6 @@ public class UserDaoImpl implements UserDao {
    public static class UserRowMapper implements RowMapper<AppUser> {
         @Override
         public AppUser mapRow(ResultSet rs, int rowNum) throws SQLException {
-            ResultSetMetaData meta = rs.getMetaData();
-        int columnCount = meta.getColumnCount();
-
-        StringBuilder sb = new StringBuilder("Row " + rowNum + ": ");
-        for (int i = 1; i <= columnCount; i++) {
-            String columnName = meta.getColumnLabel(i);
-            Object value = rs.getObject(i);
-            sb.append(columnName).append("=").append(value);
-            if (i < columnCount) sb.append(", ");
-        }
-        log.info(sb.toString());
             return new AppUser(rs.getString("username"), rs.getString("password"));
         }
     }

@@ -1,7 +1,7 @@
 package com.kapitelweise.kapitelweiseBackend.domain;
 import java.util.Objects;
 
-
+// das ist unser Datenbank User Objekt, das aktuell username, password enthält
 public class AppUser{
     private String username;
     private String password;

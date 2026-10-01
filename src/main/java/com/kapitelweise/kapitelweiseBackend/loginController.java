@@ -33,6 +33,7 @@ public class LoginController {
     }
 
 
+//so wie ich es verstehe, das ist nur die Logik um den Token zu erzeugen! Basic Auth ist immer noch möglich!!!
    @PostMapping("/login")
 public String login(@RequestBody LoginRequest request) {
     authenticationManager.authenticate(
