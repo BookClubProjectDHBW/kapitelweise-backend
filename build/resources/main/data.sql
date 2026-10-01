@@ -1,1 +1,1 @@
-insert into users (username, password) values ('testuser', 'testPassword');
+insert into users (username, password) values ('testuser', '{noop}testPassword');
