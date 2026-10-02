@@ -13,3 +13,6 @@ spring:
   web:
     error:
       include-message: always
+cookie:
+  secure: false
+  #cookie secure muss auf heroku als Umgebungsvariable angelegt werden, genau wie der key!!!!

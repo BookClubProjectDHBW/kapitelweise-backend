@@ -13,3 +13,5 @@ spring:
   web:
     error:
       include-message: always
+cookie:
+  secure: false
