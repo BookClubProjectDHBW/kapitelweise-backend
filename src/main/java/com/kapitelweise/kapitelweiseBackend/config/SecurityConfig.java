@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests((auth) ->
-            auth.requestMatchers("/hello", "/login").permitAll().anyRequest().authenticated())
+            auth.requestMatchers("/hello", "/login", "/register", "/error").permitAll().anyRequest().authenticated())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling(e -> e.authenticationEntryPoint(

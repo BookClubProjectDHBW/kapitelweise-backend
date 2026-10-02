@@ -34,6 +34,8 @@ public class UserService implements UserDetailsService {
         return found.get();
     }
 
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = getUserFromUsername(username);
