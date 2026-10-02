@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Frontend und Backend kommunizieren jetzt miteinander. Der Cors wurde behoben, indem die SecureConfig jetzt Anfragen der Login Seite erlaubt.">
-      <change afterPath="$PROJECT_DIR$/system.properties" afterDir="false" />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,23 +50,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000002431144" />
-      <entry key="S5" value="1.0010447772567086" />
-      <entry key="S10" value="1.2079032694351892" />
-      <entry key="S30" value="8.926857316396227" />
-      <entry key="S60" value="21.08158518713888" />
-      <entry key="M2" value="34.004922509021014" />
-      <entry key="M5" value="52.95877500873168" />
-      <entry key="M10" value="73.41493143309975" />
-      <entry key="M15" value="88.2752559985202" />
-      <entry key="M30" value="118.5395109985934" />
-      <entry key="H1" value="156.441760888508" />
-      <entry key="H2" value="194.6381205613576" />
-      <entry key="H4" value="223.63535794151682" />
-      <entry key="D1" value="255.55245976452497" />
-      <entry key="W1" value="261.9117577040018" />
+      <entry key="MS100" value="1.7383225859732148" />
+      <entry key="MS500" value="3.856631274178609" />
+      <entry key="S2" value="9.678645123184232" />
+      <entry key="S5" value="17.8021592750376" />
+      <entry key="S10" value="24.72567198648329" />
+      <entry key="S30" value="33.59486667699302" />
+      <entry key="S60" value="41.7881904839229" />
+      <entry key="M2" value="54.00888740452343" />
+      <entry key="M5" value="74.68267485897927" />
+      <entry key="M10" value="100.66293144037616" />
+      <entry key="M15" value="121.39698710936251" />
+      <entry key="M30" value="163.9566963767226" />
+      <entry key="H1" value="213.355320441399" />
+      <entry key="H2" value="261.2617942783372" />
+      <entry key="H4" value="297.4964860276978" />
+      <entry key="D1" value="337.59586047068694" />
+      <entry key="W1" value="345.6246314113021" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -88,23 +88,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9592641193252643" />
-      <entry key="MS500" value="0.9917167307382933" />
-      <entry key="S2" value="0.9979227192417267" />
-      <entry key="S5" value="1.0002125720195203" />
-      <entry key="S10" value="1.207409563965573" />
-      <entry key="S30" value="8.925717587518786" />
-      <entry key="S60" value="21.080023990345143" />
-      <entry key="M2" value="34.001716350444674" />
-      <entry key="M5" value="52.95281327385848" />
-      <entry key="M10" value="73.4095076449365" />
-      <entry key="M15" value="88.27075580951272" />
-      <entry key="M30" value="118.53632578183253" />
-      <entry key="H1" value="156.43928210829733" />
-      <entry key="H2" value="194.63631557637527" />
-      <entry key="H4" value="223.63421885870804" />
-      <entry key="D1" value="255.5522242338125" />
-      <entry key="W1" value="261.91172272527734" />
+      <entry key="MS100" value="1.6989358899509068" />
+      <entry key="MS500" value="3.828415572422617" />
+      <entry key="S2" value="9.656187635463544" />
+      <entry key="S5" value="17.785603987367253" />
+      <entry key="S10" value="24.7142993499246" />
+      <entry key="S30" value="33.58974297696271" />
+      <entry key="S60" value="41.78495548588942" />
+      <entry key="M2" value="54.00673719840946" />
+      <entry key="M5" value="74.68086383688906" />
+      <entry key="M10" value="100.66045408376075" />
+      <entry key="M15" value="121.39435496759495" />
+      <entry key="M30" value="163.95424483202132" />
+      <entry key="H1" value="213.3531334068594" />
+      <entry key="H2" value="261.2600861500611" />
+      <entry key="H4" value="297.49536791523025" />
+      <entry key="D1" value="337.5956218817949" />
+      <entry key="W1" value="345.6245957832633" />
     </decayedShown>
   </component>
   <component name="PropertiesComponent"><![CDATA[{
@@ -132,12 +132,21 @@
       <option name="project" value="LOCAL" />
       <updated>1790961918151</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt">
+      <option name="closed" value="true" />
+      <created>1790963448667</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1790963448667</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Frontend und Backend kommunizieren jetzt miteinander. Der Cors wurde behoben, indem die SecureConfig jetzt Anfragen der Login Seite erlaubt." />
-    <option name="LAST_COMMIT_MESSAGE" value="Frontend und Backend kommunizieren jetzt miteinander. Der Cors wurde behoben, indem die SecureConfig jetzt Anfragen der Login Seite erlaubt." />
+    <MESSAGE value="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt" />
+    <option name="LAST_COMMIT_MESSAGE" value="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -15,4 +15,6 @@ spring:
 
 app:
   cors:
-    allowed-origins: http://localhost:63342
+    allowed-origins:
+    - http://localhost:63342
+    - https://kapitelweisefrontend-c5afec02989c.herokuapp.com/public/html/loginPage.html
