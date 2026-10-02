@@ -25,8 +25,15 @@ public class JwtFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filter) throws ServletException, IOException{
     String authorizationHeader = request.getHeader("Authorization");
-    String token = null;
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+      String token = null;
+      if (request.getCookies() != null) {
+          for (Cookie cookie : request.getCookies()) {
+              if ("token".equals(cookie.getName())) {
+                  token = cookie.getValue();
+              }
+          }
+      }
+    if (token != null && authorizationHeader.startsWith("Bearer ")) {
         //7 weil im Header steht Bearer + Leerzeichen und danach fängts an - spannend
         token = authorizationHeader.substring(7);
         }

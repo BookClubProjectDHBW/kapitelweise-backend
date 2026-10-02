@@ -2,6 +2,10 @@ package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.RegistrationRequest;
 import com.kapitelweise.kapitelweiseBackend.service.RegistrationService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kapitelweise.kapitelweiseBackend.request.LoginRequest;
 import com.kapitelweise.kapitelweiseBackend.service.JwtService;
+
+import java.time.Duration;
 import java.util.logging.Logger;
 
 @RestController
@@ -47,11 +53,22 @@ public class LoginController {
     }
 //so wie ich es verstehe, das ist nur die Logik um den Token zu erzeugen! Basic Auth ist immer noch möglich!!!
    @PostMapping("/login")
-public String login(@RequestBody LoginRequest request) {
+public ResponseEntity<?> login(@RequestBody LoginRequest request, @Value("${cookie.secure:false}") boolean cookieSecure) {
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.username(), request.password()));
     String token = jwtService.generateToken(request.username());
-    return token;
+
+       ResponseCookie cookie = ResponseCookie.from("token", token)
+               .httpOnly(true)
+               .secure(cookieSecure)
+               .sameSite("Lax")
+               .path("/")
+               .maxAge(Duration.ofHours(10))
+               .build();
+
+       return ResponseEntity.ok()
+               .header(HttpHeaders.SET_COOKIE, cookie.toString())
+               .build();
 }
 }
 
