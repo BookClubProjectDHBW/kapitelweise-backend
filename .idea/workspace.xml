@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut">
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,13 +139,31 @@
       <option name="project" value="LOCAL" />
       <updated>1790963448667</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Freigabe der Heroku URL als erlaubte Anfrage URL, da sonst der Cors fehler wieder kommt">
+      <option name="closed" value="true" />
+      <created>1790964582462</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1790964582462</updated>
+    </task>
+    <task id="LOCAL-00004" summary="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut">
+      <option name="closed" value="true" />
+      <created>1790964666768</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1790964666768</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Frontend und Backend kommunizieren jetzt miteinander. Der Cors wurde behoben, indem die SecureConfig jetzt Anfragen der Login Seite erlaubt." />
     <MESSAGE value="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt" />
-    <option name="LAST_COMMIT_MESSAGE" value="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt" />
+    <MESSAGE value="Freigabe der Heroku URL als erlaubte Anfrage URL, da sonst der Cors fehler wieder kommt" />
+    <MESSAGE value="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut" />
+    <option name="LAST_COMMIT_MESSAGE" value="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
