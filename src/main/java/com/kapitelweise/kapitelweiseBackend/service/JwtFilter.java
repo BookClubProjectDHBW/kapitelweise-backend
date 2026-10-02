@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.service;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,10 +34,6 @@ public class JwtFilter extends OncePerRequestFilter {
               }
           }
       }
-    if (token != null && authorizationHeader.startsWith("Bearer ")) {
-        //7 weil im Header steht Bearer + Leerzeichen und danach fängts an - spannend
-        token = authorizationHeader.substring(7);
-        }
 
     if(SecurityContextHolder.getContext().getAuthentication() == null && token != null){
         
