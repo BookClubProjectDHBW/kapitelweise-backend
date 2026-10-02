@@ -32,14 +32,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean userExists(String username) {
-        // Implement logic to check if the user exists in the database
-        return false; // Placeholder implementation
+        Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM users WHERE username = ?", Integer.class, username);
+        return count > 0;
     }
 
     @Override
     public void saveUser(AppUser user) {
-        // Implement logic to save the user to the database
+            jdbcTemplate.update("Insert into users (username, password) Values (?, ?)", user.getUsername(), user.getPassword());
     }
+
+
 
     @Override
    public Optional<AppUser> findByUsername(String username){
