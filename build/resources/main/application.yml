@@ -1,10 +1,11 @@
 server:
-  port: 8282
+  port: 8181
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/kapitelweise
-    username: niklasultzhofer
+    url: jdbc:postgresql://localhost:5432/postgres      #kapitelweise
+    username: postgres #niklasultzhofer
+    password: password
     driver-class-name: org.postgresql.Driver
   sql:
     init:
@@ -15,3 +16,4 @@ spring:
       include-message: always
 cookie:
   secure: false
+  #cookie secure muss auf heroku als Umgebungsvariable angelegt werden, genau wie der key!!!!
