@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Cors problem mit Heroku, die URL in application yml wurde angepasst">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,35 +37,35 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/BookClubProjectDHBW/kapitelweise-backend",
-    "accountId": "aef8876b-b2aa-4d4c-8b86-988237db6ff2"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BookClubProjectDHBW/kapitelweise-backend&quot;,
+    &quot;accountId&quot;: &quot;aef8876b-b2aa-4d4c-8b86-988237db6ff2&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="2.2408672670977383" />
-      <entry key="MS500" value="5.543765229521432" />
-      <entry key="S2" value="12.538644679988792" />
-      <entry key="S5" value="18.644434501986744" />
-      <entry key="S10" value="24.69161488303133" />
-      <entry key="S30" value="40.50060848386585" />
-      <entry key="S60" value="50.12477202492462" />
-      <entry key="M2" value="56.76706696360479" />
-      <entry key="M5" value="65.03180084048373" />
-      <entry key="M10" value="85.17208905993917" />
-      <entry key="M15" value="107.80237359955925" />
-      <entry key="M30" value="163.112947171312" />
-      <entry key="H1" value="230.25107627727428" />
-      <entry key="H2" value="294.98990419689966" />
-      <entry key="H4" value="344.14100280937737" />
-      <entry key="D1" value="399.0339952766664" />
-      <entry key="W1" value="410.10138154049645" />
+      <entry key="MS100" value="1.0000053769789385" />
+      <entry key="MS500" value="1.1926208189514262" />
+      <entry key="S2" value="4.0550014062143696" />
+      <entry key="S5" value="10.15517044553903" />
+      <entry key="S10" value="18.80986952696272" />
+      <entry key="S30" value="39.71358630161127" />
+      <entry key="S60" value="52.76099479032004" />
+      <entry key="M2" value="62.06986263719465" />
+      <entry key="M5" value="72.31402727301115" />
+      <entry key="M10" value="93.04910030958958" />
+      <entry key="M15" value="115.85793904319502" />
+      <entry key="M30" value="171.40190302231744" />
+      <entry key="H1" value="238.75067930481603" />
+      <entry key="H2" value="303.66986845763563" />
+      <entry key="H4" value="352.95447479205797" />
+      <entry key="D1" value="407.9979726852457" />
+      <entry key="W1" value="419.09609332492323" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -87,23 +87,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="2.1395614387537276" />
-      <entry key="MS500" value="5.495031940720953" />
-      <entry key="S2" value="12.512710174434474" />
-      <entry key="S5" value="18.62937118410295" />
-      <entry key="S10" value="24.681731266809717" />
-      <entry key="S30" value="40.49520695462307" />
-      <entry key="S60" value="50.12142292852315" />
-      <entry key="M2" value="56.76516784301212" />
-      <entry key="M5" value="65.03089125997325" />
-      <entry key="M10" value="85.17112492301267" />
-      <entry key="M15" value="107.80113440986322" />
-      <entry key="M30" value="163.1113272263483" />
-      <entry key="H1" value="230.2493069620045" />
-      <entry key="H2" value="294.98836331372735" />
-      <entry key="H4" value="344.13993527039196" />
-      <entry key="D1" value="399.0337561721043" />
-      <entry key="W1" value="410.1013455341483" />
+      <entry key="MS100" value="0.08190488765562091" />
+      <entry key="MS500" value="0.7980253942620301" />
+      <entry key="S2" value="3.9320564284471256" />
+      <entry key="S5" value="10.09929255279987" />
+      <entry key="S10" value="18.77815208514741" />
+      <entry key="S30" value="39.7001494590699" />
+      <entry key="S60" value="52.75339062009729" />
+      <entry key="M2" value="62.065744564827085" />
+      <entry key="M5" value="72.31220402624835" />
+      <entry key="M10" value="93.04767982130507" />
+      <entry key="M15" value="115.85639793183046" />
+      <entry key="M30" value="171.4001337323816" />
+      <entry key="H1" value="238.74883563409193" />
+      <entry key="H2" value="303.6682901497621" />
+      <entry key="H4" value="352.95338828554264" />
+      <entry key="D1" value="407.99773034501175" />
+      <entry key="W1" value="419.0960568537301" />
     </decayedShown>
   </component>
   <component name="PropertiesComponent"><![CDATA[{
@@ -114,7 +114,7 @@
     "RequestMappingsPanelWidth1": "75",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.KapitelweiseBackendApplication.executor": "Run",
-    "git-widget-placeholder": "componentCommunication",
+    "git-widget-placeholder": "#6 on componentCommunication",
     "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
