@@ -3,15 +3,24 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/kapitelweise
-    username: niklasultzhofer
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
     driver-class-name: org.postgresql.Driver
   sql:
     init:
       mode: always
       platform: postgres
+<<<<<<< HEAD
+
+
+app:
+  cors:
+    allowed-origins: http://localhost:63342
+=======
   web:
     error:
       include-message: always
 cookie:
   secure: false
+>>>>>>> main

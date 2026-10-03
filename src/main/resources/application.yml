@@ -1,15 +1,23 @@
 server:
-  port: 8282
+  port: 8181
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/kapitelweise
-    username: niklasultzhofer
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
     driver-class-name: org.postgresql.Driver
   sql:
     init:
       mode: always
       platform: postgres
+
+
+app:
+  cors:
+    allowed-origins: https://kapitelweisefrontend-c5afec02989c.herokuapp.com
+   # - http://localhost:63342
+
   web:
     error:
       include-message: always
