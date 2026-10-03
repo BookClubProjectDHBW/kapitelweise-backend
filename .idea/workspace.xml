@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ba5e98b-0ebf-44e8-bcc2-9841955784f2" name="Changes" comment="logout Controler ist vorerst im Login Controler. Um den Logout zu ermöglichen wird ein Cookie gesendet, der die Dauer auf 0 setzt. Der Browser entfernt dann den Cookie mit dem Token." />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Cors problem mit Heroku, die URL in application yml wurde angepasst">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/data_sources_history.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$">
-      <ProjectState />
-    </projectState>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="53f8948d-2c6c-4286-a7b8-abee2e2c836b" value="" />
+    </colors>
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
@@ -32,20 +34,13 @@
       </state>
     </system>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;OnkelGustav&quot;
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BookClubProjectDHBW/kapitelweise-backend&quot;,
+    &quot;accountId&quot;: &quot;aef8876b-b2aa-4d4c-8b86-988237db6ff2&quot;
   }
 }</component>
   <component name="McpProjectServerCommands">
@@ -54,23 +49,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.8253772333714247" />
-      <entry key="MS500" value="4.128536993179288" />
-      <entry key="S2" value="9.31783321657728" />
-      <entry key="S5" value="12.579752387879193" />
-      <entry key="S10" value="14.126696203401137" />
-      <entry key="S30" value="15.334677035674545" />
-      <entry key="S60" value="15.661906185810572" />
-      <entry key="M2" value="15.829569593413945" />
-      <entry key="M5" value="15.931492486269287" />
-      <entry key="M10" value="15.965690072900456" />
-      <entry key="M15" value="15.977114212283576" />
-      <entry key="M30" value="15.988550849464312" />
-      <entry key="H1" value="15.994273859589658" />
-      <entry key="H2" value="15.997136538387489" />
-      <entry key="H4" value="15.998568171326689" />
-      <entry key="D1" value="15.999761348293845" />
-      <entry key="W1" value="15.999965906566194" />
+      <entry key="MS100" value="1.0000053769789385" />
+      <entry key="MS500" value="1.1926208189514262" />
+      <entry key="S2" value="4.0550014062143696" />
+      <entry key="S5" value="10.15517044553903" />
+      <entry key="S10" value="18.80986952696272" />
+      <entry key="S30" value="39.71358630161127" />
+      <entry key="S60" value="52.76099479032004" />
+      <entry key="M2" value="62.06986263719465" />
+      <entry key="M5" value="72.31402727301115" />
+      <entry key="M10" value="93.04910030958958" />
+      <entry key="M15" value="115.85793904319502" />
+      <entry key="M30" value="171.40190302231744" />
+      <entry key="H1" value="238.75067930481603" />
+      <entry key="H2" value="303.66986845763563" />
+      <entry key="H4" value="352.95447479205797" />
+      <entry key="D1" value="407.9979726852457" />
+      <entry key="W1" value="419.09609332492323" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -92,104 +87,92 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.7855820082056493" />
-      <entry key="MS500" value="4.099107214654261" />
-      <entry key="S2" value="9.29832183571529" />
-      <entry key="S5" value="12.56932464773243" />
-      <entry key="S10" value="14.120886776695585" />
-      <entry key="S30" value="15.332588234251402" />
-      <entry key="S60" value="15.660841324949336" />
-      <entry key="M2" value="15.829031934340223" />
-      <entry key="M5" value="15.931276152907042" />
-      <entry key="M10" value="15.965581693345554" />
-      <entry key="M15" value="15.977041911848493" />
-      <entry key="M30" value="15.988514675524181" />
-      <entry key="H1" value="15.994255766684562" />
-      <entry key="H2" value="15.997127490450639" />
-      <entry key="H4" value="15.998563646987119" />
-      <entry key="D1" value="15.999760594185695" />
-      <entry key="W1" value="15.999965798835193" />
+      <entry key="MS100" value="0.08190488765562091" />
+      <entry key="MS500" value="0.7980253942620301" />
+      <entry key="S2" value="3.9320564284471256" />
+      <entry key="S5" value="10.09929255279987" />
+      <entry key="S10" value="18.77815208514741" />
+      <entry key="S30" value="39.7001494590699" />
+      <entry key="S60" value="52.75339062009729" />
+      <entry key="M2" value="62.065744564827085" />
+      <entry key="M5" value="72.31220402624835" />
+      <entry key="M10" value="93.04767982130507" />
+      <entry key="M15" value="115.85639793183046" />
+      <entry key="M30" value="171.4001337323816" />
+      <entry key="H1" value="238.74883563409193" />
+      <entry key="H2" value="303.6682901497621" />
+      <entry key="H4" value="352.95338828554264" />
+      <entry key="D1" value="407.99773034501175" />
+      <entry key="W1" value="419.0960568537301" />
     </decayedShown>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="3K8KWpnD8W9Wr9NDzvRWpFkkpXv" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build kapitelweise-backend.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.KapitelweiseBackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;logout&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/niklasultzhofer/kapitelweise-backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.KapitelweiseBackendApplication.executor": "Run",
+    "git-widget-placeholder": "#6 on componentCommunication",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="KapitelweiseBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="kapitelweiseBackend.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.kapitelweise.kapitelweiseBackend.KapitelweiseBackendApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
-      </set>
-    </attachedChunks>
+}]]></component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="6ba5e98b-0ebf-44e8-bcc2-9841955784f2" name="Changes" comment="" />
-      <created>1790933789403</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1790933789403</updated>
-      <workItem from="1790933790461" duration="1312000" />
-      <workItem from="1790939437244" duration="1329000" />
-      <workItem from="1790966001062" duration="6709000" />
-    </task>
-    <task id="LOCAL-00001" summary="logout Controler ist vorerst im Login Controler. Um den Logout zu ermöglichen wird ein Cookie gesendet, der die Dauer auf 0 setzt. Der Browser entfernt dann den Cookie mit dem Token.">
+    <task id="LOCAL-00001" summary="Frontend und Backend kommunizieren jetzt miteinander. Der Cors wurde behoben, indem die SecureConfig jetzt Anfragen der Login Seite erlaubt.">
       <option name="closed" value="true" />
-      <created>1791033265716</created>
+      <created>1790961918151</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1791033265716</updated>
+      <updated>1790961918151</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt">
+      <option name="closed" value="true" />
+      <created>1790963448667</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1790963448667</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Freigabe der Heroku URL als erlaubte Anfrage URL, da sonst der Cors fehler wieder kommt">
+      <option name="closed" value="true" />
+      <created>1790964582462</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1790964582462</updated>
+    </task>
+    <task id="LOCAL-00004" summary="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut">
+      <option name="closed" value="true" />
+      <created>1790964666768</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1790964666768</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Cors problem mit Heroku, die URL in application yml wurde angepasst">
+      <option name="closed" value="true" />
+      <created>1790964886065</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1790964886065</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="logout Controler ist vorerst im Login Controler. Um den Logout zu ermöglichen wird ein Cookie gesendet, der die Dauer auf 0 setzt. Der Browser entfernt dann den Cookie mit dem Token." />
-    <option name="LAST_COMMIT_MESSAGE" value="logout Controler ist vorerst im Login Controler. Um den Logout zu ermöglichen wird ein Cookie gesendet, der die Dauer auf 0 setzt. Der Browser entfernt dann den Cookie mit dem Token." />
+    <MESSAGE value="Frontend und Backend kommunizieren jetzt miteinander. Der Cors wurde behoben, indem die SecureConfig jetzt Anfragen der Login Seite erlaubt." />
+    <MESSAGE value="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt" />
+    <MESSAGE value="Freigabe der Heroku URL als erlaubte Anfrage URL, da sonst der Cors fehler wieder kommt" />
+    <MESSAGE value="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut" />
+    <MESSAGE value="Cors problem mit Heroku, die URL in application yml wurde angepasst" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cors problem mit Heroku, die URL in application yml wurde angepasst" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
