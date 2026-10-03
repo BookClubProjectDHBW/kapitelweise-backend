@@ -17,3 +17,10 @@ app:
   cors:
     allowed-origins: https://kapitelweisefrontend-c5afec02989c.herokuapp.com
    # - http://localhost:63342
+
+  web:
+    error:
+      include-message: always
+cookie:
+  secure: false
+  #cookie secure muss auf heroku als Umgebungsvariable angelegt werden, genau wie der key!!!!

@@ -1,5 +1,5 @@
 server:
-  port: 8181
+  port: 8282
 
 spring:
   datasource:
@@ -11,8 +11,16 @@ spring:
     init:
       mode: always
       platform: postgres
+<<<<<<< HEAD
 
 
 app:
   cors:
     allowed-origins: http://localhost:63342
+=======
+  web:
+    error:
+      include-message: always
+cookie:
+  secure: false
+>>>>>>> main
