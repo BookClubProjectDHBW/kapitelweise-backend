@@ -70,7 +70,7 @@ public ResponseEntity<?> login(@RequestBody LoginRequest request, @Value("${cook
                .header(HttpHeaders.SET_COOKIE, cookie.toString())
                .build();
 }
-
+@PostMapping("/logout")
 public ResponseEntity<Void> logout(@Value("${cookie.secure:false}") boolean cookieSecure) {
         ResponseCookie cookie = ResponseCookie.from("token", "")
                 .httpOnly(true)
