@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ba5e98b-0ebf-44e8-bcc2-9841955784f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/9.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.7.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.7.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/LoginController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +48,75 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "OnkelGustav"
+  }
+}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.8253772333714247" />
+      <entry key="MS500" value="4.128536993179288" />
+      <entry key="S2" value="9.31783321657728" />
+      <entry key="S5" value="12.579752387879193" />
+      <entry key="S10" value="14.126696203401137" />
+      <entry key="S30" value="15.334677035674545" />
+      <entry key="S60" value="15.661906185810572" />
+      <entry key="M2" value="15.829569593413945" />
+      <entry key="M5" value="15.931492486269287" />
+      <entry key="M10" value="15.965690072900456" />
+      <entry key="M15" value="15.977114212283576" />
+      <entry key="M30" value="15.988550849464312" />
+      <entry key="H1" value="15.994273859589658" />
+      <entry key="H2" value="15.997136538387489" />
+      <entry key="H4" value="15.998568171326689" />
+      <entry key="D1" value="15.999761348293845" />
+      <entry key="W1" value="15.999965906566194" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.7855820082056493" />
+      <entry key="MS500" value="4.099107214654261" />
+      <entry key="S2" value="9.29832183571529" />
+      <entry key="S5" value="12.56932464773243" />
+      <entry key="S10" value="14.120886776695585" />
+      <entry key="S30" value="15.332588234251402" />
+      <entry key="S60" value="15.660841324949336" />
+      <entry key="M2" value="15.829031934340223" />
+      <entry key="M5" value="15.931276152907042" />
+      <entry key="M10" value="15.965581693345554" />
+      <entry key="M15" value="15.977041911848493" />
+      <entry key="M30" value="15.988514675524181" />
+      <entry key="H1" value="15.994255766684562" />
+      <entry key="H2" value="15.997127490450639" />
+      <entry key="H4" value="15.998563646987119" />
+      <entry key="D1" value="15.999760594185695" />
+      <entry key="W1" value="15.999965798835193" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -62,11 +134,12 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.KapitelweiseBackendApplication.executor": "Run",
-    "git-widget-placeholder": "feature/login-cookie",
+    "git-widget-placeholder": "logout",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/niklasultzhofer/kapitelweise-backend",
     "node.js.detected.package.eslint": "true",
