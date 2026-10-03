@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Cors problem mit Heroku, die URL in application yml wurde angepasst">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,23 +49,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.7383225859732148" />
-      <entry key="MS500" value="3.856631274178609" />
-      <entry key="S2" value="9.678645123184232" />
-      <entry key="S5" value="17.8021592750376" />
-      <entry key="S10" value="24.72567198648329" />
-      <entry key="S30" value="33.59486667699302" />
-      <entry key="S60" value="41.7881904839229" />
-      <entry key="M2" value="54.00888740452343" />
-      <entry key="M5" value="74.68267485897927" />
-      <entry key="M10" value="100.66293144037616" />
-      <entry key="M15" value="121.39698710936251" />
-      <entry key="M30" value="163.9566963767226" />
-      <entry key="H1" value="213.355320441399" />
-      <entry key="H2" value="261.2617942783372" />
-      <entry key="H4" value="297.4964860276978" />
-      <entry key="D1" value="337.59586047068694" />
-      <entry key="W1" value="345.6246314113021" />
+      <entry key="MS100" value="2.2408672670977383" />
+      <entry key="MS500" value="5.543765229521432" />
+      <entry key="S2" value="12.538644679988792" />
+      <entry key="S5" value="18.644434501986744" />
+      <entry key="S10" value="24.69161488303133" />
+      <entry key="S30" value="40.50060848386585" />
+      <entry key="S60" value="50.12477202492462" />
+      <entry key="M2" value="56.76706696360479" />
+      <entry key="M5" value="65.03180084048373" />
+      <entry key="M10" value="85.17208905993917" />
+      <entry key="M15" value="107.80237359955925" />
+      <entry key="M30" value="163.112947171312" />
+      <entry key="H1" value="230.25107627727428" />
+      <entry key="H2" value="294.98990419689966" />
+      <entry key="H4" value="344.14100280937737" />
+      <entry key="D1" value="399.0339952766664" />
+      <entry key="W1" value="410.10138154049645" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -87,23 +87,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6989358899509068" />
-      <entry key="MS500" value="3.828415572422617" />
-      <entry key="S2" value="9.656187635463544" />
-      <entry key="S5" value="17.785603987367253" />
-      <entry key="S10" value="24.7142993499246" />
-      <entry key="S30" value="33.58974297696271" />
-      <entry key="S60" value="41.78495548588942" />
-      <entry key="M2" value="54.00673719840946" />
-      <entry key="M5" value="74.68086383688906" />
-      <entry key="M10" value="100.66045408376075" />
-      <entry key="M15" value="121.39435496759495" />
-      <entry key="M30" value="163.95424483202132" />
-      <entry key="H1" value="213.3531334068594" />
-      <entry key="H2" value="261.2600861500611" />
-      <entry key="H4" value="297.49536791523025" />
-      <entry key="D1" value="337.5956218817949" />
-      <entry key="W1" value="345.6245957832633" />
+      <entry key="MS100" value="2.1395614387537276" />
+      <entry key="MS500" value="5.495031940720953" />
+      <entry key="S2" value="12.512710174434474" />
+      <entry key="S5" value="18.62937118410295" />
+      <entry key="S10" value="24.681731266809717" />
+      <entry key="S30" value="40.49520695462307" />
+      <entry key="S60" value="50.12142292852315" />
+      <entry key="M2" value="56.76516784301212" />
+      <entry key="M5" value="65.03089125997325" />
+      <entry key="M10" value="85.17112492301267" />
+      <entry key="M15" value="107.80113440986322" />
+      <entry key="M30" value="163.1113272263483" />
+      <entry key="H1" value="230.2493069620045" />
+      <entry key="H2" value="294.98836331372735" />
+      <entry key="H4" value="344.13993527039196" />
+      <entry key="D1" value="399.0337561721043" />
+      <entry key="W1" value="410.1013455341483" />
     </decayedShown>
   </component>
   <component name="PropertiesComponent"><![CDATA[{
@@ -155,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790964666768</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Cors problem mit Heroku, die URL in application yml wurde angepasst">
+      <option name="closed" value="true" />
+      <created>1790964886065</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1790964886065</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -163,7 +171,8 @@
     <MESSAGE value="erstellen der System.properties, da Heroku die Java runtime version nicht erkennt wird sie auf 17 gesetzt" />
     <MESSAGE value="Freigabe der Heroku URL als erlaubte Anfrage URL, da sonst der Cors fehler wieder kommt" />
     <MESSAGE value="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut" />
-    <option name="LAST_COMMIT_MESSAGE" value="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut" />
+    <MESSAGE value="Cors problem mit Heroku, die URL in application yml wurde angepasst" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cors problem mit Heroku, die URL in application yml wurde angepasst" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
