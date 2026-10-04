@@ -1,5 +1,5 @@
 server:
-  port: 8282
+  port: 8181
 
 spring:
   datasource:
@@ -23,4 +23,4 @@ app:
       include-message: always
 cookie:
   secure: false
->>>>>>> main
+  #cookie secure muss auf heroku als Umgebungsvariable angelegt werden, genau wie der key!!!!

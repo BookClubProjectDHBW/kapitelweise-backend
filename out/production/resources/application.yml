@@ -15,5 +15,13 @@ spring:
 
 app:
   cors:
-    allowed-origins:
-      - http://localhost:63342
+    allowed-origins:  http://localhost:63342
+    #https://kapitelweisefrontend-c5afec02989c.herokuapp.com
+
+
+  web:
+    error:
+      include-message: always
+cookie:
+  secure: false
+  #cookie secure muss auf heroku als Umgebungsvariable angelegt werden, genau wie der key!!!!

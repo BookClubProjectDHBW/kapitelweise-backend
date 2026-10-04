@@ -15,8 +15,9 @@ spring:
 
 app:
   cors:
-    allowed-origins: https://kapitelweisefrontend-c5afec02989c.herokuapp.com
-   # - http://localhost:63342
+    allowed-origins:  http://localhost:63342
+    #https://kapitelweisefrontend-c5afec02989c.herokuapp.com
+
 
   web:
     error:
