@@ -3,9 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: password
+    url: jdbc:postgresql://localhost:5432/kapitelweise
+    username: niklasultzhofer
     driver-class-name: org.postgresql.Driver
   sql:
     init:
