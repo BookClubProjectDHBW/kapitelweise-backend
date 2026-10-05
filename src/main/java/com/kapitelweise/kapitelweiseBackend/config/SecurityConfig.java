@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         //unten wurde das Auth am Anfan entfernt, allgemeines auth steht oben
-                        .requestMatchers("/hello", "/login").permitAll()
+                        .requestMatchers("/hello", "/login", "/logout", "register").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
