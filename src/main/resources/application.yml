@@ -2,10 +2,18 @@ server:
   port: 8181
 
 spring:
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/kapitelweise
+ #   username: niklasultzhofer
+#  driver-class-name: org.postgresql.Driver
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/kapitelweise
-    username: niklasultzhofer
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
     driver-class-name: org.postgresql.Driver
+
   sql:
     init:
       mode: always

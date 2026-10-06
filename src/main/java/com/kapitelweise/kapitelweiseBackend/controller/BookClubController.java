@@ -2,6 +2,7 @@ package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.service.BookClubService;
 import com.kapitelweise.kapitelweiseBackend.service.RegistrationService;
@@ -25,7 +26,7 @@ public class BookClubController {
     }
 
     @GetMapping("/clubDetails")
-    public BookClub bookClubDetails(@RequestParam("clubId") Long clubId){
-
+    public BookClubResponse bookClubDetails(@RequestParam("clubId") Long clubId) {
+        return new BookClubResponse("Name", "Description");
     }
 }
