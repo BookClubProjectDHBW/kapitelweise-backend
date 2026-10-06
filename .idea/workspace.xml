@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Merge remote-tracking branch 'origin/main' into logout&#10;&#10;# Conflicts:&#10;#&#9;.gradle/9.7.1/executionHistory/executionHistory.bin&#10;#&#9;.gradle/9.7.1/executionHistory/executionHistory.lock&#10;#&#9;.gradle/9.7.1/fileHashes/fileHashes.bin&#10;#&#9;.gradle/9.7.1/fileHashes/fileHashes.lock&#10;#&#9;.gradle/9.7.1/fileHashes/resourceHashesCache.bin&#10;#&#9;.gradle/buildOutputCleanup/buildOutputCleanup.lock&#10;#&#9;.gradle/buildOutputCleanup/outputFiles.bin&#10;#&#9;.idea/workspace.xml&#10;#&#9;build/resources/main/application.yml&#10;#&#9;build/tmp/compileJava/previous-compilation-data.bin&#10;#&#9;src/main/resources/application.yml">
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/kapitelweise/kapitelweiseBackend/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/kapitelweise/kapitelweiseBackend/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +47,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -133,13 +142,13 @@
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.KapitelweiseBackendApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "newBookClub",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "editor.preferences.completion",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -217,7 +226,7 @@
       <option name="presentableId" value="Default" />
       <updated>1791226224667</updated>
       <workItem from="1791226226254" duration="2245000" />
-      <workItem from="1791228513879" duration="533000" />
+      <workItem from="1791228513879" duration="2974000" />
     </task>
     <option name="localTasksCounter" value="7" />
     <servers />
