@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/53f8948d-2c6c-4286-a7b8-abee2e2c836b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/53f8948d-2c6c-4286-a7b8-abee2e2c836b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="anpassung der bookClub Response">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/impl/BookClubDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/impl/BookClubDaoImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791311014466</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="anpassung der bookClub Response">
+      <option name="closed" value="true" />
+      <created>1791312584010</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1791312584010</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +278,8 @@
     <MESSAGE value="Cors problem mit Heroku, die URL in application yml wurde angepasst" />
     <MESSAGE value="Die Buchclubdetails werden über die BookClubResponse an das Frontend geschickt, dabei werden Name und Beschreibung als JSON mitgegeben." />
     <MESSAGE value="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten" />
-    <option name="LAST_COMMIT_MESSAGE" value="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten" />
+    <MESSAGE value="anpassung der bookClub Response" />
+    <option name="LAST_COMMIT_MESSAGE" value="anpassung der bookClub Response" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

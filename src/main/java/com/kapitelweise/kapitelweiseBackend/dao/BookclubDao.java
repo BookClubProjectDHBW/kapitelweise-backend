@@ -1,6 +1,7 @@
 package com.kapitelweise.kapitelweiseBackend.dao;
 
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 
 import java.util.Optional;
 
@@ -10,4 +11,6 @@ public interface BookclubDao {
      void addMember(Long clubId, String username);
 
     Optional<BookClub> getBookClub(Long clubId);
+
+    Optional<BookClubResponse> getBookClubForMember(Long clubId, String username);
 }
