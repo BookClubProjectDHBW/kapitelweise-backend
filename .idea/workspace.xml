@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Die Buchclubdetails werden über die BookClubResponse an das Frontend geschickt, dabei werden Name und Beschreibung als JSON mitgegeben.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/53f8948d-2c6c-4286-a7b8-abee2e2c836b/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/53f8948d-2c6c-4286-a7b8-abee2e2c836b/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/53f8948d-2c6c-4286-a7b8-abee2e2c836b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/53f8948d-2c6c-4286-a7b8-abee2e2c836b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,6 +159,11 @@
       <script-mode>FILE</script-mode>
       <method v="2" />
     </configuration>
+    <configuration name="schema.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/src/main/resources/schema.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -247,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791302644907</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten">
+      <option name="closed" value="true" />
+      <created>1791311014466</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1791311014466</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +271,8 @@
     <MESSAGE value="der Builder erkennt nicht beide URLs an, deshalb wird localhost ausgegraut" />
     <MESSAGE value="Cors problem mit Heroku, die URL in application yml wurde angepasst" />
     <MESSAGE value="Die Buchclubdetails werden über die BookClubResponse an das Frontend geschickt, dabei werden Name und Beschreibung als JSON mitgegeben." />
-    <option name="LAST_COMMIT_MESSAGE" value="Die Buchclubdetails werden über die BookClubResponse an das Frontend geschickt, dabei werden Name und Beschreibung als JSON mitgegeben." />
+    <MESSAGE value="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten" />
+    <option name="LAST_COMMIT_MESSAGE" value="in Data Sql wurde die Tabelle clubmember erstellt, passende Constraints zu User und Book Club sind enthalten" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

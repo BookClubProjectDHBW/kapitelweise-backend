@@ -27,6 +27,6 @@ public class BookClubController {
 
     @GetMapping("/clubDetails")
     public BookClubResponse bookClubDetails(@RequestParam("clubId") Long clubId) {
-        return new BookClubResponse("Name", "Description");
+        return new BookClubResponse("Name", "Description","Admin");
     }
 }

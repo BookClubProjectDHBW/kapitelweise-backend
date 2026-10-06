@@ -4360,49 +4360,56 @@ false Zulu
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="276" parent="271" name="test">
+    <table id="276" parent="271" name="clubmember">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>16586</ObjectId>
+      <StateNumber>840</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="277" parent="271" name="test">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16401</ObjectId>
       <StateNumber>765</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="277" parent="271" name="users">
+    <table id="278" parent="271" name="users">
       <DetailsLevel>2</DetailsLevel>
       <ObjectId>16564</ObjectId>
       <StateNumber>824</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="278" parent="274" name="userID">
+    <column id="279" parent="274" name="userID">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>764</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="279" parent="274" name="username">
+    <column id="280" parent="274" name="username">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>764</StateNumber>
       <StoredType>varchar(45)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="280" parent="274" name="email">
+    <column id="281" parent="274" name="email">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>764</StateNumber>
       <StoredType>varchar(45)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="281" parent="274" name="password">
+    <column id="282" parent="274" name="password">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>764</StateNumber>
       <StoredType>varchar(200)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="282" parent="274" name="User_pkey">
+    <index id="283" parent="274" name="User_pkey">
       <ColNames>userID</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16395</ObjectId>
@@ -4411,7 +4418,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="283" parent="274" name="User_username_key">
+    <index id="284" parent="274" name="User_username_key">
       <ColNames>username</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16397</ObjectId>
@@ -4422,7 +4429,7 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="284" parent="274" name="User_email_key">
+    <index id="285" parent="274" name="User_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16399</ObjectId>
@@ -4433,26 +4440,26 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="285" parent="274" name="User_pkey">
+    <key id="286" parent="274" name="User_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16396</ObjectId>
       <Primary>1</Primary>
       <StateNumber>764</StateNumber>
       <UnderlyingIndexId>16395</UnderlyingIndexId>
     </key>
-    <key id="286" parent="274" name="User_username_key">
+    <key id="287" parent="274" name="User_username_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16398</ObjectId>
       <StateNumber>764</StateNumber>
       <UnderlyingIndexId>16397</UnderlyingIndexId>
     </key>
-    <key id="287" parent="274" name="User_email_key">
+    <key id="288" parent="274" name="User_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16400</ObjectId>
       <StateNumber>764</StateNumber>
       <UnderlyingIndexId>16399</UnderlyingIndexId>
     </key>
-    <column id="288" parent="275" name="id">
+    <column id="289" parent="275" name="id">
       <DefaultExpression>nextval(&apos;bookclub_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4461,20 +4468,20 @@ false Zulu
       <SequenceId>16574</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="289" parent="275" name="name">
+    <column id="290" parent="275" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>830</StateNumber>
       <StoredType>varchar(20)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="290" parent="275" name="description">
+    <column id="291" parent="275" name="description">
       <Position>3</Position>
       <StateNumber>830</StateNumber>
       <StoredType>varchar(200)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="291" parent="275" name="created_at">
+    <column id="292" parent="275" name="created_at">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
@@ -4482,7 +4489,7 @@ false Zulu
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="292" parent="275" name="bookclub_pkey">
+    <index id="293" parent="275" name="bookclub_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16583</ObjectId>
@@ -4491,34 +4498,106 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="293" parent="275" name="bookclub_pkey">
+    <key id="294" parent="275" name="bookclub_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16584</ObjectId>
       <Primary>1</Primary>
       <StateNumber>830</StateNumber>
       <UnderlyingIndexId>16583</UnderlyingIndexId>
     </key>
-    <column id="294" parent="276" name="testId">
+    <column id="295" parent="276" name="id">
+      <DefaultExpression>nextval(&apos;clubmember_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>840</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>16585</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="296" parent="276" name="role">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>840</StateNumber>
+      <StoredType>varchar(10)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="297" parent="276" name="join_date">
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>840</StateNumber>
+      <StoredType>timestamp|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="298" parent="276" name="userid">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>840</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="299" parent="276" name="bookclub_id">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>840</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="300" parent="276" name="clubmember_userid_fkey">
+      <ColNames>userid</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16598</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <StateNumber>840</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>16564</RefTableId>
+    </foreign-key>
+    <foreign-key id="301" parent="276" name="clubmember_bookclub_id_fkey">
+      <ColNames>bookclub_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16603</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <StateNumber>840</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>16575</RefTableId>
+    </foreign-key>
+    <index id="302" parent="276" name="clubmember_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16596</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>840</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="303" parent="276" name="clubmember_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>16597</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>840</StateNumber>
+      <UnderlyingIndexId>16596</UnderlyingIndexId>
+    </key>
+    <column id="304" parent="277" name="testId">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>765</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="295" parent="276" name="testName">
+    <column id="305" parent="277" name="testName">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>765</StateNumber>
       <StoredType>varchar(20)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="296" parent="276" name="testEmail">
+    <column id="306" parent="277" name="testEmail">
       <Position>3</Position>
       <StateNumber>765</StateNumber>
       <StoredType>varchar(20)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <index id="297" parent="276" name="test_pkey">
+    <index id="307" parent="277" name="test_pkey">
       <ColNames>testId</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16406</ObjectId>
@@ -4527,14 +4606,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="298" parent="276" name="test_pkey">
+    <key id="308" parent="277" name="test_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16407</ObjectId>
       <Primary>1</Primary>
       <StateNumber>765</StateNumber>
       <UnderlyingIndexId>16406</UnderlyingIndexId>
     </key>
-    <column id="299" parent="277" name="id">
+    <column id="309" parent="278" name="id">
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4543,28 +4622,28 @@ false Zulu
       <SequenceId>16563</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="300" parent="277" name="username">
+    <column id="310" parent="278" name="username">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>824</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="301" parent="277" name="password">
+    <column id="311" parent="278" name="password">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>824</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="302" parent="277" name="created_at">
+    <column id="312" parent="278" name="created_at">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
       <StateNumber>824</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="303" parent="277" name="users_pkey">
+    <index id="313" parent="278" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16572</ObjectId>
@@ -4573,7 +4652,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="304" parent="277" name="users_pkey">
+    <key id="314" parent="278" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16573</ObjectId>
       <Primary>1</Primary>

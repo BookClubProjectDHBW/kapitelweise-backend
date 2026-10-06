@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS bookclub (
 CREATE TABLE IF NOT EXISTS clubmember (
                                            id            BIGSERIAL   PRIMARY KEY,
                                            role          VARCHAR(10) NOT NULL,
-    join_date     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    join_date     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     userid       BIGINT      NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     bookclub_id  BIGINT      NOT NULL REFERENCES bookclub (id) ON DELETE CASCADE
     );
