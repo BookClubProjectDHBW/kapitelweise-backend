@@ -8,6 +8,9 @@ import com.kapitelweise.kapitelweiseBackend.service.BookClubService;
 import com.kapitelweise.kapitelweiseBackend.service.RegistrationService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.Optional;
+
 
 @RestController
 public class BookClubController {
@@ -25,8 +28,9 @@ public class BookClubController {
         return bookClubService.registerNewBookClub(request);
     }
 
+    // Das Prinzipal übergibt den username der Person, die den Request auslöst (Spring Security)
     @GetMapping("/clubDetails")
-    public BookClubResponse bookClubDetails(@RequestParam("clubId") Long clubId) {
-        return new BookClubResponse("Name", "Description","Admin");
+    public Optional<BookClubResponse> bookClubDetails(@RequestParam("clubId") Long clubId, Principal principal) {
+        return bookClubService.getClubDetails(clubId, principal.getName());
     }
 }
