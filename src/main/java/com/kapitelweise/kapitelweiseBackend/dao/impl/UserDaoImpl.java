@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -24,7 +22,6 @@ public class UserDaoImpl implements UserDao {
 
 
     private final JdbcTemplate jdbcTemplate;
-    private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
 
     public UserDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -47,6 +44,8 @@ public class UserDaoImpl implements UserDao {
                         rs.getTimestamp("created_at").toLocalDateTime()),
                 user.getUsername(), user.getPassword());
     }
+
+
 
 
     @Override

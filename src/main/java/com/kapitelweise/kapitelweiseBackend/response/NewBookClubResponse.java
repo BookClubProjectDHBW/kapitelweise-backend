@@ -1,6 +1,6 @@
-
 package com.kapitelweise.kapitelweiseBackend.response;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.processing.Generated;
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "id",
         "name",
         "description",
-        "role"
+        "created_at"
 })
 @Generated("jsonschema2pojo")
 public class NewBookClubResponse {
@@ -27,8 +27,8 @@ public class NewBookClubResponse {
     private String name;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("role")
-    private String role;
+    @JsonProperty("created_at")
+    private LocalDateTime created_at;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -39,12 +39,12 @@ public class NewBookClubResponse {
     public NewBookClubResponse() {
     }
 
-    public NewBookClubResponse(Long id, String name, String description, String role) {
+    public NewBookClubResponse(Long id, String name, String description, LocalDateTime created_at) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
-        this.role = role;
+        this.created_at = created_at;
     }
 
     @JsonProperty("id")
@@ -77,14 +77,14 @@ public class NewBookClubResponse {
         this.description = description;
     }
 
-    @JsonProperty("role")
-    public String getRole() {
-        return role;
+    @JsonProperty("created_at")
+    public LocalDateTime getCreated_at() {
+        return created_at;
     }
 
-    @JsonProperty("role")
-    public void setRole(String role) {
-        this.role = role;
+    @JsonProperty("created_at")
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
     }
 
     @JsonAnyGetter
@@ -113,9 +113,9 @@ public class NewBookClubResponse {
         sb.append('=');
         sb.append(((this.description == null)?"<null>":this.description));
         sb.append(',');
-        sb.append("role");
+        sb.append("created_at");
         sb.append('=');
-        sb.append(((this.role == null)?"<null>":this.role));
+        sb.append(((this.created_at == null)?"<null>":this.created_at));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');
@@ -132,10 +132,10 @@ public class NewBookClubResponse {
     @Override
     public int hashCode() {
         int result = 1;
+        result = ((result* 31)+((this.created_at == null)? 0 :this.created_at.hashCode()));
         result = ((result* 31)+((this.name == null)? 0 :this.name.hashCode()));
         result = ((result* 31)+((this.description == null)? 0 :this.description.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
-        result = ((result* 31)+((this.role == null)? 0 :this.role.hashCode()));
         result = ((result* 31)+((this.additionalProperties == null)? 0 :this.additionalProperties.hashCode()));
         return result;
     }
@@ -149,7 +149,7 @@ public class NewBookClubResponse {
             return false;
         }
         NewBookClubResponse rhs = ((NewBookClubResponse) other);
-        return ((((((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name)))&&((this.description == rhs.description)||((this.description!= null)&&this.description.equals(rhs.description))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.role == rhs.role)||((this.role!= null)&&this.role.equals(rhs.role))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))));
+        return ((((((this.created_at == rhs.created_at)||((this.created_at!= null)&&this.created_at.equals(rhs.created_at)))&&((this.name == rhs.name)||((this.name!= null)&&this.name.equals(rhs.name))))&&((this.description == rhs.description)||((this.description!= null)&&this.description.equals(rhs.description))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))));
     }
 
 }

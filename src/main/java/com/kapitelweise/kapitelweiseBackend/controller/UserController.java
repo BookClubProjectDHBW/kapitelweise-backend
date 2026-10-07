@@ -11,7 +11,6 @@ public class UserController {
 
     @GetMapping("/users/me")
     public MeResponse returnUsername(@AuthenticationPrincipal String username){
-        System.out.println(username);
         return new MeResponse(username);
     }
 

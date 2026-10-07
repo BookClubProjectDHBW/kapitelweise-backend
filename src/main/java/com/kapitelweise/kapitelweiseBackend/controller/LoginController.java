@@ -9,7 +9,6 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +17,6 @@ import com.kapitelweise.kapitelweiseBackend.request.LoginRequest;
 import com.kapitelweise.kapitelweiseBackend.service.JwtService;
 
 import java.time.Duration;
-import java.util.logging.Logger;
 
 @RestController
 public class LoginController {
@@ -33,18 +31,6 @@ public class LoginController {
         this.registrationService = registrationService;
     }
 
-    Logger logger
-            = Logger.getLogger(
-            LoginController.class.getName());
-    @GetMapping("/hello")
-    public String helloWorld() {
-        return "Hello World!";
-    }
-
-    @GetMapping("/hey")
-    public String hey() {
-        return "Hey there!";
-    }
 
 
 
