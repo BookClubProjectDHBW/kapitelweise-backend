@@ -20,22 +20,24 @@ public class BookClubDaoImpl implements BookclubDao {
     }
 
     @Override
-    public Long createBookclub(BookClub bookClub){
+    public BookClub createBookclub(BookClub bookClub){
 
-        return jdbcTemplate.queryForObject("insert into bookclub(name, description) Values(?, ?) Returning id", Long.class, bookClub.getBookClubName(), bookClub.getDescription());
+        return jdbcTemplate.queryForObject("insert into bookclub(name, description) Values(?, ?) Returning id, name, description, created_at",
+                (rs, rowNum) -> new BookClub(
+                    rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getTimestamp("created_at").toLocalDateTime()
+                ), bookClub.getName(), bookClub.getDescription());
     }
 
 
     @Override
-    public void addMember(Long clubId, String username){
-
+    public void addMember(Long bookclubId, String username, String role){
+        Long userId = jdbcTemplate.queryForObject("Select id from users where username = ?", Long.class, username);
+        jdbcTemplate.update("Insert into clubmember (bookclub_id, userId, role) Values(?,?,?)", bookclubId, userId, role);
     }
 
-
-    @Override
-    public Optional<BookClub> getBookClub(Long clubId) {
-        return Optional.of(new BookClub("hallo", "hallo", "19.09.2025"));
-    }
 
     @Override
     public Optional<BookClubResponse> getBookClubForMember(Long clubId, String username){

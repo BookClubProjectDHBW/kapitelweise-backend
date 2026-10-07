@@ -2,7 +2,9 @@ server:
   port: 8181
 
 spring:
-
+  web:
+    error:
+      include-message: always
 #  datasource:
 #    url: jdbc:postgresql://localhost:5432/kapitelweise
  #   username: niklasultzhofer
@@ -25,9 +27,6 @@ app:
     #https://kapitelweisefrontend-c5afec02989c.herokuapp.com
 
 
-  web:
-    error:
-      include-message: always
 cookie:
   secure: false
   #cookie secure muss auf heroku als Umgebungsvariable angelegt werden, genau wie der key!!!!

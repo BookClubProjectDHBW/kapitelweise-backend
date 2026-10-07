@@ -23,3 +23,7 @@ CREATE TABLE IF NOT EXISTS clubmember (
     userid       BIGINT      NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     bookclub_id  BIGINT      NOT NULL REFERENCES bookclub (id) ON DELETE CASCADE
     );
+
+-- ein User kann pro Club nur einmal Mitglied sein
+-- (als Index statt im CREATE TABLE, damit es auch auf bereits bestehende Tabellen angewendet wird)
+CREATE UNIQUE INDEX IF NOT EXISTS clubmember_user_club_unique ON clubmember (userid, bookclub_id);

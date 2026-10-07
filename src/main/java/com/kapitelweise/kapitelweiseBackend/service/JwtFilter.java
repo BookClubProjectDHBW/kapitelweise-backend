@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,13 +37,15 @@ public class JwtFilter extends OncePerRequestFilter {
       }
 
     if(SecurityContextHolder.getContext().getAuthentication() == null && token != null){
-        
-    Claims claims = jwtService.verifyTokenAndExtract(token);
-    if(!jwtService.isTokenExpired(token)){
-        UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(claims.getSubject(), null, new ArrayList<>());
-        upat.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(upat);
-        
+        // verifyTokenAndExtract prüft Signatur und Ablaufdatum und wirft bei ungültigem/abgelaufenem Token eine JwtException.
+        // Dann läuft der Request einfach unauthentifiziert weiter (geschützte Pfade -> 401, /login etc. funktionieren weiterhin)
+        try {
+            Claims claims = jwtService.verifyTokenAndExtract(token);
+            UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(claims.getSubject(), null, new ArrayList<>());
+            upat.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(upat);
+        } catch (JwtException | IllegalArgumentException e) {
+            SecurityContextHolder.clearContext();
         }
     }
 
