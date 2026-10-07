@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserDao {
     boolean userExists(String username);
-    void saveUser(AppUser user);
+    AppUser saveUser(AppUser user);
     Optional<AppUser> findByUsername(String username);
 
 }

@@ -37,10 +37,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(AppUser user) {
-            jdbcTemplate.update("Insert into users (username, password) Values (?, ?)", user.getUsername(), user.getPassword());
+    public AppUser saveUser(AppUser user) {
+        return jdbcTemplate.queryForObject(
+                "INSERT INTO users (username, password) VALUES (?, ?) RETURNING id, username, password, created_at",
+                (rs, rowNum) -> new AppUser(
+                        rs.getLong("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getTimestamp("created_at").toLocalDateTime()),
+                user.getUsername(), user.getPassword());
     }
-
 
 
     @Override
