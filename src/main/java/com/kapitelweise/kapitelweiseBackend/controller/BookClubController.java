@@ -1,6 +1,7 @@
 package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
+import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.service.BookClubService;
@@ -32,4 +33,12 @@ public class BookClubController {
     public Optional<BookClubResponse> bookClubDetails(@RequestParam("clubId") Long clubId, Principal principal) {
         return bookClubService.getClubDetails(clubId, principal.getName());
     }
+
+    @PostMapping("/clubs/{clubId}/invitations")
+    public void invitation(@RequestBody InvitationRequest request, @AuthenticationPrincipal String username,
+                           @PathVariable Long clubId){
+        return;
+    }
+
 }
+
