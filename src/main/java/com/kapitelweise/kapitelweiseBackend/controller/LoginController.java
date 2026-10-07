@@ -1,6 +1,7 @@
 package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.RegistrationRequest;
+import com.kapitelweise.kapitelweiseBackend.response.RegisterResponse;
 import com.kapitelweise.kapitelweiseBackend.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -48,8 +49,9 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public void register(@RequestBody RegistrationRequest request){
-        registrationService.register(request);
+    public RegisterResponse register(@RequestBody RegistrationRequest request){
+        return registrationService.register(request);
+
     }
 //so wie ich es verstehe, das ist nur die Logik um den Token zu erzeugen! Basic Auth ist immer noch möglich!!!
    @PostMapping("/login")
