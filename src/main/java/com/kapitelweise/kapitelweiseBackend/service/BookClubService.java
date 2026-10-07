@@ -6,8 +6,10 @@ import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -23,6 +25,14 @@ public class BookClubService {
     // Club anlegen und Admin eintragen passiert atomar: schlägt addMember fehl, wird auch der Club zurückgerollt
     @Transactional
     public NewBookClubResponse registerNewBookClub(BookClubRequest request, String username){
+
+        if(request.getName().length() > 25){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ("Eingabe zu lang!"));
+        }
+
+        if(request.getDescription().length() > 250){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ("Eingabe zu lang!"));
+        }
         BookClub bookclub = bookclubDao.createBookclub(new BookClub(request.getName(), request.getDescription()));
 
         bookclubDao.addMember(bookclub.getId(), username, "ADMIN");
