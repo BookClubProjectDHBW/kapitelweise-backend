@@ -4,6 +4,7 @@ package com.kapitelweise.kapitelweiseBackend.service;
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,12 @@ public class BookClubService {
         return new NewBookClubResponse(bookclub.getId(), bookclub.getName(), bookclub.getDescription(), bookclub.getCreated_at());
     }
 
-    public List<BookClubResponse> getClubDetails(String username){
+    public List<BookClubResponse> getClubs(String username){
         return bookclubDao.getBookClubForMember(username);
+    }
+
+
+    public BookClubDetailResponse getBookClubDetails(Long clubId, String username){
+        return bookclubDao.getClubDetails(clubId, username);
     }
 }

@@ -2,6 +2,7 @@ package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
 import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.service.BookClubService;
@@ -32,7 +33,12 @@ public class BookClubController {
     // Das Prinzipal übergibt den username der Person, die den Request auslöst (Spring Security)
     @GetMapping("/clubs")
     public List<BookClubResponse> bookClubDetailsUser(Principal principal) {
-        return bookClubService.getClubDetails(principal.getName());
+        return bookClubService.getClubs(principal.getName());
+    }
+
+    @GetMapping("/clubs/{clubId}")
+    public BookClubDetailResponse bookClubDetails(@PathVariable("clubId") Long clubID, Principal principal){
+        return bookClubService.getBookClubDetails(clubID,principal.getName());
     }
 
     @PostMapping("/clubs/{clubId}/invitations")

@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="neueste Version ist im Branch">
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubDetailResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/impl/BookClubDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/impl/BookClubDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/service/BookClubService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/service/BookClubService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791402354190</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden.">
+      <option name="closed" value="true" />
+      <created>1791453067511</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1791453067511</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,7 +338,8 @@
     <MESSAGE value="BookClubController nimmt jetzt die clubId und den Namen entgegen und übergibt diese an den Service. Der Service ruft daraufhin die BookClub Dao Impl auf, die die Daten aufgrund der Parameter aus der DB zieht" />
     <MESSAGE value="Club Member Tabelle wird in schema.sql erstellt" />
     <MESSAGE value="neueste Version ist im Branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="neueste Version ist im Branch" />
+    <MESSAGE value="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden." />
+    <option name="LAST_COMMIT_MESSAGE" value="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
