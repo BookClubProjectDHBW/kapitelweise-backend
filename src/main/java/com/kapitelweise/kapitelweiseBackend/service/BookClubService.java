@@ -7,8 +7,11 @@ import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +42,12 @@ public class BookClubService {
 
 
     public BookClubDetailResponse getBookClubDetails(Long clubId, String username){
-        return bookclubDao.getClubDetails(clubId, username);
+        try{
+            return bookclubDao.getClubDetails(clubId, username);
+        }
+        catch(EmptyResultDataAccessException e){
+           throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");
+        }
+
     }
 }

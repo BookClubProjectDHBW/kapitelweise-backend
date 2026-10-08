@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubDetailResponse.java" afterDir="false" />
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Wenn ein Nutzer jetzt auf einen Club zugreift, werden innerhalb des Clubs die Daten Clubname, Description und Role angezeigt. dazu wurde die Logik für das Anzeigen aller Buchclubs übernommen und angepasst. Das Anzeigen eines Buchclubs benötigt die bookClub id und einen Username. Es wird nur ein Objekt und keine Liste zurückgegeben.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/controller/BookClubController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/BookclubDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/impl/BookClubDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/dao/impl/BookClubDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/response/BookClubResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/service/BookClubService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kapitelweise/kapitelweiseBackend/service/BookClubService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,23 +65,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000053769789385" />
-      <entry key="MS500" value="1.1926208189514262" />
-      <entry key="S2" value="4.0550014062143696" />
-      <entry key="S5" value="10.15517044553903" />
-      <entry key="S10" value="18.80986952696272" />
-      <entry key="S30" value="39.71358630161127" />
-      <entry key="S60" value="52.76099479032004" />
-      <entry key="M2" value="62.06986263719465" />
-      <entry key="M5" value="72.31402727301115" />
-      <entry key="M10" value="93.04910030958958" />
-      <entry key="M15" value="115.85793904319502" />
-      <entry key="M30" value="171.40190302231744" />
-      <entry key="H1" value="238.75067930481603" />
-      <entry key="H2" value="303.66986845763563" />
-      <entry key="H4" value="352.95447479205797" />
-      <entry key="D1" value="407.9979726852457" />
-      <entry key="W1" value="419.09609332492323" />
+      <entry key="MS100" value="1.6933957318741553" />
+      <entry key="MS500" value="3.4936432503878248" />
+      <entry key="S2" value="5.620354468625073" />
+      <entry key="S5" value="6.386536771064555" />
+      <entry key="S10" value="6.6818732252223665" />
+      <entry key="S30" value="6.891310718993732" />
+      <entry key="S60" value="6.94531703357332" />
+      <entry key="M2" value="6.972573366041144" />
+      <entry key="M5" value="6.989008845781633" />
+      <entry key="M10" value="6.995531166804108" />
+      <entry key="M15" value="7.053884875578395" />
+      <entry key="M30" value="10.818326612456813" />
+      <entry key="H1" value="42.642357421642316" />
+      <entry key="H2" value="124.33200531262202" />
+      <entry key="H4" value="226.39487733611415" />
+      <entry key="D1" value="383.9143466570817" />
+      <entry key="W1" value="421.37842598841405" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -108,23 +103,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.08190488765562091" />
-      <entry key="MS500" value="0.7980253942620301" />
-      <entry key="S2" value="3.9320564284471256" />
-      <entry key="S5" value="10.09929255279987" />
-      <entry key="S10" value="18.77815208514741" />
-      <entry key="S30" value="39.7001494590699" />
-      <entry key="S60" value="52.75339062009729" />
-      <entry key="M2" value="62.065744564827085" />
-      <entry key="M5" value="72.31220402624835" />
-      <entry key="M10" value="93.04767982130507" />
-      <entry key="M15" value="115.85639793183046" />
-      <entry key="M30" value="171.4001337323816" />
-      <entry key="H1" value="238.74883563409193" />
-      <entry key="H2" value="303.6682901497621" />
-      <entry key="H4" value="352.95338828554264" />
-      <entry key="D1" value="407.99773034501175" />
-      <entry key="W1" value="419.0960568537301" />
+      <entry key="MS100" value="1.6557062021701285" />
+      <entry key="MS500" value="3.460323461655969" />
+      <entry key="S2" value="5.60339494065323" />
+      <entry key="S5" value="6.378581251581099" />
+      <entry key="S10" value="6.677673691409807" />
+      <entry key="S30" value="6.889858865540039" />
+      <entry key="S60" value="6.94458442807372" />
+      <entry key="M2" value="6.972205379989383" />
+      <entry key="M5" value="6.988861245614213" />
+      <entry key="M10" value="6.9954572832227955" />
+      <entry key="M15" value="7.053834849734252" />
+      <entry key="M30" value="10.818262541297615" />
+      <entry key="H1" value="42.642069857876436" />
+      <entry key="H2" value="124.33138932258997" />
+      <entry key="H4" value="226.394198887422" />
+      <entry key="D1" value="383.91412226625516" />
+      <entry key="W1" value="421.37838985441937" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -319,7 +314,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791453067511</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Wenn ein Nutzer jetzt auf einen Club zugreift, werden innerhalb des Clubs die Daten Clubname, Description und Role angezeigt. dazu wurde die Logik für das Anzeigen aller Buchclubs übernommen und angepasst. Das Anzeigen eines Buchclubs benötigt die bookClub id und einen Username. Es wird nur ein Objekt und keine Liste zurückgegeben.">
+      <option name="closed" value="true" />
+      <created>1791459717343</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1791459717343</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,7 +342,8 @@
     <MESSAGE value="Club Member Tabelle wird in schema.sql erstellt" />
     <MESSAGE value="neueste Version ist im Branch" />
     <MESSAGE value="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden." />
-    <option name="LAST_COMMIT_MESSAGE" value="Der User kann sich jetzt alle Buchclubs anzeigen lassen in denen er Member ist. Dazu wurde in diesem Schritt definiert, dass die Objekte in einer List zurückgegeben werden." />
+    <MESSAGE value="Wenn ein Nutzer jetzt auf einen Club zugreift, werden innerhalb des Clubs die Daten Clubname, Description und Role angezeigt. dazu wurde die Logik für das Anzeigen aller Buchclubs übernommen und angepasst. Das Anzeigen eines Buchclubs benötigt die bookClub id und einen Username. Es wird nur ein Objekt und keine Liste zurückgegeben." />
+    <option name="LAST_COMMIT_MESSAGE" value="Wenn ein Nutzer jetzt auf einen Club zugreift, werden innerhalb des Clubs die Daten Clubname, Description und Role angezeigt. dazu wurde die Logik für das Anzeigen aller Buchclubs übernommen und angepasst. Das Anzeigen eines Buchclubs benötigt die bookClub id und einen Username. Es wird nur ein Objekt und keine Liste zurückgegeben." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
