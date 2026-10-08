@@ -2,12 +2,12 @@ package com.kapitelweise.kapitelweiseBackend.service;
 
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
-import com.kapitelweise.kapitelweiseBackend.dao.impl.BookClubDaoImpl;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,11 +20,15 @@ public class BookClubService {
     }
 
 
-    public NewBookClubResponse registerNewBookClub(BookClubRequest request){
-        Long clubId = bookclubDao.createBookclub(new BookClub(request.getName(), request.getDescription()));
+    // Club anlegen und Admin eintragen passiert atomar: schlägt addMember fehl, wird auch der Club zurückgerollt
+    @Transactional
+    public NewBookClubResponse registerNewBookClub(BookClubRequest request, String username){
+        BookClub bookclub = bookclubDao.createBookclub(new BookClub(request.getName(), request.getDescription()));
+
+        bookclubDao.addMember(bookclub.getId(), username, "ADMIN");
 
 
-        return new NewBookClubResponse(clubId, request.getName(), request.getDescription(), "ADMIN");
+        return new NewBookClubResponse(bookclub.getId(), bookclub.getName(), bookclub.getDescription(), bookclub.getCreated_at());
     }
 
     public Optional<BookClubResponse> getClubDetails(Long clubId, String username){

@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.service;
 import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import com.kapitelweise.kapitelweiseBackend.domain.AppUser;
 import com.kapitelweise.kapitelweiseBackend.request.RegistrationRequest;
+import com.kapitelweise.kapitelweiseBackend.response.RegisterResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class RegistrationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register(RegistrationRequest request){
+    public RegisterResponse register(RegistrationRequest request){
         if(userDao.userExists(request.getUsername())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ("Benutzername bereits vergeben"));
         }
@@ -32,10 +33,12 @@ public class RegistrationService {
         String hash = passwordEncoder.encode(request.getPassword());
 
         try{
-        userDao.saveUser(new AppUser(request.getUsername(), hash));
+       AppUser user =  userDao.saveUser(new AppUser(request.getUsername(), hash));
+       return new RegisterResponse(user.getId(), user.getUsername(), user.getCreated_at());
     }catch (DuplicateKeyException e){
             throw new ResponseStatusException(HttpStatus.CONFLICT, ("Benutzername bereits vergeben."));
         }
+
 
     }
 }
