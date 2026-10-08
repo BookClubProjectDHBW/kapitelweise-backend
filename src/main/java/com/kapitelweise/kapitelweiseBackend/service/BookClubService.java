@@ -9,6 +9,7 @@ import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +32,7 @@ public class BookClubService {
         return new NewBookClubResponse(bookclub.getId(), bookclub.getName(), bookclub.getDescription(), bookclub.getCreated_at());
     }
 
-    public Optional<BookClubResponse> getClubDetails(Long clubId, String username){
-        return bookclubDao.getBookClubForMember(clubId,username);
+    public List<BookClubResponse> getClubDetails(String username){
+        return bookclubDao.getBookClubForMember(username);
     }
 }

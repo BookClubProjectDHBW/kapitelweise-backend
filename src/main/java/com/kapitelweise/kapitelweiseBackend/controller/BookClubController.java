@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,9 +30,9 @@ public class BookClubController {
     }
 
     // Das Prinzipal übergibt den username der Person, die den Request auslöst (Spring Security)
-    @GetMapping("/clubDetails")
-    public Optional<BookClubResponse> bookClubDetails(@RequestParam("clubId") Long clubId, Principal principal) {
-        return bookClubService.getClubDetails(clubId, principal.getName());
+    @GetMapping("/clubs")
+    public List<BookClubResponse> bookClubDetailsUser(Principal principal) {
+        return bookClubService.getClubDetails(principal.getName());
     }
 
     @PostMapping("/clubs/{clubId}/invitations")
