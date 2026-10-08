@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="BookClubController nimmt jetzt die clubId und den Namen entgegen und übergibt diese an den Service. Der Service ruft daraufhin die BookClub Dao Impl auf, die die Daten aufgrund der Parameter aus der DB zieht">
+    <list default="true" id="e471b41d-44c7-4a18-ac41-ced1860e6b5d" name="Changes" comment="Club Member Tabelle wird in schema.sql erstellt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,17 +134,24 @@
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.KapitelweiseBackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;bookClubDetail&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -164,8 +170,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>
@@ -229,6 +235,7 @@
       <updated>1791226224667</updated>
       <workItem from="1791226226254" duration="2245000" />
       <workItem from="1791228513879" duration="2974000" />
+      <workItem from="1791402108313" duration="469000" />
     </task>
     <task id="LOCAL-00007" summary="Die Buchclubdetails werden über die BookClubResponse an das Frontend geschickt, dabei werden Name und Beschreibung als JSON mitgegeben.">
       <option name="closed" value="true" />
@@ -278,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791315598671</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Club Member Tabelle wird in schema.sql erstellt">
+      <option name="closed" value="true" />
+      <created>1791402354190</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1791402354190</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +310,8 @@
     <MESSAGE value="anpassung der bookClub Response" />
     <MESSAGE value="Bookclub DOA entnimmt der Datenbank über eine SQL Abfrage die Attribute name description und join Date. Die Daten werden dann an den Konstruktor von BookCLubResponse übergeben" />
     <MESSAGE value="BookClubController nimmt jetzt die clubId und den Namen entgegen und übergibt diese an den Service. Der Service ruft daraufhin die BookClub Dao Impl auf, die die Daten aufgrund der Parameter aus der DB zieht" />
-    <option name="LAST_COMMIT_MESSAGE" value="BookClubController nimmt jetzt die clubId und den Namen entgegen und übergibt diese an den Service. Der Service ruft daraufhin die BookClub Dao Impl auf, die die Daten aufgrund der Parameter aus der DB zieht" />
+    <MESSAGE value="Club Member Tabelle wird in schema.sql erstellt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Club Member Tabelle wird in schema.sql erstellt" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
