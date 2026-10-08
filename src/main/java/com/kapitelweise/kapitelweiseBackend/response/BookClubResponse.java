@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "bookClubName",
         "description",
-        "role"
 })
 @Generated("jsonschema2pojo")
 public class BookClubResponse {
@@ -24,8 +23,6 @@ public class BookClubResponse {
     private String bookClubName;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("role")
-    private String role;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -36,11 +33,10 @@ public class BookClubResponse {
     public BookClubResponse() {
     }
 
-    public BookClubResponse(String bookClubName, String description, String role) {
+    public BookClubResponse(String bookClubName, String description) {
         super();
         this.bookClubName = bookClubName;
         this.description = description;
-        this.role = role;
     }
 
     @JsonProperty("bookClubName")
@@ -63,15 +59,6 @@ public class BookClubResponse {
         this.description = description;
     }
 
-    @JsonProperty("role")
-    public String getRole() {
-        return role;
-    }
-
-    @JsonProperty("role")
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
@@ -94,10 +81,6 @@ public class BookClubResponse {
         sb.append("description");
         sb.append('=');
         sb.append(((this.description == null)?"<null>":this.description));
-        sb.append(',');
-        sb.append("role");
-        sb.append('=');
-        sb.append(((this.role == null)?"<null>":this.role));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');

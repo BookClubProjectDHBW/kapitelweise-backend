@@ -4,11 +4,16 @@ package com.kapitelweise.kapitelweiseBackend.service;
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +36,18 @@ public class BookClubService {
         return new NewBookClubResponse(bookclub.getId(), bookclub.getName(), bookclub.getDescription(), bookclub.getCreated_at());
     }
 
-    public Optional<BookClubResponse> getClubDetails(Long clubId, String username){
-        return bookclubDao.getBookClubForMember(clubId,username);
+    public List<BookClubResponse> getClubs(String username){
+        return bookclubDao.getBookClubForMember(username);
+    }
+
+
+    public BookClubDetailResponse getBookClubDetails(Long clubId, String username){
+        try{
+            return bookclubDao.getClubDetails(clubId, username);
+        }
+        catch(EmptyResultDataAccessException e){
+           throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");
+        }
+
     }
 }

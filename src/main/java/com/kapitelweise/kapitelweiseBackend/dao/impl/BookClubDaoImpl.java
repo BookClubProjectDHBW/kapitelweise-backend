@@ -2,10 +2,12 @@ package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -40,21 +42,39 @@ public class BookClubDaoImpl implements BookclubDao {
 
 
     @Override
-    public Optional<BookClubResponse> getBookClubForMember(Long clubId, String username){
+    public List<BookClubResponse> getBookClubForMember(String username) {
         String sql = """
-        select bookclub.name,  bookclub.description, clubmember.role, clubmember.join_date
+        select bookclub.name,  bookclub.description
         from bookclub
         join clubmember on clubmember.bookclub_id = bookclub.id
         join users on users.id = clubmember.userid
-        where bookclub_id = ? and username = ?;
+        where username = ?;
         """;
         return jdbcTemplate.query(sql,(rs, rowNum) ->
                 new BookClubResponse(
                         rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getString("role")
-                 ),
-                clubId, username
-        ).stream().findFirst();
-    }
+                        rs.getString("description")
+                ),
+
+                        username
+                );
+        }
+        public BookClubDetailResponse getClubDetails(Long clubId, String username){
+        String sql= """
+                select bookclub.name,  bookclub.description, clubmember.role
+                from bookclub
+                join clubmember on clubmember.bookclub_id = bookclub.id
+                join users on users.id = clubmember.userid
+                where bookclub.id = ? and users.username = ? ;
+                """;
+            return jdbcTemplate.queryForObject(sql,(rs, rowNum) ->
+                            new BookClubDetailResponse(
+                                    rs.getString("name"),
+                                    rs.getString("description"),
+                                    rs.getString("role")
+                            ),
+
+                     clubId, username
+            );
+        }
 }
