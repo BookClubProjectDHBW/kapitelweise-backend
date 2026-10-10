@@ -42,3 +42,5 @@ Create Table if not exists invitation(
 
 CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
     ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
+
+ALTER TABLE invitation ADD COLUMN answered_at TIMESTAMP;

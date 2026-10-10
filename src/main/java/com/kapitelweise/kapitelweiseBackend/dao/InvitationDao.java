@@ -1,16 +1,17 @@
 package com.kapitelweise.kapitelweiseBackend.dao;
 
 import com.kapitelweise.kapitelweiseBackend.domain.Invitation;
+import com.kapitelweise.kapitelweiseBackend.domain.InvitationStatus;
 
 import java.util.Optional;
 
 public interface InvitationDao {
-    Optional<Long> getUserId(String username);
     boolean isUserAdmin(Long userId, Long bookClubId);
     Invitation createInvitation(Invitation invitation);
     boolean invitationPending(Long invitedUserId, Long bookClubId);
     boolean isAlreadyMember(Long invitedUserId, Long bookClubId);
-    boolean bookclubExists(Long bookClubId);
-    void acceptInvitation();
+    Optional<Invitation> getInvitation(Long invitationId);
+    void changeStatus(Long invitationId, InvitationStatus invitationStatus);
+    void addMember(Long userId, Long bookClubId);
 
 }

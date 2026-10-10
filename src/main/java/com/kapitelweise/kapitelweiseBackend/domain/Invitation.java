@@ -36,6 +36,8 @@ public class Invitation {
         this.created_at=created_at;
     }
 
+
+
     public Long getId() { return id; }
     public Long getBookClubId() { return bookclubId; }
     public Long getInvitedUserId() { return invitedUserId; }

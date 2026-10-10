@@ -9,5 +9,5 @@ public interface UserDao {
     boolean userExists(String username);
     AppUser saveUser(AppUser user);
     Optional<AppUser> findByUsername(String username);
-
+    Optional<Long> getUserId(String username);
 }

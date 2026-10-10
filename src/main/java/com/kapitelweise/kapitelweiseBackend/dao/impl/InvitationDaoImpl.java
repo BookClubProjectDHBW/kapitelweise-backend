@@ -7,6 +7,7 @@ import com.kapitelweise.kapitelweiseBackend.domain.InvitationStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -18,13 +19,6 @@ public class InvitationDaoImpl implements InvitationDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-
-    public Optional<Long> getUserId(String username){
-     return jdbcTemplate.queryForList("select id from users where username = ?", Long.class, username)
-             .stream().findFirst();
-
-    }
 
     @Override
     public boolean isUserAdmin(Long userId, Long bookClubId) {
@@ -54,13 +48,6 @@ public class InvitationDaoImpl implements InvitationDao {
 
 
     @Override
-    public boolean bookclubExists(Long bookClubId){
-        Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM bookclub WHERE id = ?",
-                Integer.class, bookClubId);
-        return count != null && count > 0;
-    }
-    @Override
     public boolean invitationPending(Long invitedUserId, Long bookClubId) {
         Integer count = jdbcTemplate.queryForObject(
         "SELECT COUNT(*) FROM invitation WHERE invited_user_id = ? AND bookclub_id = ? AND invitation_status = 'PENDING'",
@@ -69,9 +56,31 @@ public class InvitationDaoImpl implements InvitationDao {
     }
 
     @Override
-    public void acceptInvitation() {
-
+    public Optional<Invitation> getInvitation(Long invitationId) {
+        return jdbcTemplate.query(
+                        "SELECT * FROM invitation WHERE id = ?",
+                        (rs, rowNum) -> new Invitation(
+                                rs.getLong("id"),
+                                rs.getLong("bookclub_id"),
+                                rs.getLong("invited_user_id"),
+                                rs.getLong("invited_by_user_id"),
+                                InvitationStatus.valueOf(rs.getString("invitation_status")),
+                                rs.getObject("created_at", LocalDateTime.class),
+                                rs.getObject("answered_at", LocalDateTime.class)),
+                        invitationId)
+                .stream()
+                .findFirst();
     }
 
+    @Override
+    public void changeStatus(Long invitationId, InvitationStatus invitationStatus) {
+        jdbcTemplate.update(
+                "UPDATE invitation SET invitation_status = ?, answered_at = CURRENT_TIMESTAMP WHERE id = ?",
+                invitationStatus.name(), invitationId);
+    }
 
+    @Override
+    public void addMember(Long userId, Long bookClubId){
+        jdbcTemplate.update("Insert into clubmember (role, userid, bookclub_id) Values(?,?,?)", "MEMBER", userId, bookClubId);
+    }
 }
