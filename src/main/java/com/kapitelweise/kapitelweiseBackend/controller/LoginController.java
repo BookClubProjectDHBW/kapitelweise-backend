@@ -1,12 +1,9 @@
 package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.RegistrationRequest;
+import com.kapitelweise.kapitelweiseBackend.response.LoginResponse;
 import com.kapitelweise.kapitelweiseBackend.response.RegisterResponse;
 import com.kapitelweise.kapitelweiseBackend.service.RegistrationService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kapitelweise.kapitelweiseBackend.request.LoginRequest;
 import com.kapitelweise.kapitelweiseBackend.service.JwtService;
-
-import java.time.Duration;
 
 @RestController
 public class LoginController {
@@ -41,39 +36,10 @@ public class LoginController {
     }
 //so wie ich es verstehe, das ist nur die Logik um den Token zu erzeugen! Basic Auth ist immer noch möglich!!!
    @PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody LoginRequest request, @Value("${cookie.secure:false}") boolean cookieSecure) {
+public LoginResponse login(@RequestBody LoginRequest request) {
     authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.username(), request.password()));
     String token = jwtService.generateToken(request.username());
-
-       ResponseCookie cookie = ResponseCookie.from("token", token)
-               .httpOnly(true)
-               .secure(cookieSecure)
-               .sameSite("Lax")
-               .path("/")
-               .maxAge(Duration.ofHours(10))
-               .build();
-
-       return ResponseEntity.ok()
-               .header(HttpHeaders.SET_COOKIE, cookie.toString())
-               .build();
+    return new LoginResponse(token);
 }
-@PostMapping("/logout")
-public ResponseEntity<Void> logout(@Value("${cookie.secure:false}") boolean cookieSecure) {
-        ResponseCookie cookie = ResponseCookie.from("token", "")
-                .httpOnly(true)
-                .secure(cookieSecure)
-                .sameSite("Lax")
-                .path("/")
-                .maxAge(Duration.ofHours(0))
-                .build();
-
-        return ResponseEntity.noContent()
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .build();
-
 }
-
-}
-
-

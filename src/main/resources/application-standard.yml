@@ -8,6 +8,3 @@ spring:
 app:
   cors:
     allowed-origins: http://localhost:63342
-
-cookie:
-  secure: false
