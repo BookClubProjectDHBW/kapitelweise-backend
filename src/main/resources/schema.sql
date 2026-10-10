@@ -36,11 +36,10 @@ Create Table if not exists invitation(
     created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     invited_user_id bigint not null references users(id) on delete cascade,
     bookclub_id bigint not null references bookclub(id) on delete cascade,
-    invited_by_user_id bigint not null references users(id) on delete cascade
+    invited_by_user_id bigint not null references users(id) on delete cascade,
+    invitation TIMESTAMP DEFAULT null
 );
 
 
 CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
     ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
-
-ALTER TABLE invitation ADD COLUMN answered_at TIMESTAMP;

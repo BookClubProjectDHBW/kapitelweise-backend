@@ -73,10 +73,10 @@ public class InvitationDaoImpl implements InvitationDao {
     }
 
     @Override
-    public void changeStatus(Long invitationId, InvitationStatus invitationStatus) {
+    public void changeStatus(Long invitationId, InvitationStatus invitationStatus, LocalDateTime answeredAt) {
         jdbcTemplate.update(
-                "UPDATE invitation SET invitation_status = ?, answered_at = CURRENT_TIMESTAMP WHERE id = ?",
-                invitationStatus.name(), invitationId);
+                "UPDATE invitation SET invitation_status = ?, answered_at = ? WHERE id = ?",
+                invitationStatus.name(), answeredAt, invitationId);
     }
 
     @Override

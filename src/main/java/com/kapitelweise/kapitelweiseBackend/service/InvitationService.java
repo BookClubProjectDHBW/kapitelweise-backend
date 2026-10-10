@@ -74,7 +74,7 @@ public class InvitationService {
 
     @Transactional
     public InvitationFeedbackResponse updatePendingInvitation(InvitationFeedbackRequest request, String username, Long invitationId){
-       String newStatus = request.getInvitationStatus();
+        String newStatus = request.getInvitationStatus();
         if (newStatus == null
                 || (!newStatus.trim().equalsIgnoreCase("ACCEPTED")
                 && !newStatus.trim().equalsIgnoreCase("DECLINED"))) {
@@ -84,14 +84,14 @@ public class InvitationService {
         InvitationStatus newFormattedStatus = InvitationStatus.valueOf(newStatus.trim().toUpperCase());
 
         Invitation currentInvitation = invitationDao.getInvitation(invitationId)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diese Einladung wurde nicht gefunden"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diese Einladung wurde nicht gefunden"));
 
-            Long invitedUserId = userDao.getUserId(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Benutzer nicht gefunden."));
+        Long invitedUserId = userDao.getUserId(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Diese UserId existiert nicht."));
 
-            if(!Objects.equals(currentInvitation.getInvitedUserId(), invitedUserId)){
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Dieser User wurde nicht zu diesem Buchclub eingeladen");
-            }
+        if(!Objects.equals(currentInvitation.getInvitedUserId(), invitedUserId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Dieser User wurde nicht zu diesem Buchclub eingeladen");
+        }
         if (currentInvitation.getInvitationStatus() != InvitationStatus.PENDING) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Diese Einladung wurde bereits beantwortet");
         }
@@ -99,7 +99,9 @@ public class InvitationService {
         String clubName = bookclubDao.getBookClubName(currentInvitation.getBookClubId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Buchclub nicht gefunden"));
 
-        invitationDao.changeStatus(currentInvitation.getId(), newFormattedStatus);
+        // ein Zeitstempel für DB und Response, damit beide übereinstimmen
+        LocalDateTime answeredAt = LocalDateTime.now();
+        invitationDao.changeStatus(currentInvitation.getId(), newFormattedStatus, answeredAt);
         if(newFormattedStatus == InvitationStatus.ACCEPTED) {
             try {
                 invitationDao.addMember(invitedUserId, currentInvitation.getBookClubId());
@@ -112,6 +114,6 @@ public class InvitationService {
                 newFormattedStatus.name(),
                 currentInvitation.getBookClubId(),
                 clubName,
-                LocalDateTime.now().toString());
+                answeredAt.toString());
     }
 }
