@@ -46,7 +46,12 @@ public class UserDaoImpl implements UserDao {
     }
 
 
+@Override
+    public Optional<Long> getUserId(String username){
+        return jdbcTemplate.queryForList("select id from users where username = ?", Long.class, username)
+                .stream().findFirst();
 
+    }
 
     @Override
    public Optional<AppUser> findByUsername(String username){

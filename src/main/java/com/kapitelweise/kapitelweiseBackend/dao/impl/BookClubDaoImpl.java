@@ -40,6 +40,22 @@ public class BookClubDaoImpl implements BookclubDao {
         jdbcTemplate.update("Insert into clubmember (bookclub_id, userId, role) Values(?,?,?)", bookclubId, userId, role);
     }
 
+    @Override
+    public boolean bookclubExists(Long clubId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM bookclub WHERE id = ?",
+                Integer.class, clubId);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public Optional<String> getBookClubName(Long clubId) {
+        return jdbcTemplate.queryForList(
+                        "SELECT name FROM bookclub WHERE id = ?",
+                        String.class, clubId)
+                .stream()
+                .findFirst();
+    }
 
     @Override
     public List<BookClubResponse> getBookClubForMember(String username) {

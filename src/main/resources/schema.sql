@@ -36,7 +36,8 @@ Create Table if not exists invitation(
     created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     invited_user_id bigint not null references users(id) on delete cascade,
     bookclub_id bigint not null references bookclub(id) on delete cascade,
-    invited_by_user_id bigint not null references users(id) on delete cascade
+    invited_by_user_id bigint not null references users(id) on delete cascade,
+    invitation TIMESTAMP DEFAULT null
 );
 
 

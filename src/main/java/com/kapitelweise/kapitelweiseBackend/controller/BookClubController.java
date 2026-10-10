@@ -1,11 +1,9 @@
 package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
+import com.kapitelweise.kapitelweiseBackend.request.InvitationFeedbackRequest;
 import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
-import com.kapitelweise.kapitelweiseBackend.response.InvitationResponse;
-import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
+import com.kapitelweise.kapitelweiseBackend.response.*;
 import com.kapitelweise.kapitelweiseBackend.service.BookClubService;
 import com.kapitelweise.kapitelweiseBackend.service.InvitationService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -51,5 +49,11 @@ public class BookClubController {
         return invitationService.registerNewInvitation(request, username, clubId);
     }
 
+
+    @PatchMapping("/clubs/invitations/{invitationId}")
+    public InvitationFeedbackResponse invitationFeedback(@RequestBody InvitationFeedbackRequest request, @AuthenticationPrincipal String username,
+                                                         @PathVariable("invitationId") Long invitationId){
+        return invitationService.updatePendingInvitation(request, username, invitationId);
+    }
 }
 
