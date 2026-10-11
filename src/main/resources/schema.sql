@@ -1,10 +1,4 @@
--- Nutzer
-CREATE TABLE IF NOT EXISTS users (
-                                     id          BIGSERIAL    PRIMARY KEY,
-                                     username    VARCHAR(50)  NOT NULL UNIQUE,
-    password    VARCHAR(100) NOT NULL,
-    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );
+-- die Tabelle users legt der Auth-Service an, er muss deshalb vor dem Backend gestartet werden
 
 -- Buchclubs
 CREATE TABLE IF NOT EXISTS bookclub (

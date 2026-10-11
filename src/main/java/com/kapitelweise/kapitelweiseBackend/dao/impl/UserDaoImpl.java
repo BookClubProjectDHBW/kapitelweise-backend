@@ -1,20 +1,14 @@
 package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
-
+import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
-import com.kapitelweise.kapitelweiseBackend.domain.AppUser;
+import java.util.Optional;
 
 //die konkrete Implementierung, hier führen wir unten die Datenbankabfrage durch.
 //@Repository ist ein Spring Annotation, die sagt, dass diese Klasse ein Repository ist, also eine Datenzugriffsschicht.
-// d.h. UserDao --> UserDaoImpl und --> AppUser arbeiten quasi zusammen.
+// Geschrieben wird die Tabelle users nur vom Auth-Service, hier wird nur gelesen.
 
 
 @Repository
@@ -28,44 +22,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean userExists(String username) {
-        Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM users WHERE username = ?", Integer.class, username);
-        return count > 0;
-    }
-
-    @Override
-    public AppUser saveUser(AppUser user) {
-        return jdbcTemplate.queryForObject(
-                "INSERT INTO users (username, password) VALUES (?, ?) RETURNING id, username, password, created_at",
-                (rs, rowNum) -> new AppUser(
-                        rs.getLong("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getTimestamp("created_at").toLocalDateTime()),
-                user.getUsername(), user.getPassword());
-    }
-
-
-@Override
     public Optional<Long> getUserId(String username){
         return jdbcTemplate.queryForList("select id from users where username = ?", Long.class, username)
                 .stream().findFirst();
 
-    }
-
-    @Override
-   public Optional<AppUser> findByUsername(String username){
-    List <AppUser> users = jdbcTemplate.query("Select username, password from users where username = ? Limit 1",
-    new UserRowMapper(), username);
-
-    return users.stream().findFirst();
-   }
-
-
-   public static class UserRowMapper implements RowMapper<AppUser> {
-        @Override
-        public AppUser mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new AppUser(rs.getString("username"), rs.getString("password"));
-        }
     }
 }
