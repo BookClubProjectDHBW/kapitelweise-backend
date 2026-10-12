@@ -9,12 +9,14 @@ import com.kapitelweise.kapitelweiseBackend.request.InvitationFeedbackRequest;
 import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationFeedbackResponse;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationResponse;
+import com.kapitelweise.kapitelweiseBackend.response.InvitationUserResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -115,5 +117,9 @@ public class InvitationService {
                 currentInvitation.getBookClubId(),
                 clubName,
                 answeredAt.toString());
+    }
+
+    public List<InvitationUserResponse> getInvitations(String username){
+        return invitationDao.getUserInvitations(username);
     }
 }
