@@ -9,6 +9,7 @@ import com.kapitelweise.kapitelweiseBackend.request.InvitationFeedbackRequest;
 import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationFeedbackResponse;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationResponse;
+import com.kapitelweise.kapitelweiseBackend.response.InvitationUserResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -118,7 +119,7 @@ public class InvitationService {
                 answeredAt.toString());
     }
 
-    public List<InvitationFeedbackResponse> getInvitations(String username){
+    public List<InvitationUserResponse> getInvitations(String username){
         return invitationDao.getUserInvitations(username);
     }
 }

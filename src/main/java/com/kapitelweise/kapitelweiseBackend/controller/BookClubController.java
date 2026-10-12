@@ -55,8 +55,8 @@ public class BookClubController {
                                                          @PathVariable("invitationId") Long invitationId){
         return invitationService.updatePendingInvitation(request, username, invitationId);
     }
-    @GetMapping("/clubs/inviations")
-    public List<InvitationFeedbackResponse> getInvitations( Principal principal){
+    @GetMapping("/clubs/invitaions")
+    public List<InvitationUserResponse> getInvitations( Principal principal){
         return invitationService.getInvitations(principal.getName());
 
 

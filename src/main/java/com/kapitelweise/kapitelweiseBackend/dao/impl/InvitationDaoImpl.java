@@ -5,6 +5,7 @@ import com.kapitelweise.kapitelweiseBackend.dao.InvitationDao;
 import com.kapitelweise.kapitelweiseBackend.domain.Invitation;
 import com.kapitelweise.kapitelweiseBackend.domain.InvitationStatus;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationFeedbackResponse;
+import com.kapitelweise.kapitelweiseBackend.response.InvitationUserResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -87,22 +88,22 @@ public class InvitationDaoImpl implements InvitationDao {
     }
 
     @Override
-    public List<InvitationFeedbackResponse> getUserInvitations( String username) {
+    public List<InvitationUserResponse> getUserInvitations(String username) {
         String sql = """
                 select invitation.id, invitation.invitation_status, bookclub_id, bookclub.name
                 from invitation 
                 join users on users.id = invitation.invited_user_id
                 join bookclub on bookclub.id = invitation.bookclub_id
-                where invitation.bookclub_id = ? and users.username = ?;
+                where  users.username = ?;
                 """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-                        new InvitationFeedbackResponse(
-                                rs.getString("invitationId"),
+                        new InvitationUserResponse(
+                                rs.getLong("id"),
                                 rs.getString("invitation_status"),
-                                rs.getString("bookclub_id"),
-                                rs.getString("clubName"),
-                                rs.getString("respondedAt")
+                                rs.getLong("bookclub_id"),
+                                rs.getString("name")
+
                         ),
                  username
         );

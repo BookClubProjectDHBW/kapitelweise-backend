@@ -37,7 +37,7 @@ public class InvitationUserResponse {
     public InvitationUserResponse() {
     }
 
-    public InvitationUserResponse(Long invitationId, String invitationStatus, Long clubId, String clubName, String respondedAt) {
+    public InvitationUserResponse(Long invitationId, String invitationStatus, Long clubId, String clubName) {
         super();
         this.invitationId = invitationId;
         this.invitationStatus = invitationStatus;
