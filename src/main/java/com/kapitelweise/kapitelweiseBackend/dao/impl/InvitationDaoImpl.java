@@ -4,10 +4,12 @@ package com.kapitelweise.kapitelweiseBackend.dao.impl;
 import com.kapitelweise.kapitelweiseBackend.dao.InvitationDao;
 import com.kapitelweise.kapitelweiseBackend.domain.Invitation;
 import com.kapitelweise.kapitelweiseBackend.domain.InvitationStatus;
+import com.kapitelweise.kapitelweiseBackend.response.InvitationFeedbackResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -82,5 +84,29 @@ public class InvitationDaoImpl implements InvitationDao {
     @Override
     public void addMember(Long userId, Long bookClubId){
         jdbcTemplate.update("Insert into clubmember (role, userid, bookclub_id) Values(?,?,?)", "MEMBER", userId, bookClubId);
+    }
+
+    @Override
+    public List<InvitationFeedbackResponse> getUserInvitations( String username) {
+        String sql = """
+                select invitation.id, invitation.invitation_status, bookclub_id, bookclub.name
+                from invitation 
+                join users on users.id = invitation.invited_user_id
+                join bookclub on bookclub.id = invitation.bookclub_id
+                where invitation.bookclub_id = ? and users.username = ?;
+                """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                        new InvitationFeedbackResponse(
+                                rs.getString("invitationId"),
+                                rs.getString("invitation_status"),
+                                rs.getString("bookclub_id"),
+                                rs.getString("clubName"),
+                                rs.getString("respondedAt")
+                        ),
+                 username
+        );
+
+
     }
 }
