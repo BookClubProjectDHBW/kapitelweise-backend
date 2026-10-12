@@ -56,7 +56,6 @@ public class BookClubController {
         return invitationService.updatePendingInvitation(request, username, invitationId);
     }
     @GetMapping("/clubs/inviations")
-
     public List<InvitationFeedbackResponse> getInvitations( Principal principal){
         return invitationService.getInvitations(principal.getName());
 
