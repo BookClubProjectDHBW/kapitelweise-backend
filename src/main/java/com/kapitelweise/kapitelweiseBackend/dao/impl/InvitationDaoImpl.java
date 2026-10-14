@@ -90,19 +90,19 @@ public class InvitationDaoImpl implements InvitationDao {
     @Override
     public List<InvitationUserResponse> getUserInvitations(String username) {
         String sql = """
-                select invitation.id, invitation.invitation_status, bookclub_id, bookclub.name
-                from invitation 
+                select invitation.id, bookclub.name, bookclub.description
+                from invitation
                 join users on users.id = invitation.invited_user_id
                 join bookclub on bookclub.id = invitation.bookclub_id
-                where  users.username = ?;
+                where users.username = ?
+                  and invitation.invitation_status = 'PENDING';
                 """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
                         new InvitationUserResponse(
                                 rs.getLong("id"),
-                                rs.getString("invitation_status"),
-                                rs.getLong("bookclub_id"),
-                                rs.getString("name")
+                                rs.getString("name"),
+                                rs.getString("description")
 
                         ),
                  username

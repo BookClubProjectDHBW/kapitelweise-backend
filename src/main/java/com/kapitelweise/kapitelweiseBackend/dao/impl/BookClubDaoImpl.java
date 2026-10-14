@@ -60,14 +60,15 @@ public class BookClubDaoImpl implements BookclubDao {
     @Override
     public List<BookClubResponse> getBookClubForMember(String username) {
         String sql = """
-        select bookclub.name,  bookclub.description
+        select bookclub.id, bookclub.name,  bookclub.description
         from bookclub
         join clubmember on clubmember.bookclub_id = bookclub.id
         join users on users.id = clubmember.userid
-        where username = ?;
+        where users.username = ?;
         """;
         return jdbcTemplate.query(sql,(rs, rowNum) ->
                 new BookClubResponse(
+                        rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("description")
                 ),
@@ -77,7 +78,7 @@ public class BookClubDaoImpl implements BookclubDao {
         }
         public BookClubDetailResponse getClubDetails(Long clubId, String username){
         String sql= """
-                select bookclub.name,  bookclub.description, clubmember.role
+                select bookclub.id, bookclub.name,  bookclub.description, clubmember.role
                 from bookclub
                 join clubmember on clubmember.bookclub_id = bookclub.id
                 join users on users.id = clubmember.userid
@@ -85,6 +86,7 @@ public class BookClubDaoImpl implements BookclubDao {
                 """;
             return jdbcTemplate.queryForObject(sql,(rs, rowNum) ->
                             new BookClubDetailResponse(
+                                    rs.getLong("id"),
                                     rs.getString("name"),
                                     rs.getString("description"),
                                     rs.getString("role")

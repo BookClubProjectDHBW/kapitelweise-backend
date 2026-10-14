@@ -13,12 +13,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "id",
         "bookClubName",
         "description",
 })
 @Generated("jsonschema2pojo")
 public class BookClubResponse {
 
+    @JsonProperty("id")
+    private Long id;
     @JsonProperty("bookClubName")
     private String bookClubName;
     @JsonProperty("description")
@@ -33,10 +36,21 @@ public class BookClubResponse {
     public BookClubResponse() {
     }
 
-    public BookClubResponse(String bookClubName, String description) {
+    public BookClubResponse(Long id, String bookClubName, String description) {
         super();
+        this.id = id;
         this.bookClubName = bookClubName;
         this.description = description;
+    }
+
+    @JsonProperty("id")
+    public Long getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @JsonProperty("bookClubName")
@@ -74,6 +88,10 @@ public class BookClubResponse {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(BookClubResponse.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("id");
+        sb.append('=');
+        sb.append(((this.id == null)?"<null>":this.id));
+        sb.append(',');
         sb.append("bookClubName");
         sb.append('=');
         sb.append(((this.bookClubName == null)?"<null>":this.bookClubName));

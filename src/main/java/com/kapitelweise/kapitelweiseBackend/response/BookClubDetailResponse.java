@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "id",
         "bookClubName",
         "description",
         "role"
@@ -19,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class BookClubDetailResponse {
 
+    @JsonProperty("id")
+    private Long id;
     @JsonProperty("bookClubName")
     private String bookClubName;
     @JsonProperty("description")
@@ -35,11 +38,22 @@ public class BookClubDetailResponse {
     public BookClubDetailResponse() {
     }
 
-    public BookClubDetailResponse(String bookClubName, String description, String role) {
+    public BookClubDetailResponse(Long id, String bookClubName, String description, String role) {
         super();
+        this.id = id;
         this.bookClubName = bookClubName;
         this.description = description;
         this.role = role;
+    }
+
+    @JsonProperty("id")
+    public Long getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @JsonProperty("bookClubName")
@@ -85,7 +99,11 @@ public class BookClubDetailResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(BookClubResponse.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(BookClubDetailResponse.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append("id");
+        sb.append('=');
+        sb.append(((this.id == null)?"<null>":this.id));
+        sb.append(',');
         sb.append("bookClubName");
         sb.append('=');
         sb.append(((this.bookClubName == null)?"<null>":this.bookClubName));
