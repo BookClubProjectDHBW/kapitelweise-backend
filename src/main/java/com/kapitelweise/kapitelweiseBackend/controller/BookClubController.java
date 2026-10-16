@@ -61,6 +61,14 @@ public class BookClubController {
 
 
     }
+    /*
+    @PatchMapping("/clubs/{clubId}")
+    public CloseBooksResponse updateBookStatus(Long clubId,Long bookId, Principal principal,String bookStatus){
+        return BookClubService.updateCurrentBooks()
+    }
+
+     */
+
 
 }
 
