@@ -4,6 +4,7 @@ import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
+import com.kapitelweise.kapitelweiseBackend.response.booksResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -76,6 +77,7 @@ public class BookClubDaoImpl implements BookclubDao {
                         username
                 );
         }
+        @Override
         public BookClubDetailResponse getClubDetails(Long clubId, String username){
         String sql= """
                 select bookclub.id, bookclub.name,  bookclub.description, clubmember.role
@@ -94,5 +96,10 @@ public class BookClubDaoImpl implements BookclubDao {
 
                      clubId, username
             );
+        }
+
+        @Override
+        public booksResponse selectBooks(Long clubId, Long suggestionId, String username){
+        return null;
         }
 }

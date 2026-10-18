@@ -59,6 +59,11 @@ public class BookClubController {
     public List<InvitationUserResponse> getInvitations( Principal principal){
         return invitationService.getInvitations(principal.getName());
 
+    }
+
+    @PostMapping("/clubs/{clubId}/selectBook/{suggestionId}")
+    public booksResponse selectBook(@PathVariable("clubId") Long clubId, @PathVariable("suggestionId") Long suggestionId, Principal principal){
+        return bookClubService.selectBook(suggestionId, clubId, principal.getName());
 
     }
 

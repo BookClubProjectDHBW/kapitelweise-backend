@@ -7,6 +7,7 @@ import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
+import com.kapitelweise.kapitelweiseBackend.response.booksResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,11 @@ public class BookClubService {
         catch(EmptyResultDataAccessException e){
            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");
         }
+    }
 
+    // es fehlt noch etwas wie "selectBookSuggestions() dass von suggestions in Books rein speichert"
+
+    public booksResponse selectBook (Long suggestionId, Long clubId, String username){
+        return bookclubDao.selectBooks(suggestionId, clubId, username);
     }
 }
