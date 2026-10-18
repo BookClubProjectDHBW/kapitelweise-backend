@@ -4,7 +4,6 @@ import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
-import com.kapitelweise.kapitelweiseBackend.response.booksResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -98,8 +97,37 @@ public class BookClubDaoImpl implements BookclubDao {
             );
         }
 
-        @Override
-        public booksResponse selectBooks(Long clubId, Long suggestionId, String username){
-        return null;
+
+    @Override
+    public Long saveBooksSuggestion(Long suggestionId) {
+        List<Long> bookIds = jdbcTemplate.query(
+                """
+                WITH source AS (
+                    SELECT title, author, isbn
+                    FROM found_book
+                    WHERE found_book_id = ?
+                ),
+                inserted AS (
+                    INSERT INTO book (title, author, isbn)
+                    SELECT title, author, isbn
+                    FROM source
+                    ON CONFLICT (isbn) DO NOTHING
+                    RETURNING book_id
+                )
+                SELECT book_id FROM inserted
+                UNION ALL
+                SELECT book.book_id
+                FROM book 
+                JOIN source  ON source.isbn = book.isbn
+                LIMIT 1
+                """,
+                (rs, rowNum) -> rs.getLong("book_id"),
+                suggestionId
+        );
+        if (bookIds.isEmpty()) {
+            throw new org.springframework.dao.EmptyResultDataAccessException(
+                    "Kein Treffer mit found_book_id=" + suggestionId, 1);
         }
+        return bookIds.get(0);
+    }
 }

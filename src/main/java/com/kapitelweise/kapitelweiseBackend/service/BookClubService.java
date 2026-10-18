@@ -60,9 +60,9 @@ public class BookClubService {
         }
     }
 
-    // es fehlt noch etwas wie "selectBookSuggestions() dass von suggestions in Books rein speichert"
 
-    public booksResponse selectBook (Long suggestionId, Long clubId, String username){
-        return bookclubDao.selectBooks(suggestionId, clubId, username);
+    //speichert von found_books in books
+    public Long saveBookSuggestion (Long suggestionId){
+        return bookclubDao.saveBooksSuggestion(suggestionId);
     }
 }
