@@ -61,9 +61,9 @@ public class BookClubController {
     }
 
 
-    @PostMapping("/saveBook/{suggestionId}")
-    public Long saveSuggestion(@PathVariable("suggestionId") Long suggestionId){
-        return bookClubService.saveBookSuggestion(suggestionId);
+    @PostMapping("/clubs/{clubId}/saveBook/{suggestionId}")
+    public Long saveSuggestion(@PathVariable("clubId") Long ClubId,@PathVariable("suggestionId") Long suggestionId){
+        return bookClubService.saveBookSuggestion(ClubId, suggestionId);
 
     }
 

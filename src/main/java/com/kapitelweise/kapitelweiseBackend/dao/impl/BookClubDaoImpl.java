@@ -97,37 +97,8 @@ public class BookClubDaoImpl implements BookclubDao {
             );
         }
 
-
-    @Override
-    public Long saveBooksSuggestion(Long suggestionId) {
-        List<Long> bookIds = jdbcTemplate.query(
-                """
-                WITH source AS (
-                    SELECT title, author, isbn
-                    FROM found_book
-                    WHERE found_book_id = ?
-                ),
-                inserted AS (
-                    INSERT INTO book (title, author, isbn)
-                    SELECT title, author, isbn
-                    FROM source
-                    ON CONFLICT (isbn) DO NOTHING
-                    RETURNING book_id
-                )
-                SELECT book_id FROM inserted
-                UNION ALL
-                SELECT book.book_id
-                FROM book 
-                JOIN source  ON source.isbn = book.isbn
-                LIMIT 1
-                """,
-                (rs, rowNum) -> rs.getLong("book_id"),
-                suggestionId
-        );
-        if (bookIds.isEmpty()) {
-            throw new org.springframework.dao.EmptyResultDataAccessException(
-                    "Kein Treffer mit found_book_id=" + suggestionId, 1);
+        public Long saveBooksSuggestion(Long clubId, Long suggestionId) {
+        return null;
         }
-        return bookIds.get(0);
-    }
+
 }

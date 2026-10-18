@@ -62,7 +62,7 @@ public class BookClubService {
 
 
     //speichert von found_books in books
-    public Long saveBookSuggestion (Long suggestionId){
-        return bookclubDao.saveBooksSuggestion(suggestionId);
+    public Long saveBookSuggestion (Long clubId,Long suggestionId){
+        return bookclubDao.saveBooksSuggestion(clubId, suggestionId);
     }
 }

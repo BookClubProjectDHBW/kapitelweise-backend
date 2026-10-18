@@ -14,5 +14,5 @@ public interface BookclubDao {
     BookClubDetailResponse getClubDetails(Long clubId, String username);
     boolean bookclubExists(Long clubId);
     Optional<String> getBookClubName(Long clubId);
-    Long saveBooksSuggestion(Long suggestionId);
+    Long saveBooksSuggestion(Long clubId, Long suggestionId);
 }

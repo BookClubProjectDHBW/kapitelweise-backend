@@ -45,11 +45,3 @@ ALTER TABLE invitation ADD COLUMN IF NOT EXISTS answered_at TIMESTAMP;
 
 --Bücher die aus der Book Suggestions ausgewählt wurden
 
-CREATE TABLE IF NOT EXISTS book (
-                      book_id             BIGSERIAL PRIMARY KEY,
-                      title               VARCHAR(200)  NOT NULL,
-                      author              VARCHAR(75),
-                      isbn                VARCHAR(45)  NOT NULL UNIQUE,
-                      pages               INT          CHECK (pages > 0),
-                      year_of_publishing  INT
-);
