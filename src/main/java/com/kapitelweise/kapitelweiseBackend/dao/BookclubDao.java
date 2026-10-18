@@ -1,6 +1,7 @@
 package com.kapitelweise.kapitelweiseBackend.dao;
 
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
+import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 
@@ -14,5 +15,6 @@ public interface BookclubDao {
     BookClubDetailResponse getClubDetails(Long clubId, String username);
     boolean bookclubExists(Long clubId);
     Optional<String> getBookClubName(Long clubId);
-    Long saveBooksSuggestion(Long clubId, Long suggestionId);
+    boolean isUserAdmin (Long userId,Long clubId);
+    BookRequest saveBooksSuggestion(Long clubId, BookRequest request);
 }

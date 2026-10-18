@@ -2,6 +2,7 @@ package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
+import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -97,8 +98,16 @@ public class BookClubDaoImpl implements BookclubDao {
             );
         }
 
-        public Long saveBooksSuggestion(Long clubId, Long suggestionId) {
-        return null;
+    @Override
+    public boolean isUserAdmin(Long userId, Long bookClubId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM clubmember WHERE userid = ? AND bookclub_id = ? AND role = 'ADMIN'",
+                Integer.class, userId, bookClubId);
+        return count != null && count > 0;
+    }
+
+        public BookRequest saveBooksSuggestion(Long clubId, BookRequest request) {
+        return request;
         }
 
 }

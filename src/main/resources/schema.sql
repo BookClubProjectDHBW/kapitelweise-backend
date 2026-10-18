@@ -43,5 +43,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
 ALTER TABLE invitation ADD COLUMN IF NOT EXISTS answered_at TIMESTAMP;
 
 
---Bücher die aus der Book Suggestions ausgewählt wurden
+--Vorgeschlagene Bücher
+
+
 
