@@ -1,9 +1,8 @@
 package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
-import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
+import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +28,6 @@ public class BookClubDaoImpl implements BookclubDao {
                 Integer.class, clubId);
         return count != null && count > 0;
     }
-
 
         public BookClubDetailResponse getClubDetails(Long clubId, String username){
         String sql= """
@@ -59,7 +57,15 @@ public class BookClubDaoImpl implements BookclubDao {
         return count != null && count > 0;
     }
 
-        public BookRequest saveBooksSuggestion(Long clubId, BookRequest request) {
+    @Override
+    public boolean isMember(Long userId, Long clubId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM clubmember WHERE userid = ? and bookclub_id = ?",
+                Integer.class, userId, clubId);
+        return count != null && count > 0;
+    }
+
+        public BookRequest saveBooksSuggestion(Long clubId, BookRequest request, String username) {
         return request;
         }
 

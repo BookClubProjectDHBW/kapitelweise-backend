@@ -12,5 +12,6 @@ public interface BookclubDao {
     BookClubDetailResponse getClubDetails(Long clubId, String username);
     boolean bookclubExists(Long clubId);
     boolean isUserAdmin (Long userId,Long clubId);
-    BookRequest saveBooksSuggestion(Long clubId, BookRequest request);
+    BookRequest saveBooksSuggestion(Long clubId, BookRequest request, String username);
+    boolean isMember(Long userId, Long clubId);
 }

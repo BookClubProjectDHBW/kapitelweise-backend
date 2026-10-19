@@ -11,8 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+
 
 
 @RestController
@@ -44,8 +43,8 @@ public class BookClubController {
 
     // suggestion Endpunkt
     @PostMapping("/clubs/{clubId}/proposals")
-    public BookRequest postSuggestion(@PathVariable("clubId") Long ClubId, BookRequest request){
-        return bookClubService.saveBookSuggestion(ClubId, request);
+    public BookRequest postSuggestion(@PathVariable("clubId") Long ClubId, @RequestBody BookRequest request, Principal principal){
+        return bookClubService.saveBookSuggestion(ClubId, request, principal.getName());
 
     }
 
