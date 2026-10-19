@@ -26,11 +26,11 @@ public class BookRequest {
     @JsonProperty("isbn")
     private String isbn;
     @JsonProperty("pages")
-    private String pages;
+    private Integer pages;
     @JsonProperty("author")
     private String author;
     @JsonProperty("firstPublishYear")
-    private String firstPublishYear;
+    private Integer firstPublishYear;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -41,7 +41,7 @@ public class BookRequest {
     public BookRequest() {
     }
 
-    public BookRequest(String title, String isbn, String pages, String author, String firstPublishYear) {
+    public BookRequest(String title, String isbn, Integer pages, String author, Integer firstPublishYear) {
         super();
         this.title = title;
         this.isbn = isbn;
@@ -71,12 +71,12 @@ public class BookRequest {
     }
 
     @JsonProperty("pages")
-    public String getPages() {
+    public Integer getPages() {
         return pages;
     }
 
     @JsonProperty("pages")
-    public void setPages(String pages) {
+    public void setPages(Integer pages) {
         this.pages = pages;
     }
 
@@ -91,12 +91,12 @@ public class BookRequest {
     }
 
     @JsonProperty("firstPublishYear")
-    public String getFirstPublishYear() {
+    public Integer getFirstPublishYear() {
         return firstPublishYear;
     }
 
     @JsonProperty("firstPublishYear")
-    public void setFirstPublishYear(String firstPublishYear) {
+    public void setFirstPublishYear(Integer firstPublishYear) {
         this.firstPublishYear = firstPublishYear;
     }
 
