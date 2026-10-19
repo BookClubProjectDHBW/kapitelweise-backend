@@ -41,3 +41,23 @@ CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
 
 -- für bestehende Datenbanken, auf denen die Tabelle schon ohne answered_at angelegt wurde
 ALTER TABLE invitation ADD COLUMN IF NOT EXISTS answered_at TIMESTAMP;
+
+
+--speichern der Vorschläge
+CREATE TABLE IF NOT EXISTS club_suggestions (
+                                 id      BIGSERIAL PRIMARY KEY,
+                                 bookclub_id       BIGINT NOT NULL REFERENCES bookclub(id) ON DELETE CASCADE,
+                                 suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'FAILED')),
+                                 title             VARCHAR(200) NOT NULL,
+                                 isbn              VARCHAR(45) NOT NULL,
+                                 pages             INT,
+                                 author            VARCHAR(75),
+                                 first_publish_year  INT
+
+);
+
+CREATE INDEX IF NOT EXISTS club_suggestions_bookclub_id
+    ON club_suggestions (bookclub_id);
+
+
+

@@ -3,12 +3,15 @@ package com.kapitelweise.kapitelweiseBackend.controller;
 import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationResponse;
+import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
+import com.kapitelweise.kapitelweiseBackend.response.*;
 import com.kapitelweise.kapitelweiseBackend.service.BookClubService;
 import com.kapitelweise.kapitelweiseBackend.service.InvitationService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+
 
 
 @RestController
@@ -36,5 +39,19 @@ public class BookClubController {
         return invitationService.registerNewInvitation(request, username, clubId);
     }
 
-}
 
+
+    // suggestion Endpunkt
+    @PostMapping("/clubs/{clubId}/proposals")
+    public BookRequest postSuggestion(@PathVariable("clubId") Long ClubId, @RequestBody BookRequest request, Principal principal){
+        return bookClubService.saveBookSuggestion(ClubId, request, principal.getName());
+
+    }
+
+    // save Current Book Endpunkt
+    @PostMapping("/clubs/{clubId}/proposals/{suggestionId}")
+    public BookRequest postCurrentBook(@PathVariable("clubId")Long clubId, @PathVariable("suggestionId")Long suggestionId, Principal principal) {
+        return bookClubService.saveCurrentBook(clubId, suggestionId, principal.getName());
+    }
+
+}
