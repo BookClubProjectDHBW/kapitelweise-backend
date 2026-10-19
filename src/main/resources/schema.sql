@@ -45,13 +45,13 @@ ALTER TABLE invitation ADD COLUMN IF NOT EXISTS answered_at TIMESTAMP;
 
 --speichern der Vorschläge
 CREATE TABLE IF NOT EXISTS club_suggestions (
-                                 suggestion_id      BIGSERIAL PRIMARY KEY,
+                                 id      BIGSERIAL PRIMARY KEY,
                                  bookclub_id       BIGINT NOT NULL REFERENCES bookclub(id) ON DELETE CASCADE,
                                  suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'FAILED')),
                                  title             VARCHAR(200) NOT NULL,
-                                 isbn              INT,
+                                 isbn              VARCHAR(45) NOT NULL,
                                  pages             INT,
-                                 author            VARCHAR(45),
+                                 author            VARCHAR(75),
                                  first_publish_year  INT
 
 );
