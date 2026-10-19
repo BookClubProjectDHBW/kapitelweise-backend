@@ -5,19 +5,13 @@ import com.kapitelweise.kapitelweiseBackend.dao.InvitationDao;
 import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import com.kapitelweise.kapitelweiseBackend.domain.Invitation;
 import com.kapitelweise.kapitelweiseBackend.domain.InvitationStatus;
-import com.kapitelweise.kapitelweiseBackend.request.InvitationFeedbackRequest;
 import com.kapitelweise.kapitelweiseBackend.request.InvitationRequest;
-import com.kapitelweise.kapitelweiseBackend.response.InvitationFeedbackResponse;
 import com.kapitelweise.kapitelweiseBackend.response.InvitationResponse;
-import com.kapitelweise.kapitelweiseBackend.response.InvitationUserResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 
 
 @Service
@@ -72,54 +66,5 @@ public class InvitationService {
         catch(DuplicateKeyException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Der User wurde schon eingeladen.");
         }
-    }
-
-    @Transactional
-    public InvitationFeedbackResponse updatePendingInvitation(InvitationFeedbackRequest request, String username, Long invitationId){
-        String newStatus = request.getInvitationStatus();
-        if (newStatus == null
-                || (!newStatus.trim().equalsIgnoreCase("ACCEPTED")
-                && !newStatus.trim().equalsIgnoreCase("DECLINED"))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Status muss ACCEPTED oder DECLINED sein");
-        }
-        InvitationStatus newFormattedStatus = InvitationStatus.valueOf(newStatus.trim().toUpperCase());
-
-        Invitation currentInvitation = invitationDao.getInvitation(invitationId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diese Einladung wurde nicht gefunden"));
-
-        Long invitedUserId = userDao.getUserId(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Diese UserId existiert nicht."));
-
-        if(!Objects.equals(currentInvitation.getInvitedUserId(), invitedUserId)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Dieser User wurde nicht zu diesem Buchclub eingeladen");
-        }
-        if (currentInvitation.getInvitationStatus() != InvitationStatus.PENDING) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Diese Einladung wurde bereits beantwortet");
-        }
-
-        String clubName = bookclubDao.getBookClubName(currentInvitation.getBookClubId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Buchclub nicht gefunden"));
-
-        // ein Zeitstempel für DB und Response, damit beide übereinstimmen
-        LocalDateTime answeredAt = LocalDateTime.now();
-        invitationDao.changeStatus(currentInvitation.getId(), newFormattedStatus, answeredAt);
-        if(newFormattedStatus == InvitationStatus.ACCEPTED) {
-            try {
-                invitationDao.addMember(invitedUserId, currentInvitation.getBookClubId());
-            } catch (DuplicateKeyException e) {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Der User ist bereits Mitglied");
-            }
-        }
-        return new InvitationFeedbackResponse(
-                currentInvitation.getId(),
-                newFormattedStatus.name(),
-                currentInvitation.getBookClubId(),
-                clubName,
-                answeredAt.toString());
-    }
-
-    public List<InvitationUserResponse> getInvitations(String username){
-        return invitationDao.getUserInvitations(username);
     }
 }
