@@ -31,7 +31,6 @@ public class BookClubService {
         }
     }
 
-
     //speichert von found_books in books
     public BookRequest saveBookSuggestion (Long clubId, BookRequest request, String username){
         Long userId = userDao.getUserId(username)
@@ -42,6 +41,7 @@ public class BookClubService {
 
         return bookclubDao.saveBooksSuggestion(clubId, request, username);
     }
+
 
     public BookRequest saveCurrentBook(Long clubId, Long suggestionId, String username){
         Long invitedById = userDao.getUserId(username)

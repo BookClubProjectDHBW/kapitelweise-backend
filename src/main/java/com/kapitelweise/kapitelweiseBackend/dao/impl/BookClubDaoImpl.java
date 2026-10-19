@@ -65,8 +65,23 @@ public class BookClubDaoImpl implements BookclubDao {
         return count != null && count > 0;
     }
 
-        public BookRequest saveBooksSuggestion(Long clubId, BookRequest request, String username) {
+
+    public BookRequest saveBooksSuggestion(Long clubId, BookRequest request, String username) {
+        String sql = """
+                INSERT INTO club_suggestions
+                    (bookclub_id, title, isbn, pages, author, first_publish_year)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """;
+
+        jdbcTemplate.update(
+                sql,
+                clubId,
+                request.getTitle(),
+                request.getIsbn(),
+                request.getPages(),
+                request.getAuthor(),
+                request.getFirstPublishYear());
         return request;
-        }
+    }
 
 }
