@@ -39,16 +39,16 @@ public class AmazonSQSService {
 
         List<Message> messages = sqs.receiveMessage(request).getMessages();
         for (Message message : messages) {
-            log.info("SQS-Nachricht empfangen: id={}, body={}", message.getMessageId(), message.getBody());
+            log.info("SQS-Nachricht empfangen: " + message.getBody());
             try {
                 MemberEvent event = jsonMapper.readValue(message.getBody(), MemberEvent.class);
 
-                if ("MEMBER_JOINED".equals(event.type())) {
+                if (event.type().equals("MEMBER_JOINED")) {
                     memberDao.upsertMember(event.userId(), event.username(), event.bookclubId(), event.role());
                 }
                 sqs.deleteMessage(QUEUE_URL, message.getReceiptHandle());
             } catch (Exception e) {
-                log.error("SQS-Nachricht konnte nicht verarbeitet werden: id={}", message.getMessageId(), e);
+                log.error("SQS-Nachricht konnte nicht verarbeitet werden: " + e.getMessage());
             }
         }
     }
