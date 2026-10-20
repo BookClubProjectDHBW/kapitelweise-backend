@@ -1,7 +1,9 @@
 build/
-gradle/
 out/
 .idea/
 *.iml
 .DS_Store
 .gradle/
+Claude outputs/
+Kapitelweise_Portfolio*.docx
+portfolio.html
