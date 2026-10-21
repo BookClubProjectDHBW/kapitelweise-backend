@@ -7,7 +7,6 @@ import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -39,7 +38,6 @@ public class BookClubService {
 
         bookclubDao.deleteSuggestion(username, clubId);
 
-        // bei einem Doppelklick kommen zwei Requests gleichzeitig durch, der Unique Index lehnt den zweiten ab
         SuggestionsResponse response;
         try {
             response = bookclubDao.saveBooksSuggestion(clubId, request, username);

@@ -1,11 +1,5 @@
--- Testdaten für die lokale Datenbank kapitelweise, nur zum manuellen Testen
--- ausführen mit: psql -d kapitelweise -f src/test/resources/testdaten.sql
--- setzt die Clubs 1 bis 4 jedes Mal auf denselben Stand zurück
--- die User selbst (public.users) legt der Auth-Service an, hier werden nur die Kopien befüllt
-
 BEGIN;
 
--- Club-Service: Kopie der User, Clubs und Mitglieder
 
 INSERT INTO club.club_user (id, username) VALUES
     (1, 'niklas'),
@@ -40,8 +34,6 @@ INSERT INTO club.clubmember (role, userid, bookclub_id) VALUES
 SELECT setval(pg_get_serial_sequence('club.bookclub', 'id'), (SELECT MAX(id) FROM club.bookclub));
 
 
--- Detail-Service: dieselben Mitglieder als Kopie, wie sie sonst über MEMBER_JOINED ankommen
-
 DELETE FROM detailpage.club_member WHERE bookclub_id IN (1, 2, 3, 4);
 INSERT INTO detailpage.club_member (user_id, username, bookclub_id, role) VALUES
     (3, 'testadmin',  1, 'ADMIN'),
@@ -56,19 +48,15 @@ INSERT INTO detailpage.club_member (user_id, username, bookclub_id, role) VALUES
     (5, 'niko11',     4, 'ADMIN'),
     (3, 'testadmin',  4, 'MEMBER');
 
--- höchstens ein Vorschlag pro Mitglied und Club
 DELETE FROM detailpage.club_suggestions WHERE bookclub_id IN (1, 2, 3, 4);
 INSERT INTO detailpage.club_suggestions
     (bookclub_id, suggestion_status, title, isbn, pages, author, first_publish_year, suggested_by) VALUES
-    -- Club 2: kein aktuelles Buch, einer von jeder Sorte
     (2, 'READY',   'Die Verwandlung',       '080442957X',    96,   'Franz Kafka',      1915, 'testadmin'),
     (2, 'PENDING', 'Unsichtbar für niko11', '9783442311231', 400,  'Unbekannt',        2020, 'testmember'),
     (2, 'FAILED',  'Kaputter Vorschlag',    '0000000000',    NULL, NULL,               NULL, 'niko11'),
     (2, 'PENDING', 'Alter Vorschlag von niko', '9783423214124', 320, 'Unbekannt',      2010, 'niko'),
-    -- Club 3: aktuelles Buch läuft, Vorschläge für die nächste Runde
     (3, 'READY',   'Schöne neue Welt',      '9783596905850', 368,  'Aldous Huxley',    1932, 'niko11'),
     (3, 'PENDING', 'Fahrenheit 451',        '9783453527867', 256,  'Ray Bradbury',     1953, 'testmember'),
-    -- Club 4
     (4, 'READY',   'Der Steppenwolf',       '9783518366752', 288,  'Hermann Hesse',    1927, 'testadmin');
 
 DELETE FROM detailpage.club_book WHERE bookclub_id IN (1, 2, 3, 4);

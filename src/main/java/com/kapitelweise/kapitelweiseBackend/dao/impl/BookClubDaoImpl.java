@@ -43,8 +43,6 @@ public class BookClubDaoImpl implements BookclubDao {
                 clubId, username);
     }
 
-    // Ergebnis von OpenLibrary: nur Vorschläge die noch PENDING sind, sonst wurde der Vorschlag inzwischen ersetzt
-    // bei FAILED kommen keine Buchdaten mit, dann bleiben die alten Werte stehen (COALESCE)
     @Override
     public void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear){
         jdbcTemplate.update("""
