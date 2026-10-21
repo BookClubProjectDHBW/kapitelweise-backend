@@ -37,6 +37,13 @@ public class BookClubDaoImpl implements BookclubDao {
 
 
     @Override
+    public void deleteSuggestion(String username, Long clubId){
+        jdbcTemplate.update("""
+        Delete from club_suggestions where bookclub_id = ? and suggested_by = ?""",
+                clubId, username);
+    }
+
+    @Override
     public boolean isUserAdmin(String username, Long bookClubId) {
         Integer count = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM club_member WHERE username = ? AND bookclub_id = ? AND role = 'ADMIN'",

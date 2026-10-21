@@ -51,6 +51,24 @@ CREATE UNIQUE INDEX IF NOT EXISTS club_book_one_current
     ON club_book (bookclub_id) WHERE book_status = 'CURRENT';
 
 
+-- für bestehende Datenbanken, auf denen club_suggestions schon ohne diese Spalten angelegt wurde
+-- (suggested_by dort ohne NOT NULL, weil alte Zeilen keinen Wert haben)
+ALTER TABLE club_suggestions ADD COLUMN IF NOT EXISTS suggested_by VARCHAR(50);
+ALTER TABLE club_suggestions ADD COLUMN IF NOT EXISTS created_at TIMESTAMP NOT NULL DEFAULT now();
+
+
+-- pro Mitglied und Club nur ein Vorschlag, ein neuer ersetzt den alten (siehe BookClubService.saveBookSuggestion)
+-- auf bestehenden Datenbanken vorher doppelte Vorschläge entfernen (der neueste bleibt), sonst scheitert der Index beim Start
+DELETE FROM club_suggestions older
+    USING club_suggestions newer
+    WHERE older.bookclub_id = newer.bookclub_id
+      AND older.suggested_by = newer.suggested_by
+      AND older.id < newer.id;
+
+CREATE UNIQUE INDEX IF NOT EXISTS club_suggestions_one_per_member
+    ON club_suggestions (bookclub_id, suggested_by);
+
+
 
 GRANT USAGE ON SCHEMA detailpage TO detailService;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO detailService;

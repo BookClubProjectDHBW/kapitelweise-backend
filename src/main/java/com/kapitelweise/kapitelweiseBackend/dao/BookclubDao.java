@@ -18,4 +18,5 @@ public interface BookclubDao {
     boolean activeBook(Long clubId);
     BookResponse saveCurrentBook(Long clubId, Long proposalId);
     BookResponse getCurrentBook(Long clubId);
+    void deleteSuggestion(String username, Long clubId);
 }

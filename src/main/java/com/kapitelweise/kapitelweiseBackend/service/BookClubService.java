@@ -2,7 +2,6 @@ package com.kapitelweise.kapitelweiseBackend.service;
 
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
-import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
@@ -19,25 +18,39 @@ import java.util.List;
 @Service
 public class BookClubService {
     private final BookclubDao bookclubDao;
+    private final AmazonSQSService amazonSQSService;
 
-    public BookClubService(BookclubDao bookclubDao) {
+    public BookClubService(BookclubDao bookclubDao, AmazonSQSService amazonSQSService) {
+
         this.bookclubDao = bookclubDao;
+        this.amazonSQSService = amazonSQSService;
+
     }
 
 
 
 
-    //speichert von found_books in books
+    @Transactional
     public SuggestionsResponse saveBookSuggestion (Long clubId, BookRequest request, String username){
         if (!bookclubDao.isMember(username, clubId)) {
         throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
 
-        if (!openLibraryService.existsInFoundBooks(request)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Buchdaten stimmen nicht mit den gefundenen Büchern überein");
+        if(request.getIsbn().isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Leere ISBN gibts nicht Kumpel!");
+
+        bookclubDao.deleteSuggestion(username, clubId);
+
+        // bei einem Doppelklick kommen zwei Requests gleichzeitig durch, der Unique Index lehnt den zweiten ab
+        SuggestionsResponse response;
+        try {
+            response = bookclubDao.saveBooksSuggestion(clubId, request, username);
+        } catch (DuplicateKeyException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Dein Vorschlag wird gerade schon gespeichert!");
         }
 
-        return bookclubDao.saveBooksSuggestion(clubId, request, username);
+        amazonSQSService.sendSuggestionCheck("SEND_SUGGESTION", response.getId(),clubId, response.getIsbn());
+
+        return response;
+
     }
 
 
