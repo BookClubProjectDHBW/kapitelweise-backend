@@ -1,52 +1,23 @@
--- die Tabelle users legt der Auth-Service an, er muss deshalb vor dem Backend gestartet werden
-
--- Buchclubs
-CREATE TABLE IF NOT EXISTS bookclub (
-                                     id          BIGSERIAL    PRIMARY KEY,
-                                     name        VARCHAR(25)  NOT NULL,
-    description VARCHAR(250),
-    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );
-
---Mitgliederverwaltung
-
-CREATE TABLE IF NOT EXISTS clubmember (
-                                           id            BIGSERIAL   PRIMARY KEY,
-                                           role          VARCHAR(10) NOT NULL,
-    join_date     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    userid       BIGINT      NOT NULL REFERENCES users (id) ON DELETE CASCADE,
-    bookclub_id  BIGINT      NOT NULL REFERENCES bookclub (id) ON DELETE CASCADE
-    );
-
--- ein User kann pro Club nur einmal Mitglied sein
--- (als Index statt im CREATE TABLE, damit es auch auf bereits bestehende Tabellen angewendet wird)
-CREATE UNIQUE INDEX IF NOT EXISTS clubmember_user_club_unique ON clubmember (userid, bookclub_id);
 
 
+-- Schema nutzen um asynchrone Kommunikation per Queue zu ermöglichen.
+-- Aktuell nutzen wir die selbe user tabelle für auth und dieses backend, dadurch haben wir keine getrennten services --> Schema nutzung!
+Create SCHEMA  if not exists  detailpage;
+SET search_path TO detailpage, public;
 
-Create Table if not exists invitation(
-    id Bigserial primary key,
-    invitation_status VARCHAR(10) NOT NULL DEFAULT 'PENDING' CHECK (invitation_status IN ('PENDING', 'ACCEPTED', 'DECLINED')),
-    created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    invited_user_id bigint not null references users(id) on delete cascade,
-    bookclub_id bigint not null references bookclub(id) on delete cascade,
-    invited_by_user_id bigint not null references users(id) on delete cascade,
-    answered_at TIMESTAMP
+create table if not exists club_member(
+                                        user_id BIGINT not null,
+                                        username varchar(50) not null,
+                                        bookclub_id BIGINT not null,
+                                        role varchar(10) not null,
+                                        primary key (user_id, bookclub_id)
 );
-
-
-CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
-    ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
-
-
--- für bestehende Datenbanken, auf denen die Tabelle schon ohne answered_at angelegt wurde
-ALTER TABLE invitation ADD COLUMN IF NOT EXISTS answered_at TIMESTAMP;
 
 
 --speichern der Vorschläge
 CREATE TABLE IF NOT EXISTS club_suggestions (
                                  id      BIGSERIAL PRIMARY KEY,
-                                 bookclub_id       BIGINT NOT NULL REFERENCES bookclub(id) ON DELETE CASCADE,
+                                 bookclub_id       BIGINT NOT NULL,
                                  suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'FAILED')),
                                  title             VARCHAR(200) NOT NULL,
                                  isbn              VARCHAR(45) NOT NULL,
@@ -60,4 +31,8 @@ CREATE INDEX IF NOT EXISTS club_suggestions_bookclub_id
     ON club_suggestions (bookclub_id);
 
 
+
+GRANT USAGE ON SCHEMA detailpage TO detailService;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO detailService;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA detailpage TO detailService;
 

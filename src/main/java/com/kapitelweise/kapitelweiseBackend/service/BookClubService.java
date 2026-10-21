@@ -14,31 +14,17 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class BookClubService {
     private final BookclubDao bookclubDao;
-    private final UserDao userDao;
-    private final OpenLibraryService openLibraryService;
 
-    public BookClubService(BookclubDao bookclubDao, UserDao userDao, OpenLibraryService openLibraryService) {
+    public BookClubService(BookclubDao bookclubDao) {
         this.bookclubDao = bookclubDao;
-        this.userDao = userDao;
-        this.openLibraryService = openLibraryService;
     }
 
 
-    public BookClubDetailResponse getBookClubDetails(Long clubId, String username){
-        try{
-            return bookclubDao.getClubDetails(clubId, username);
-        }
-        catch(EmptyResultDataAccessException e){
-           throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");
-        }
-    }
+
 
     //speichert von found_books in books
     public BookRequest saveBookSuggestion (Long clubId, BookRequest request, String username){
-        Long userId = userDao.getUserId(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Diese UserId existiert nicht"));
-
-        if (!bookclubDao.isMember(userId, clubId)) {
+        if (!bookclubDao.isMember(username, clubId)) {
         throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
 
         if (!openLibraryService.existsInFoundBooks(request)) {
@@ -51,10 +37,7 @@ public class BookClubService {
 
 
     public BookRequest saveCurrentBook(Long clubId, Long suggestionId, String username){
-        Long invitedById = userDao.getUserId(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Diese UserId existiert nicht."));
-
-        if(!bookclubDao.isUserAdmin(invitedById, clubId)){
+        if(!bookclubDao.isUserAdmin(username, clubId)){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Du bist kein Admin!");
         }
 
