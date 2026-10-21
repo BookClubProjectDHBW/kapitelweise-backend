@@ -2,11 +2,13 @@ package com.kapitelweise.kapitelweiseBackend.service;
 
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
+import com.kapitelweise.kapitelweiseBackend.dao.UserDao;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,10 +24,18 @@ public class BookClubService {
         this.bookclubDao = bookclubDao;
     }
 
+
+
+
     //speichert von found_books in books
     public SuggestionsResponse saveBookSuggestion (Long clubId, BookRequest request, String username){
         if (!bookclubDao.isMember(username, clubId)) {
         throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
+
+        if (!openLibraryService.existsInFoundBooks(request)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Buchdaten stimmen nicht mit den gefundenen Büchern überein");
+        }
 
         return bookclubDao.saveBooksSuggestion(clubId, request, username);
     }
