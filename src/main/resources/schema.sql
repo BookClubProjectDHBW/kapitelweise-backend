@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS club_suggestions (
                                  title             VARCHAR(200) NOT NULL,
                                  isbn              VARCHAR(45) NOT NULL,
                                  pages             INT,
-                                 author            VARCHAR(75),
+                                 author            VARCHAR(255),
                                  first_publish_year  INT,
                                 suggested_by varchar(50) not null,
                                 created_at Timestamp not null default now()
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS club_book (
                                  title               VARCHAR(200) NOT NULL,
                                  isbn                VARCHAR(45) NOT NULL,
                                  pages               INT,
-                                 author              VARCHAR(75),
+                                 author              VARCHAR(255),
                                  first_publish_year  INT,
                                  started_at          TIMESTAMP NOT NULL DEFAULT now(),
                                  finished_at         TIMESTAMP
@@ -55,6 +55,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS club_book_one_current
 -- (suggested_by dort ohne NOT NULL, weil alte Zeilen keinen Wert haben)
 ALTER TABLE club_suggestions ADD COLUMN IF NOT EXISTS suggested_by VARCHAR(50);
 ALTER TABLE club_suggestions ADD COLUMN IF NOT EXISTS created_at TIMESTAMP NOT NULL DEFAULT now();
+
+-- Platz für mehrere Autoren, OpenLibrary fasst sie mit Komma zusammen
+ALTER TABLE club_suggestions ALTER COLUMN author TYPE VARCHAR(255);
+ALTER TABLE club_book ALTER COLUMN author TYPE VARCHAR(255);
 
 
 -- pro Mitglied und Club nur ein Vorschlag, ein neuer ersetzt den alten (siehe BookClubService.saveBookSuggestion)
