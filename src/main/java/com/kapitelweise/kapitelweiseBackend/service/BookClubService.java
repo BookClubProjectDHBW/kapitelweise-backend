@@ -15,10 +15,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class BookClubService {
     private final BookclubDao bookclubDao;
     private final UserDao userDao;
+    private final OpenLibraryService openLibraryService;
 
-    public BookClubService(BookclubDao bookclubDao, UserDao userDao) {
+    public BookClubService(BookclubDao bookclubDao, UserDao userDao, OpenLibraryService openLibraryService) {
         this.bookclubDao = bookclubDao;
         this.userDao = userDao;
+        this.openLibraryService = openLibraryService;
     }
 
 
@@ -38,6 +40,11 @@ public class BookClubService {
 
         if (!bookclubDao.isMember(userId, clubId)) {
         throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
+
+        if (!openLibraryService.existsInFoundBooks(request)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Buchdaten stimmen nicht mit den gefundenen Büchern überein");
+        }
 
         return bookclubDao.saveBooksSuggestion(clubId, request, username);
     }

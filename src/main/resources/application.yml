@@ -17,3 +17,6 @@ app:
   cors:
     allowed-origins:  http://localhost:63342
     #https://kapitelweisefrontend-c5afec02989c.herokuapp.com
+
+openlibrary:
+  base-url: http://localhost:8383
