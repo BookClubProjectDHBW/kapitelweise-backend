@@ -23,12 +23,32 @@ CREATE TABLE IF NOT EXISTS club_suggestions (
                                  isbn              VARCHAR(45) NOT NULL,
                                  pages             INT,
                                  author            VARCHAR(75),
-                                 first_publish_year  INT
+                                 first_publish_year  INT,
+                                suggested_by varchar(50) not null,
+                                created_at Timestamp not null default now()
 
 );
 
-CREATE INDEX IF NOT EXISTS club_suggestions_bookclub_id
-    ON club_suggestions (bookclub_id);
+
+--ausgewählte Bücher: CURRENT = wird gerade gelesen, FINISHED = abgeschlossen
+CREATE TABLE IF NOT EXISTS club_book (
+                                 id                  BIGSERIAL PRIMARY KEY,
+                                 bookclub_id         BIGINT NOT NULL,
+                                 book_status         VARCHAR(45) NOT NULL DEFAULT 'CURRENT' CHECK (book_status IN ('CURRENT', 'FINISHED')),
+                                 title               VARCHAR(200) NOT NULL,
+                                 isbn                VARCHAR(45) NOT NULL,
+                                 pages               INT,
+                                 author              VARCHAR(75),
+                                 first_publish_year  INT,
+                                 started_at          TIMESTAMP NOT NULL DEFAULT now(),
+                                 finished_at         TIMESTAMP
+);
+
+
+-- pro Club darf nur ein Buch CURRENT sein, ein zweites lehnt die DB ab
+-- Idee von KI, kannten diese Vorgehensweise nicht - hat für uns aber Sinn gemacht.
+CREATE UNIQUE INDEX IF NOT EXISTS club_book_one_current
+    ON club_book (bookclub_id) WHERE book_status = 'CURRENT';
 
 
 
