@@ -1,12 +1,14 @@
 package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
-import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
+import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
+import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,82 +19,158 @@ public class BookClubDaoImpl implements BookclubDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+    private static final RowMapper<SuggestionsResponse> SUGGESTION_ROW_MAPPER = (rs, rowNum) ->
+            new SuggestionsResponse(
+                    rs.getLong("id"),
+                    rs.getString("suggestion_status"),
+                    rs.getString("title"),
+                    rs.getString("isbn"),
+                    rs.getInt("pages"),
+                    rs.getString("author"),
+                    rs.getInt("first_publish_year"),
+                    rs.getString("suggested_by")
+            );
+
     public BookClubDaoImpl(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public BookClub createBookclub(BookClub bookClub){
-
-        return jdbcTemplate.queryForObject("insert into bookclub(name, description) Values(?, ?) Returning id, name, description, created_at",
-                (rs, rowNum) -> new BookClub(
-                    rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getTimestamp("created_at").toLocalDateTime()
-                ), bookClub.getName(), bookClub.getDescription());
-    }
-
 
     @Override
-    public void addMember(Long bookclubId, String username, String role){
-        Long userId = jdbcTemplate.queryForObject("Select id from users where username = ?", Long.class, username);
-        jdbcTemplate.update("Insert into clubmember (bookclub_id, userId, role) Values(?,?,?)", bookclubId, userId, role);
+    public void deleteSuggestion(String username, Long clubId){
+        jdbcTemplate.update("""
+        Delete from club_suggestions where bookclub_id = ? and suggested_by = ?""",
+                clubId, username);
     }
 
     @Override
-    public boolean bookclubExists(Long clubId) {
+    public void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear){
+        jdbcTemplate.update("""
+        Update club_suggestions
+        set suggestion_status = ?,
+            title = coalesce(?, title),
+            author = coalesce(?, author),
+            pages = coalesce(?, pages),
+            first_publish_year = coalesce(?, first_publish_year)
+        where id = ? and suggestion_status = 'PENDING'""",
+                status, title, author, pages, firstPublishYear, suggestionId);
+    }
+
+    @Override
+    public boolean isUserAdmin(String username, Long bookClubId) {
         Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM bookclub WHERE id = ?",
-                Integer.class, clubId);
+                "SELECT COUNT(*) FROM club_member WHERE username = ? AND bookclub_id = ? AND role = 'ADMIN'",
+                Integer.class, username, bookClubId);
         return count != null && count > 0;
     }
 
     @Override
-    public Optional<String> getBookClubName(Long clubId) {
-        return jdbcTemplate.queryForList(
-                        "SELECT name FROM bookclub WHERE id = ?",
-                        String.class, clubId)
-                .stream()
-                .findFirst();
+    public boolean isMember(String username, Long clubId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM club_member WHERE username = ? and bookclub_id = ?",
+                Integer.class, username, clubId);
+        return count != null && count > 0;
     }
 
-    @Override
-    public List<BookClubResponse> getBookClubForMember(String username) {
+
+    // RETURNING liefert die neue Zeile inkl. generierter id zurück (wird für die Queue und das Frontend gebraucht)
+    public SuggestionsResponse saveBooksSuggestion(Long clubId, BookRequest request, String username) {
         String sql = """
-        select bookclub.id, bookclub.name,  bookclub.description
-        from bookclub
-        join clubmember on clubmember.bookclub_id = bookclub.id
-        join users on users.id = clubmember.userid
-        where users.username = ?;
-        """;
-        return jdbcTemplate.query(sql,(rs, rowNum) ->
-                new BookClubResponse(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getString("description")
-                ),
-
-                        username
-                );
-        }
-        public BookClubDetailResponse getClubDetails(Long clubId, String username){
-        String sql= """
-                select bookclub.id, bookclub.name,  bookclub.description, clubmember.role
-                from bookclub
-                join clubmember on clubmember.bookclub_id = bookclub.id
-                join users on users.id = clubmember.userid
-                where bookclub.id = ? and users.username = ? ;
+                INSERT INTO club_suggestions
+                    (bookclub_id, title, isbn, pages, author, first_publish_year, suggested_by)
+                VALUES (?, ?, ?, ?, ?, ?,?)
+                RETURNING id, suggestion_status, title, isbn, pages, author, first_publish_year, suggested_by
                 """;
-            return jdbcTemplate.queryForObject(sql,(rs, rowNum) ->
-                            new BookClubDetailResponse(
-                                    rs.getLong("id"),
-                                    rs.getString("name"),
-                                    rs.getString("description"),
-                                    rs.getString("role")
-                            ),
 
-                     clubId, username
-            );
-        }
+        return jdbcTemplate.queryForObject(
+                sql,
+                SUGGESTION_ROW_MAPPER,
+                clubId,
+                request.getTitle(),
+                request.getIsbn(),
+                request.getPages(),
+                request.getAuthor(),
+                request.getFirstPublishYear(),
+                username);
+    }
+
+    public boolean checkExistence(Long clubId, Long proposalId){
+        Integer isThisSuggestionValid = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM club_suggestions WHERE id = ? and bookclub_id = ?",
+                Integer.class, proposalId, clubId);
+        return isThisSuggestionValid != null && isThisSuggestionValid > 0;
+    }
+
+    public boolean checkStatus(Long clubId, Long proposalId){
+        Integer isThisSuggestionValid = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM club_suggestions WHERE id = ? and bookclub_id = ? and suggestion_status = 'READY'",
+                Integer.class, proposalId, clubId);
+        return isThisSuggestionValid != null && isThisSuggestionValid > 0;
+    }
+
+    public boolean activeBook(Long clubId){
+        Integer activeBooks = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM club_book WHERE bookclub_id = ? and book_status = 'CURRENT' ",
+                Integer.class, clubId);
+        return activeBooks != null && activeBooks > 0;
+    }
+
+    // kopiert den Vorschlag nach club_book, book_status und started_at kommen aus den DB-Defaults
+    public BookResponse saveCurrentBook(Long clubId, Long proposalId) {
+        String sql = """
+                INSERT INTO club_book (bookclub_id, title, isbn, pages, author, first_publish_year)
+                SELECT bookclub_id, title, isbn, pages, author, first_publish_year
+                FROM club_suggestions
+                WHERE id = ? AND bookclub_id = ?
+                RETURNING id, book_status, title, isbn, pages, author, first_publish_year, started_at, finished_at
+                """;
+
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                        new BookResponse(
+                                rs.getLong("id"),
+                                rs.getString("book_status"),
+                                rs.getString("title"),
+                                rs.getString("isbn"),
+                                rs.getObject("pages", Integer.class),
+                                rs.getString("author"),
+                                rs.getObject("first_publish_year", Integer.class),
+                                rs.getObject("started_at", LocalDateTime.class),
+                                rs.getObject("finished_at", LocalDateTime.class)
+                        ),
+                proposalId, clubId);
+    }
+
+    public BookResponse getCurrentBook(Long clubId){
+        String sql = """
+                Select id, book_status, title, isbn, pages, author, first_publish_year, started_at, finished_at from club_book where bookclub_id = ? and book_status = 'CURRENT'
+                """;
+
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                new BookResponse(
+                        rs.getLong("id"),
+                        rs.getString("book_status"),
+                        rs.getString("title"),
+                        rs.getString("isbn"),
+                        rs.getObject("pages", Integer.class),
+                        rs.getString("author"),
+                        rs.getObject("first_publish_year", Integer.class),
+                        rs.getObject("started_at", LocalDateTime.class),
+                        rs.getObject("finished_at", LocalDateTime.class)
+                ),clubId );
+    }
+
+    public List<SuggestionsResponse> getBookSuggestions(Long clubId, String username){
+        String sql = """
+            SELECT id, suggestion_status, title, isbn, pages, author, first_publish_year, suggested_by
+            FROM club_suggestions
+            WHERE bookclub_id = ?
+            and (suggestion_status = 'READY'
+                or suggested_by = ?)
+        """;
+        return jdbcTemplate.query(sql, SUGGESTION_ROW_MAPPER,
+                clubId, username
+        );
+
+    }
+
 }

@@ -2,61 +2,98 @@ package com.kapitelweise.kapitelweiseBackend.service;
 
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
-import com.kapitelweise.kapitelweiseBackend.domain.BookClub;
-import com.kapitelweise.kapitelweiseBackend.request.BookClubRequest;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubDetailResponse;
-import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
-import com.kapitelweise.kapitelweiseBackend.response.NewBookClubResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.dao.EmptyResultDataAccessException;
+import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
+import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class BookClubService {
     private final BookclubDao bookclubDao;
+    private final AmazonSQSService amazonSQSService;
 
-    public BookClubService(BookclubDao bookclubDao){
+    public BookClubService(BookclubDao bookclubDao, AmazonSQSService amazonSQSService) {
+
         this.bookclubDao = bookclubDao;
+        this.amazonSQSService = amazonSQSService;
+
     }
 
 
-    // Club anlegen und Admin eintragen passiert atomar: schlägt addMember fehl, wird auch der Club zurückgerollt
+
+
     @Transactional
-    public NewBookClubResponse registerNewBookClub(BookClubRequest request, String username){
+    public SuggestionsResponse saveBookSuggestion (Long clubId, BookRequest request, String username){
+        if (!bookclubDao.isMember(username, clubId)) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
 
-        if(request.getName().length() > 25){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ("Eingabe zu lang!"));
+        if(request.getIsbn().isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Leere ISBN gibts nicht Kumpel!");
+
+        bookclubDao.deleteSuggestion(username, clubId);
+
+        SuggestionsResponse response;
+        try {
+            response = bookclubDao.saveBooksSuggestion(clubId, request, username);
+        } catch (DuplicateKeyException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Dein Vorschlag wird gerade schon gespeichert!");
         }
 
-        if(request.getDescription().length() > 250){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ("Eingabe zu lang!"));
-        }
-        BookClub bookclub = bookclubDao.createBookclub(new BookClub(request.getName(), request.getDescription()));
+        amazonSQSService.sendSuggestionCheck("SEND_SUGGESTION", response.getId(),clubId, response.getIsbn());
 
-        bookclubDao.addMember(bookclub.getId(), username, "ADMIN");
+        return response;
 
-
-        return new NewBookClubResponse(bookclub.getId(), bookclub.getName(), bookclub.getDescription(), bookclub.getCreated_at());
     }
 
-    public List<BookClubResponse> getClubs(String username){
-        return bookclubDao.getBookClubForMember(username);
+
+    public List<SuggestionsResponse> returnAllSuggestions(Long clubId, String username){
+        if (!bookclubDao.isMember(username, clubId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
+
+        return bookclubDao.getBookSuggestions(clubId, username);
     }
 
 
-    public BookClubDetailResponse getBookClubDetails(Long clubId, String username){
-        try{
-            return bookclubDao.getClubDetails(clubId, username);
+    public BookResponse getCurrentBook(Long clubId, String username){
+        if(!bookclubDao.isMember(username, clubId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Du bist kein Mitglied!");
         }
-        catch(EmptyResultDataAccessException e){
-           throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");
+        if(!bookclubDao.activeBook(clubId)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Aktuell gibts kein aktives Buch!");
         }
 
+        return bookclubDao.getCurrentBook(clubId);
+    }
+
+    @Transactional
+    public BookResponse setCurrentBook(Long clubId, Long proposalId, String username){
+        if(!bookclubDao.isUserAdmin(username, clubId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Du bist kein Admin!");
+        }
+
+        if(!bookclubDao.checkExistence(clubId, proposalId)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Diesen Vorschlag gibts nicht du Schlingel!");
+        }
+
+        if(!bookclubDao.checkStatus(clubId, proposalId)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Dieser Vorschlag kann nicht abgegeben werden");
+        }
+
+        if(bookclubDao.activeBook(clubId)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Aktuell gibts ein Buch!");
+        }
+
+        // falls zwei Requests gleichzeitig durch activeBook kommen, lehnt der Unique Index den zweiten ab
+        try {
+            return bookclubDao.saveCurrentBook(clubId, proposalId);
+        } catch (DuplicateKeyException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Aktuell gibts ein Buch!");
+        }
     }
 }
