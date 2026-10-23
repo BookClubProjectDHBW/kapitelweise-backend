@@ -20,4 +20,5 @@ public interface BookclubDao {
     BookResponse getCurrentBook(Long clubId);
     void deleteSuggestion(String username, Long clubId);
     void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear);
+    String deleteBook(Long clubId);
 }

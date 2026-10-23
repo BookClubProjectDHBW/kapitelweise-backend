@@ -72,7 +72,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
     ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
 
 
-GRANT USAGE ON SCHEMA detailpage TO detailService;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO detailService;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA detailpage TO detailService;
+GRANT USAGE ON SCHEMA detailpage TO postgres;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO postgres;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA detailpage TO postgres;
+
+
+--GRANT USAGE ON SCHEMA detailpage TO detailService;
+--GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO detailService;
+--GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA detailpage TO detailService;
 

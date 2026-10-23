@@ -29,14 +29,6 @@ public class BookClubController {
         return bookClubService.saveBookSuggestion(ClubId, request, principal.getName());
 
     }
-    /*
-    @PatchMapping("/clubs/{clubId}")
-    public CloseBooksResponse updateBookStatus(Long clubId,Long bookId, Principal principal,String bookStatus){
-        return BookClubService.updateCurrentBooks()
-    }
-
-     */
-
 
     @GetMapping("/clubs/{clubId}/suggestions")
     public List<SuggestionsResponse> getAllSuggestions(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
@@ -53,5 +45,10 @@ public class BookClubController {
     @GetMapping("/clubs/{clubId}/current-book")
     public BookResponse getCurrentBook(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
         return bookClubService.getCurrentBook(clubId, username);
+    }
+
+    @PatchMapping("/clubs/{clubId}/closeBook")
+    public String closeCurrentBook(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
+        return bookClubService.closeCurrentBook(clubId, username);
     }
 }

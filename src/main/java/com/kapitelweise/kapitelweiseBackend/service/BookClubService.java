@@ -96,4 +96,17 @@ public class BookClubService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Aktuell gibts ein Buch!");
         }
     }
+
+    @Transactional
+    public String closeCurrentBook(Long clubId, String username){
+        if(!bookclubDao.isUserAdmin(username, clubId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Du bist kein Admin!");
+        }
+        if(!bookclubDao.activeBook(clubId)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Aktuell gibt es kein offenes Buch!");
+        }
+            return bookclubDao.deleteBook(clubId);
+
+    }
 }
+

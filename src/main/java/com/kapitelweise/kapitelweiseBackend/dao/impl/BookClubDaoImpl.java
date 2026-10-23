@@ -173,4 +173,15 @@ public class BookClubDaoImpl implements BookclubDao {
 
     }
 
+    public String deleteBook(Long clubId){
+        String sql = """
+                DELETE FROM club_book
+                where bookclub_id = ?
+        """;
+        jdbcTemplate.update(sql, clubId);
+
+
+        return "Book Closed";
+    }
+
 }
