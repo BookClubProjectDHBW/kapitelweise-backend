@@ -55,6 +55,14 @@ public class AmazonSQSService {
     }
 
 
+    @Scheduled(fixedDelay = 60000)
+    public void sendSuggestionAgain(){
+        List<SuggestionEvent> pending = bookclubDao.getPendingSuggestions();
+        for (SuggestionEvent event : pending) {
+            sendSuggestionCheck(event.type(), event.suggestionId(), event.bookClubId(), event.isbn());
+        }
+    }
+
     @Scheduled(fixedDelay = 1000)
     public void pollNewMember(){
         ReceiveMessageRequest request = new ReceiveMessageRequest()
@@ -96,7 +104,11 @@ public class AmazonSQSService {
                 SuggestionResultEvent event = jsonMapper.readValue(message.getBody(), SuggestionResultEvent.class);
 
                 if (event.type().equals("SUGGESTION_RESULT")) {
-                    bookclubDao.updateSuggestion(event.suggestionId(), event.status(), event.title(), event.author(), event.pages(), event.firstPublishYear());
+                    if (event.status().equals("READY")) {
+                        bookclubDao.markSuggestionReady(event.suggestionId(), event.title(), event.author(), event.pages(), event.firstPublishYear());
+                    } else {
+                        bookclubDao.markSuggestionRejected(event.suggestionId());
+                    }
                     log.info("Vorschlag " + event.suggestionId() + " ist jetzt " + event.status());
                 } else {
                     log.warn("Unbekannter Event-Typ in suggestionResult: " + event.type());

@@ -39,7 +39,7 @@ public class BookClubService {
         log.warn(username + " ist kein Mitglied von Club " + clubId);
         throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Kein Mitglied dieses Buchclubs");}
 
-        if(request.getIsbn().isEmpty()) {
+        if(request.getIsbn() == null || request.getIsbn().isBlank() || request.getTitle() == null || request.getTitle().isBlank()) {
             log.warn("Vorschlag von " + username + " ohne ISBN abgelehnt");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Leere ISBN gibts nicht Kumpel!");
         }
@@ -113,10 +113,13 @@ public class BookClubService {
         try {
             BookResponse book = bookclubDao.saveCurrentBook(clubId, proposalId);
             log.info("Vorschlag " + proposalId + " ist jetzt das aktuelle Buch von Club " + clubId);
-            return book;
+
+            bookclubDao.deleteSuggestions(clubId);
+            log.info("Löschen im " + clubId + "hat auch geklappt");
+                return book;
         } catch (DuplicateKeyException e) {
             log.warn("Club " + clubId + " hat schon ein aktuelles Buch");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Aktuell gibts ein Buch!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Aktuell gibts ein Buch!");
         }
     }
 }

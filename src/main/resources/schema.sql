@@ -18,7 +18,7 @@ create table if not exists club_member(
 CREATE TABLE IF NOT EXISTS club_suggestions (
                                  id      BIGSERIAL PRIMARY KEY,
                                  bookclub_id       BIGINT NOT NULL,
-                                 suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'FAILED')),
+                                 suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'REJECTED')),
                                  title             VARCHAR(200) NOT NULL,
                                  isbn              VARCHAR(45) NOT NULL,
                                  pages             INT,
@@ -56,6 +56,10 @@ ALTER TABLE club_suggestions ADD COLUMN IF NOT EXISTS created_at TIMESTAMP NOT N
 
 ALTER TABLE club_suggestions ALTER COLUMN author TYPE VARCHAR(255);
 ALTER TABLE club_book ALTER COLUMN author TYPE VARCHAR(255);
+
+ALTER TABLE club_suggestions DROP CONSTRAINT IF EXISTS club_suggestions_suggestion_status_check;
+UPDATE club_suggestions SET suggestion_status = 'REJECTED' WHERE suggestion_status = 'FAILED';
+ALTER TABLE club_suggestions ADD CONSTRAINT club_suggestions_suggestion_status_check CHECK (suggestion_status IN ('PENDING', 'READY', 'REJECTED'));
 
 
 DELETE FROM club_suggestions older
