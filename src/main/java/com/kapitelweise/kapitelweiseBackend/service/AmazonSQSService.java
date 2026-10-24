@@ -48,6 +48,7 @@ public class AmazonSQSService {
                     .withMessageGroupId(String.valueOf(suggestionId))
                     .withMessageDeduplicationId(String.valueOf(suggestionId));
             sqs.sendMessage(send);
+            log.info("Vorschlag " + suggestionId + " zur Prüfung gesendet");
         } catch (Exception e) {
             log.error("SuggestionEvent konnte nicht gesendet werden: " + e.getMessage() + suggestionId);
         }
@@ -69,6 +70,9 @@ public class AmazonSQSService {
 
                 if (event.type().equals("MEMBER_JOINED")) {
                     memberDao.upsertMember(event.userId(), event.username(), event.bookclubId(), event.role());
+                    log.info(event.username() + " ist jetzt Mitglied von Club " + event.bookclubId());
+                } else {
+                    log.warn("Unbekannter Event-Typ in clubMembers: " + event.type());
                 }
                 sqs.deleteMessage(MEMBERS_QUEUE_URL, message.getReceiptHandle());
             } catch (Exception e) {
@@ -93,6 +97,9 @@ public class AmazonSQSService {
 
                 if (event.type().equals("SUGGESTION_RESULT")) {
                     bookclubDao.updateSuggestion(event.suggestionId(), event.status(), event.title(), event.author(), event.pages(), event.firstPublishYear());
+                    log.info("Vorschlag " + event.suggestionId() + " ist jetzt " + event.status());
+                } else {
+                    log.warn("Unbekannter Event-Typ in suggestionResult: " + event.type());
                 }
                 sqs.deleteMessage(SUGGESTION_RESULT_URL, message.getReceiptHandle());
             } catch (Exception e) {
