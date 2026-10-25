@@ -1,6 +1,7 @@
 package com.kapitelweise.kapitelweiseBackend.dao;
 
 
+import com.kapitelweise.kapitelweiseBackend.domain.SuggestionEvent;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
@@ -23,6 +24,6 @@ public interface BookclubDao {
     void markSuggestionReady(Long suggestionId, String title, String author, Integer pages, Integer firstPublishYear);
     void markSuggestionRejected(Long suggestionId);
     List<SuggestionEvent> getPendingSuggestions();
-    void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear);
+    //void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear);
     String deleteBook(Long clubId);
 }

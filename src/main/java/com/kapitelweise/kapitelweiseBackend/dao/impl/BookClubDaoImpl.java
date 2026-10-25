@@ -71,6 +71,7 @@ public class BookClubDaoImpl implements BookclubDao {
 
 
     // RETURNING liefert die neue Zeile inkl. generierter id zurück (wird für die Queue und das Frontend gebraucht)
+    @Override
     public SuggestionsResponse saveBooksSuggestion(Long clubId, BookRequest request, String username) {
         String sql = """
                 INSERT INTO club_suggestions
@@ -99,6 +100,7 @@ public class BookClubDaoImpl implements BookclubDao {
                 username);
     }
 
+    @Override
     public boolean checkExistence(Long clubId, Long proposalId){
         Integer isThisSuggestionValid = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM club_suggestions WHERE id = ? and bookclub_id = ?",
@@ -106,6 +108,7 @@ public class BookClubDaoImpl implements BookclubDao {
         return isThisSuggestionValid != null && isThisSuggestionValid > 0;
     }
 
+    @Override
     public boolean checkStatus(Long clubId, Long proposalId){
         Integer isThisSuggestionValid = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM club_suggestions WHERE id = ? and bookclub_id = ? and suggestion_status = 'READY'",
@@ -113,6 +116,7 @@ public class BookClubDaoImpl implements BookclubDao {
         return isThisSuggestionValid != null && isThisSuggestionValid > 0;
     }
 
+    @Override
     public boolean activeBook(Long clubId){
         Integer activeBooks = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM club_book WHERE bookclub_id = ? and book_status = 'CURRENT' ",
@@ -121,6 +125,7 @@ public class BookClubDaoImpl implements BookclubDao {
     }
 
     // kopiert den Vorschlag nach club_book, book_status und started_at kommen aus den DB-Defaults
+    @Override
     public BookResponse saveCurrentBook(Long clubId, Long proposalId) {
         String sql = """
                 INSERT INTO club_book (bookclub_id, title, isbn, pages, author, first_publish_year)
@@ -188,7 +193,7 @@ public class BookClubDaoImpl implements BookclubDao {
                         rs.getObject("finished_at", LocalDateTime.class)
                 ),clubId );
     }
-
+    @Override
     public List<SuggestionsResponse> getBookSuggestions(Long clubId, String username){
         String sql = """
             SELECT id, suggestion_status, title, isbn, pages, author, first_publish_year, suggested_by
@@ -212,7 +217,7 @@ public class BookClubDaoImpl implements BookclubDao {
         );
 
     }
-
+    @Override
     public String deleteBook(Long clubId){
         String sql = """
                 DELETE FROM club_book
