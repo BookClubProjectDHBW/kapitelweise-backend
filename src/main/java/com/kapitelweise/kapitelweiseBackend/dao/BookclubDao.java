@@ -19,6 +19,10 @@ public interface BookclubDao {
     BookResponse saveCurrentBook(Long clubId, Long proposalId);
     BookResponse getCurrentBook(Long clubId);
     void deleteSuggestion(String username, Long clubId);
+    void deleteSuggestions(Long clubId);
+    void markSuggestionReady(Long suggestionId, String title, String author, Integer pages, Integer firstPublishYear);
+    void markSuggestionRejected(Long suggestionId);
+    List<SuggestionEvent> getPendingSuggestions();
     void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear);
     String deleteBook(Long clubId);
 }

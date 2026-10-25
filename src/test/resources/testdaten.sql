@@ -53,7 +53,7 @@ INSERT INTO detailpage.club_suggestions
     (bookclub_id, suggestion_status, title, isbn, pages, author, first_publish_year, suggested_by) VALUES
     (2, 'READY',   'Die Verwandlung',       '080442957X',    96,   'Franz Kafka',      1915, 'testadmin'),
     (2, 'PENDING', 'Unsichtbar für niko11', '9783442311231', 400,  'Unbekannt',        2020, 'testmember'),
-    (2, 'FAILED',  'Kaputter Vorschlag',    '0000000000',    NULL, NULL,               NULL, 'niko11'),
+    (2, 'REJECTED', 'Kaputter Vorschlag',    '0000000000',    NULL, NULL,               NULL, 'niko11'),
     (2, 'PENDING', 'Alter Vorschlag von niko', '9783423214124', 320, 'Unbekannt',      2010, 'niko'),
     (3, 'READY',   'Schöne neue Welt',      '9783596905850', 368,  'Aldous Huxley',    1932, 'niko11'),
     (3, 'PENDING', 'Fahrenheit 451',        '9783453527867', 256,  'Ray Bradbury',     1953, 'testmember'),

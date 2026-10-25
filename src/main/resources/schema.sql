@@ -18,7 +18,7 @@ create table if not exists club_member(
 CREATE TABLE IF NOT EXISTS club_suggestions (
                                  id      BIGSERIAL PRIMARY KEY,
                                  bookclub_id       BIGINT NOT NULL,
-                                 suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'FAILED')),
+                                 suggestion_status            VARCHAR(45) NOT NULL DEFAULT 'PENDING' CHECK (suggestion_status IN ('PENDING', 'READY', 'REJECTED')),
                                  title             VARCHAR(200) NOT NULL,
                                  isbn              VARCHAR(45) NOT NULL,
                                  pages             INT,
@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS club_suggestions (
 
 );
 
---Mitgliederverwaltung
 
 --ausgewählte Bücher: CURRENT = wird gerade gelesen, FINISHED = abgeschlossen
 CREATE TABLE IF NOT EXISTS club_book (
@@ -58,6 +57,10 @@ ALTER TABLE club_suggestions ADD COLUMN IF NOT EXISTS created_at TIMESTAMP NOT N
 ALTER TABLE club_suggestions ALTER COLUMN author TYPE VARCHAR(255);
 ALTER TABLE club_book ALTER COLUMN author TYPE VARCHAR(255);
 
+ALTER TABLE club_suggestions DROP CONSTRAINT IF EXISTS club_suggestions_suggestion_status_check;
+UPDATE club_suggestions SET suggestion_status = 'REJECTED' WHERE suggestion_status = 'FAILED';
+ALTER TABLE club_suggestions ADD CONSTRAINT club_suggestions_suggestion_status_check CHECK (suggestion_status IN ('PENDING', 'READY', 'REJECTED'));
+
 
 DELETE FROM club_suggestions older
     USING club_suggestions newer
@@ -70,14 +73,4 @@ CREATE UNIQUE INDEX IF NOT EXISTS club_suggestions_one_per_member
 
 CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
     ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
-
-
-GRANT USAGE ON SCHEMA detailpage TO postgres;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO postgres;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA detailpage TO postgres;
-
-
---GRANT USAGE ON SCHEMA detailpage TO detailService;
---GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA detailpage TO detailService;
---GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA detailpage TO detailService;
 

@@ -1,11 +1,11 @@
 package com.kapitelweise.kapitelweiseBackend.dao.impl;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
+import com.kapitelweise.kapitelweiseBackend.domain.SuggestionEvent;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -18,18 +18,6 @@ import java.util.Optional;
 public class BookClubDaoImpl implements BookclubDao {
 
     private final JdbcTemplate jdbcTemplate;
-
-    private static final RowMapper<SuggestionsResponse> SUGGESTION_ROW_MAPPER = (rs, rowNum) ->
-            new SuggestionsResponse(
-                    rs.getLong("id"),
-                    rs.getString("suggestion_status"),
-                    rs.getString("title"),
-                    rs.getString("isbn"),
-                    rs.getInt("pages"),
-                    rs.getString("author"),
-                    rs.getInt("first_publish_year"),
-                    rs.getString("suggested_by")
-            );
 
     public BookClubDaoImpl(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
@@ -44,16 +32,25 @@ public class BookClubDaoImpl implements BookclubDao {
     }
 
     @Override
-    public void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear){
+    public void markSuggestionReady(Long suggestionId, String title, String author, Integer pages, Integer firstPublishYear){
         jdbcTemplate.update("""
         Update club_suggestions
-        set suggestion_status = ?,
-            title = coalesce(?, title),
-            author = coalesce(?, author),
-            pages = coalesce(?, pages),
-            first_publish_year = coalesce(?, first_publish_year)
+        set suggestion_status = 'READY',
+            title = ?,
+            author = ?,
+            pages = ?,
+            first_publish_year = ?
         where id = ? and suggestion_status = 'PENDING'""",
-                status, title, author, pages, firstPublishYear, suggestionId);
+                title, author, pages, firstPublishYear, suggestionId);
+    }
+
+    @Override
+    public void markSuggestionRejected(Long suggestionId){
+        jdbcTemplate.update("""
+        Update club_suggestions
+        set suggestion_status = 'REJECTED'
+        where id = ? and suggestion_status = 'PENDING'""",
+                suggestionId);
     }
 
     @Override
@@ -82,9 +79,17 @@ public class BookClubDaoImpl implements BookclubDao {
                 RETURNING id, suggestion_status, title, isbn, pages, author, first_publish_year, suggested_by
                 """;
 
-        return jdbcTemplate.queryForObject(
-                sql,
-                SUGGESTION_ROW_MAPPER,
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                        new SuggestionsResponse(
+                                rs.getLong("id"),
+                                rs.getString("suggestion_status"),
+                                rs.getString("title"),
+                                rs.getString("isbn"),
+                                rs.getObject("pages", Integer.class),
+                                rs.getString("author"),
+                                rs.getObject("first_publish_year", Integer.class),
+                                rs.getString("suggested_by")
+                        ),
                 clubId,
                 request.getTitle(),
                 request.getIsbn(),
@@ -140,6 +145,31 @@ public class BookClubDaoImpl implements BookclubDao {
                 proposalId, clubId);
     }
 
+    @Override
+    public void deleteSuggestions(Long clubId){
+        jdbcTemplate.update("""
+            DELETE From club_suggestions where bookclub_id = ?""", clubId);
+    }
+
+    @Override
+    public List<SuggestionEvent> getPendingSuggestions(){
+        String sql = """
+                SELECT id, bookclub_id, isbn
+                FROM club_suggestions
+                WHERE suggestion_status = 'PENDING'
+                and created_at < now() - interval '2 minutes'
+                """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new SuggestionEvent(
+                        "SEND_SUGGESTION",
+                        rs.getLong("id"),
+                        rs.getLong("bookclub_id"),
+                        rs.getString("isbn")
+                ));
+    }
+
+    @Override
     public BookResponse getCurrentBook(Long clubId){
         String sql = """
                 Select id, book_status, title, isbn, pages, author, first_publish_year, started_at, finished_at from club_book where bookclub_id = ? and book_status = 'CURRENT'
@@ -167,7 +197,17 @@ public class BookClubDaoImpl implements BookclubDao {
             and (suggestion_status = 'READY'
                 or suggested_by = ?)
         """;
-        return jdbcTemplate.query(sql, SUGGESTION_ROW_MAPPER,
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                        new SuggestionsResponse(
+                                rs.getLong("id"),
+                                rs.getString("suggestion_status"),
+                                rs.getString("title"),
+                                rs.getString("isbn"),
+                                rs.getObject("pages", Integer.class),
+                                rs.getString("author"),
+                                rs.getObject("first_publish_year", Integer.class),
+                                rs.getString("suggested_by")
+                        ),
                 clubId, username
         );
 
