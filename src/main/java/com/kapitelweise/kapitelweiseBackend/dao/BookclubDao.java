@@ -24,4 +24,6 @@ public interface BookclubDao {
     void markSuggestionReady(Long suggestionId, String title, String author, Integer pages, Integer firstPublishYear);
     void markSuggestionRejected(Long suggestionId);
     List<SuggestionEvent> getPendingSuggestions();
+    //void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear);
+    String deleteBook(Long clubId);
 }

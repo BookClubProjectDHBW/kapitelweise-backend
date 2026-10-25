@@ -46,4 +46,9 @@ public class BookClubController {
     public BookResponse getCurrentBook(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
         return bookClubService.getCurrentBook(clubId, username);
     }
+
+    @PatchMapping("/clubs/{clubId}/close-book")
+    public String closeCurrentBook(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
+        return bookClubService.closeCurrentBook(clubId, username);
+    }
 }

@@ -10,7 +10,7 @@ spring:
       mode: always
       platform: postgres
   profiles:
-    active: niklas
+    active: standard
 
 
 app:
