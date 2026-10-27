@@ -40,6 +40,8 @@ public class SecurityConfig {
                 .logout(logout -> logout.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        // Alexa authenticates through the linked account token in its request body.
+                        .requestMatchers(HttpMethod.POST, "/alexa").permitAll()
                         // /login und /register liegen jetzt im Auth-Service, hier braucht jeder Request ein gültiges Token
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated())
