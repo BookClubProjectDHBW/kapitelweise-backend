@@ -74,3 +74,44 @@ CREATE UNIQUE INDEX IF NOT EXISTS club_suggestions_one_per_member
 CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
     ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
 
+
+
+-- Termin eines Buchclubs: pro Club höchstens einer, der Admin ersetzt ihn durch einen neuen
+
+CREATE TABLE IF NOT EXISTS club_meeting (
+                                            id            BIGSERIAL PRIMARY KEY,
+                                            bookclub_id   BIGINT NOT NULL UNIQUE,
+                                            meeting_date  TIMESTAMP NOT NULL,
+
+    -- wird für den zusammengesetzten Fremdschlüssel in meeting_response gebraucht
+                                            CONSTRAINT uq_club_meeting_id_bookclub UNIQUE (id, bookclub_id)
+);
+
+-- Zu-/Absagen der Mitglieder zum Termin
+CREATE TABLE IF NOT EXISTS meeting_response (
+                                                id            BIGSERIAL PRIMARY KEY,
+                                                meeting_id    BIGINT NOT NULL,
+                                                user_id       BIGINT NOT NULL,
+                                                bookclub_id   BIGINT NOT NULL,
+                                                response_status VARCHAR(45) NOT NULL DEFAULT 'DECLINED' CHECK (response_status IN ('ACCEPTED', 'DECLINED')),
+                                                responded_at  TIMESTAMP NOT NULL DEFAULT now(),
+
+
+    -- Termin gehört zu diesem Club; beim Löschen des Termins verschwinden die Antworten
+                                                CONSTRAINT fk_response_meeting
+                                                    FOREIGN KEY (meeting_id, bookclub_id)
+                                                        REFERENCES club_meeting (id, bookclub_id)
+                                                        ON DELETE CASCADE,
+
+    -- Antwortender ist Mitglied in genau diesem Club
+                                                CONSTRAINT fk_response_member
+                                                    FOREIGN KEY (user_id, bookclub_id)
+                                                        REFERENCES club_member (user_id, bookclub_id)
+                                                        ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_response_member
+    ON meeting_response (user_id, bookclub_id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS meeting_response_one_per_member
+    ON meeting_response (meeting_id, user_id);
