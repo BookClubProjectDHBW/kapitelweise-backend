@@ -52,4 +52,26 @@ public class MeetingDaoImpl implements MeetingDao {
                 clubId
         );
     }
+
+    @Override
+    public MeetingResponse getMeetingForMember(Long clubId) {
+        String sql = """
+                SELECT id, book_id, title, description, starts_at, ends_at, location
+                FROM club_meeting
+                WHERE bookclub_id = ?; 
+        """;
+
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+                new MeetingResponse(
+                        rs.getLong("id"),
+                        rs.getObject("book_id", Long.class),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getObject("starts_at", LocalDateTime.class),
+                        rs.getObject("ends_at", LocalDateTime.class),
+                        rs.getString("location")
+        ),
+                clubId
+        );
+    }
 }

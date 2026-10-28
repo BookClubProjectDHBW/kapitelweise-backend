@@ -5,6 +5,7 @@ import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 import com.kapitelweise.kapitelweiseBackend.dao.MeetingDao;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
@@ -83,5 +84,12 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
                     "Der Ort darf maximal 255 Zeichen enthalten!"
             );
         }
+    }
+
+    public MeetingResponse getNextMeeting(Long clubId,String username){
+        if(!bookclubDao.isMember(username, clubId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User ist kein Mitglied des Clubs");
+        }
+        return meetingDao.getMeetingForMember(clubId);
     }
 }

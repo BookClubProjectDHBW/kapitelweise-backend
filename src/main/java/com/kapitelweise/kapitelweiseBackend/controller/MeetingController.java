@@ -5,6 +5,7 @@ import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
 import com.kapitelweise.kapitelweiseBackend.service.MeetingService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -20,15 +21,15 @@ public class MeetingController {
 
     @PostMapping("/clubs/{clubId}/meetings")
     @ResponseStatus(HttpStatus.CREATED)
-    public MeetingResponse createMeeting(
-            @PathVariable("clubId") Long clubId,
-            @RequestBody MeetingRequest request,
-            Principal principal) {
+    public MeetingResponse createMeeting(@PathVariable("clubId") Long clubId, @RequestBody MeetingRequest request, Principal principal) {
 
-        return meetingService.createMeeting(
-                clubId,
-                request,
-                principal.getName()
+        return meetingService.createMeeting(clubId, request, principal.getName()
         );
     }
+
+    @GetMapping("/clubs/{clubId}/meetings")
+    public MeetingResponse getMeeting(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
+        return meetingService.getNextMeeting(clubId, username);
+    }
+
 }
