@@ -79,13 +79,45 @@ CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
 -- Termin eines Buchclubs: pro Club höchstens einer, der Admin ersetzt ihn durch einen neuen
 
 CREATE TABLE IF NOT EXISTS club_meeting (
-                                            id            BIGSERIAL PRIMARY KEY,
-                                            bookclub_id   BIGINT NOT NULL UNIQUE,
-                                            meeting_date  TIMESTAMP NOT NULL,
-
-    -- wird für den zusammengesetzten Fremdschlüssel in meeting_response gebraucht
-                                            CONSTRAINT uq_club_meeting_id_bookclub UNIQUE (id, bookclub_id)
+    id BIGSERIAL PRIMARY KEY,
+    bookclub_id BIGINT NOT NULL,
+    meeting_date TIMESTAMP NOT NULL,
+    title VARCHAR(100),
+    description VARCHAR(500),
+    starts_at TIMESTAMP,
+    ends_at TIMESTAMP,
+    location VARCHAR(255),
+    book_id BIGINT,
+    CONSTRAINT uq_club_meeting_id_bookclub UNIQUE (id, bookclub_id)
 );
+
+ALTER TABLE club_meeting
+    DROP CONSTRAINT IF EXISTS club_meeting_bookclub_id_key;
+
+ALTER TABLE club_meeting
+    ADD COLUMN IF NOT EXISTS title VARCHAR(100);
+
+ALTER TABLE club_meeting
+    ADD COLUMN IF NOT EXISTS description VARCHAR(500);
+
+ALTER TABLE club_meeting
+    ADD COLUMN IF NOT EXISTS starts_at TIMESTAMP;
+
+ALTER TABLE club_meeting
+    ADD COLUMN IF NOT EXISTS ends_at TIMESTAMP;
+
+ALTER TABLE club_meeting
+    ADD COLUMN IF NOT EXISTS location VARCHAR(255);
+
+ALTER TABLE club_meeting
+    ADD COLUMN IF NOT EXISTS book_id BIGINT;
+
+UPDATE club_meeting
+SET starts_at = meeting_date
+WHERE starts_at IS NULL;
+
+CREATE INDEX IF NOT EXISTS idx_club_meeting_upcoming
+    ON club_meeting (bookclub_id, starts_at);
 
 -- Zu-/Absagen der Mitglieder zum Termin
 CREATE TABLE IF NOT EXISTS meeting_response (
