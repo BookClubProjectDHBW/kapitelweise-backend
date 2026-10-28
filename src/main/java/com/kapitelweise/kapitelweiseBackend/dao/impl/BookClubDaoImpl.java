@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.dao.impl;
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.domain.SuggestionEvent;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -228,5 +229,23 @@ public class BookClubDaoImpl implements BookclubDao {
 
         return "Book Closed";
     }
+
+    @Override
+    public List<BookClubResponse> getBookClubForMember(String username) {
+        String sql = """
+        select bookclub.name, bookclub.id as club_id
+        from bookclub
+        join club_member on club_member.bookclub_id = bookclub.id
+        where club_member.username = ?;
+        """;
+        return jdbcTemplate.query(sql,(rs, rowNum) ->
+                        new BookClubResponse(
+                                rs.getLong("club_id"),
+                                rs.getString("name")
+                        ),
+                username
+        );
+    }
+
 
 }
