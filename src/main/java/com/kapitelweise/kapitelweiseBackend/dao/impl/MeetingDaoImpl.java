@@ -76,7 +76,25 @@ public class MeetingDaoImpl implements MeetingDao {
         );
     }
 
-    public UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username) {
-        return null;
+    public UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus) {
+        String sql = """
+                INSERT INTO meeting_response 
+                (meeting_id, user_id, bookclub_id, response_status, responded_at)
+                Select ?, user_id, bookclub_id, ?
+                from club_member
+                where bookclub_id = ? and username = ?
+                on conflict (meeting_id, user_id)
+                do update set 
+                response_status = EXCLUDED.response_status,
+                responded_at = now()
+                Returning meeting_id, user_id, response_status, responded_at                
+        """;
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new UserMeetingResponse(
+                rs.getLong("meeting_id"),
+                rs.getLong("user_id"),
+                rs.getString("response_status"),
+                rs.getString("responded_at").toString()
+                ),
+                meetingId, clubId, username);
     }
 }

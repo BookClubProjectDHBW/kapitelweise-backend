@@ -8,5 +8,5 @@ public interface MeetingDao {
 
     MeetingResponse saveMeeting(Long clubId, MeetingRequest request);
     MeetingResponse getMeetingForMember(Long clubId);
-    UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username);
+    UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus);
 }

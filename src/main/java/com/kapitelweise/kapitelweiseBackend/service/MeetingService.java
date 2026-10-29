@@ -94,10 +94,10 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
         return meetingDao.getMeetingForMember(clubId);
     }
 
-    public UserMeetingResponse acceptMeeting(Long clubId, Long meetingId, String username){
+    public UserMeetingResponse acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
     if(!bookclubDao.isMember(username, clubId)){
         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Mitglied des Clubs");
     }
-    return meetingDao.saveAcceptMeeting(clubId, meetingId, username);
+    return meetingDao.saveAcceptMeeting(clubId, meetingId, username, responseStatus);
     }
 }

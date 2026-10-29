@@ -33,9 +33,9 @@ public class MeetingController {
         return meetingService.getNextMeeting(clubId, username);
     }
 
-    @PostMapping("clubs/{clubId}/meeting-response/{meetingId}")
-    public UserMeetingResponse acceptMeetingInvitation(Long clubId, Long meetingId, @AuthenticationPrincipal String username){
-        return meetingService.acceptMeeting(clubId, meetingId, username);
+    @PostMapping("clubs/{clubId}/meeting-response/{meetingId}/{responseStatus}")
+    public UserMeetingResponse acceptMeetingInvitation(Long clubId, Long meetingId, @AuthenticationPrincipal String username, String responseStatus){
+        return meetingService.acceptMeeting(clubId, meetingId, username, responseStatus);
     }
 
 }

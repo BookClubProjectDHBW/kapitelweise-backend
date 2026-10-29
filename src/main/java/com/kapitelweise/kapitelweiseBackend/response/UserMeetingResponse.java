@@ -16,19 +16,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "meetingId",
         "userId",
         "responseStatus",
-        "respondetAt"
+        "respondedAt"
 })
 @Generated("jsonschema2pojo")
 public class UserMeetingResponse {
 
     @JsonProperty("meetingId")
-    private Integer meetingId;
+    private Long meetingId;
     @JsonProperty("userId")
-    private Integer userId;
+    private Long userId;
     @JsonProperty("responseStatus")
     private String responseStatus;
-    @JsonProperty("respondetAt")
-    private String respondetAt;
+    @JsonProperty("respondedAt")
+    private String respondedAt;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -39,31 +39,31 @@ public class UserMeetingResponse {
     public UserMeetingResponse() {
     }
 
-    public UserMeetingResponse(Integer meetingId, Integer userId, String responseStatus, String respondetAt) {
+    public UserMeetingResponse(Long meetingId, Long userId, String responseStatus, String respondedAt) {
         super();
         this.meetingId = meetingId;
         this.userId = userId;
         this.responseStatus = responseStatus;
-        this.respondetAt = respondetAt;
+        this.respondedAt = respondedAt;
     }
 
     @JsonProperty("meetingId")
-    public Integer getMeetingId() {
+    public Long getMeetingId() {
         return meetingId;
     }
 
     @JsonProperty("meetingId")
-    public void setMeetingId(Integer meetingId) {
+    public void setMeetingId(Long meetingId) {
         this.meetingId = meetingId;
     }
 
     @JsonProperty("userId")
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     @JsonProperty("userId")
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -77,14 +77,14 @@ public class UserMeetingResponse {
         this.responseStatus = responseStatus;
     }
 
-    @JsonProperty("respondetAt")
-    public String getRespondetAt() {
-        return respondetAt;
+    @JsonProperty("respondedAt")
+    public String getRespondedAt() {
+        return respondedAt;
     }
 
-    @JsonProperty("respondetAt")
-    public void setRespondetAt(String respondetAt) {
-        this.respondetAt = respondetAt;
+    @JsonProperty("respondedAt")
+    public void setRespondedAt(String respondedAt) {
+        this.respondedAt = respondedAt;
     }
 
     @JsonAnyGetter
@@ -113,9 +113,9 @@ public class UserMeetingResponse {
         sb.append('=');
         sb.append(((this.responseStatus == null)?"<null>":this.responseStatus));
         sb.append(',');
-        sb.append("respondetAt");
+        sb.append("respondedAt");
         sb.append('=');
-        sb.append(((this.respondetAt == null)?"<null>":this.respondetAt));
+        sb.append(((this.respondedAt == null)?"<null>":this.respondedAt));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');
