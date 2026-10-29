@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.controller;
 
 import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
+import com.kapitelweise.kapitelweiseBackend.response.UserMeetingResponse;
 import com.kapitelweise.kapitelweiseBackend.service.MeetingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +31,11 @@ public class MeetingController {
     @GetMapping("/clubs/{clubId}/meetings")
     public MeetingResponse getMeeting(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
         return meetingService.getNextMeeting(clubId, username);
+    }
+
+    @PostMapping("clubs/{clubId}/meeting-response/{meetingId}")
+    public UserMeetingResponse acceptMeetingInvitation(Long clubId, Long meetingId, @AuthenticationPrincipal String username){
+        return meetingService.acceptMeeting(clubId, meetingId, username);
     }
 
 }

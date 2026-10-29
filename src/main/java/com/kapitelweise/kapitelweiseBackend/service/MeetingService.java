@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.service;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
+import com.kapitelweise.kapitelweiseBackend.response.UserMeetingResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -88,8 +89,15 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
 
     public MeetingResponse getNextMeeting(Long clubId,String username){
         if(!bookclubDao.isMember(username, clubId)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User ist kein Mitglied des Clubs");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Mitglied des Clubs");
         }
         return meetingDao.getMeetingForMember(clubId);
+    }
+
+    public UserMeetingResponse acceptMeeting(Long clubId, Long meetingId, String username){
+    if(!bookclubDao.isMember(username, clubId)){
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Mitglied des Clubs");
+    }
+    return meetingDao.saveAcceptMeeting(clubId, meetingId, username);
     }
 }

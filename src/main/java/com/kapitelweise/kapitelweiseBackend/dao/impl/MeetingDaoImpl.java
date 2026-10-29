@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.dao.impl;
 import com.kapitelweise.kapitelweiseBackend.dao.MeetingDao;
 import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
+import com.kapitelweise.kapitelweiseBackend.response.UserMeetingResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -73,5 +74,9 @@ public class MeetingDaoImpl implements MeetingDao {
         ),
                 clubId
         );
+    }
+
+    public UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username) {
+        return null;
     }
 }
