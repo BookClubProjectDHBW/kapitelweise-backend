@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class MeetingDaoImpl implements MeetingDao {
@@ -96,5 +97,9 @@ public class MeetingDaoImpl implements MeetingDao {
                 rs.getString("responded_at").toString()
                 ),
                 meetingId, clubId, username);
+    }
+
+    public List<UserMeetingResponse> getUserMeetingResponse(Long clubId){
+        return null;
     }
 }

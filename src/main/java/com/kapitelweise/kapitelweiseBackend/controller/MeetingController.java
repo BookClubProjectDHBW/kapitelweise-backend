@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class MeetingController {
@@ -33,9 +34,14 @@ public class MeetingController {
         return meetingService.getNextMeeting(clubId, username);
     }
 
-    @PostMapping("clubs/{clubId}/meeting-response/{meetingId}/{responseStatus}")
-    public UserMeetingResponse acceptMeetingInvitation(Long clubId, Long meetingId, @AuthenticationPrincipal String username, String responseStatus){
+    @PostMapping("/clubs/{clubId}/meeting-response/{meetingId}/{responseStatus}")
+    public UserMeetingResponse acceptMeetingInvitation(@PathVariable Long clubId, @PathVariable Long meetingId, @AuthenticationPrincipal String username, @PathVariable String responseStatus){
         return meetingService.acceptMeeting(clubId, meetingId, username, responseStatus);
+    }
+
+    @GetMapping("/clubs/{clubId}/meeting-response")
+    public List<UserMeetingResponse> getResponses(@PathVariable Long clubId, @AuthenticationPrincipal String username){
+        return meetingService.getUserResponse(clubId,username);
     }
 
 }

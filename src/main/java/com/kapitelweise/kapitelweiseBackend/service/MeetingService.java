@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MeetingService {
@@ -100,4 +101,12 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
     }
     return meetingDao.saveAcceptMeeting(clubId, meetingId, username, responseStatus);
     }
+
+    public List<UserMeetingResponse> getUserResponses(Long clubId, String username){
+    if(!bookclubDao.isUserAdmin(username, clubId)){
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Admin des Buchclubs");
+    }
+    return meetingDao.getUserMeetingResponse(clubId);
+    }
 }
+
