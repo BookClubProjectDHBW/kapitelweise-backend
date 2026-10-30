@@ -5,7 +5,7 @@ import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Repository
@@ -52,4 +52,31 @@ public class MeetingDaoImpl implements MeetingDao {
                 clubId
         );
     }
+
+@Override
+public List<MeetingResponse> getUpcomingMeetings(Long clubId) {
+    String sql = """
+            SELECT id, book_id, title, description,
+                   starts_at, ends_at, location
+            FROM club_meeting
+            WHERE bookclub_id = ?
+              AND starts_at > ?
+            ORDER BY starts_at ASC
+            """;
+
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new MeetingResponse(
+                    rs.getLong("id"),
+                    rs.getObject("book_id", Long.class),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getObject("starts_at", LocalDateTime.class),
+                    rs.getObject("ends_at", LocalDateTime.class),
+                    rs.getString("location")
+            ),
+            clubId,
+            LocalDateTime.now()
+    );
+}
+
 }
