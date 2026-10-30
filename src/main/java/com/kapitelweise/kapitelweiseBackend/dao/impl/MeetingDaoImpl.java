@@ -112,12 +112,12 @@ public class MeetingDaoImpl implements MeetingDao {
         return count != null && count > 0;
     }
 
-    public List<UserMeetingResponse> getUserMeetingResponse(Long clubId){
+    public List<UserMeetingResponse> getUserMeetingResponse(Long clubId, Long meetingId) {
         String sql = """
                 select mr.meeting_id, cm.username, mr.response_status, mr.responded_at
                 from meeting_response mr
                 join club_member cm on cm.user_id = mr.user_id and cm.bookclub_id = mr.bookclub_id
-                where mr.bookclub_id = ?
+                where mr.bookclub_id = ? and mr.meeting_id = ?
                 """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new UserMeetingResponse(
@@ -125,6 +125,6 @@ public class MeetingDaoImpl implements MeetingDao {
                 rs.getString("username"),
                 rs.getString("response_status"),
                 rs.getTimestamp("responded_at").toString()
-        ), clubId);
+        ), clubId, meetingId);
     }
 }

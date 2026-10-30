@@ -112,11 +112,11 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
     }
 
 
-    public List<UserMeetingResponse> getUserResponse(Long clubId, String username){
+    public List<UserMeetingResponse> getUserResponse(Long clubId, Long meetingId, String username){
     if(!bookclubDao.isUserAdmin(username, clubId)){
         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Admin des Buchclubs");
     }
-    return meetingDao.getUserMeetingResponse(clubId);
+    return meetingDao.getUserMeetingResponse(clubId, meetingId);
     }
 }
 
