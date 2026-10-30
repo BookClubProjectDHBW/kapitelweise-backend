@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "meetingId",
-        "userId",
+        "username",
         "responseStatus",
         "respondedAt"
 })
@@ -23,8 +23,8 @@ public class UserMeetingResponse {
 
     @JsonProperty("meetingId")
     private Long meetingId;
-    @JsonProperty("userId")
-    private Long userId;
+    @JsonProperty("username")
+    private String username;
     @JsonProperty("responseStatus")
     private String responseStatus;
     @JsonProperty("respondedAt")
@@ -39,10 +39,10 @@ public class UserMeetingResponse {
     public UserMeetingResponse() {
     }
 
-    public UserMeetingResponse(Long meetingId, Long userId, String responseStatus, String respondedAt) {
+    public UserMeetingResponse(Long meetingId, String username, String responseStatus, String respondedAt) {
         super();
         this.meetingId = meetingId;
-        this.userId = userId;
+        this.username = username;
         this.responseStatus = responseStatus;
         this.respondedAt = respondedAt;
     }
@@ -57,14 +57,14 @@ public class UserMeetingResponse {
         this.meetingId = meetingId;
     }
 
-    @JsonProperty("userId")
-    public Long getUserId() {
-        return userId;
+    @JsonProperty("username")
+    public String getUsername() {
+        return username;
     }
 
-    @JsonProperty("userId")
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    @JsonProperty("username")
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @JsonProperty("responseStatus")
@@ -105,9 +105,9 @@ public class UserMeetingResponse {
         sb.append('=');
         sb.append(((this.meetingId == null)?"<null>":this.meetingId));
         sb.append(',');
-        sb.append("userId");
+        sb.append("username");
         sb.append('=');
-        sb.append(((this.userId == null)?"<null>":this.userId));
+        sb.append(((this.username == null)?"<null>":this.username));
         sb.append(',');
         sb.append("responseStatus");
         sb.append('=');

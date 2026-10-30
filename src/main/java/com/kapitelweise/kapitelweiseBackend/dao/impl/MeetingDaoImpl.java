@@ -81,25 +81,39 @@ public class MeetingDaoImpl implements MeetingDao {
         String sql = """
                 INSERT INTO meeting_response 
                 (meeting_id, user_id, bookclub_id, response_status, responded_at)
-                Select ?, user_id, bookclub_id, ?
+                Select ?, user_id, bookclub_id, ?, now()
                 from club_member
                 where bookclub_id = ? and username = ?
                 on conflict (meeting_id, user_id)
                 do update set 
                 response_status = EXCLUDED.response_status,
                 responded_at = now()
-                Returning meeting_id, user_id, response_status, responded_at                
+                Returning meeting_id,
+                    (SELECT username FROM club_member WHERE user_id = meeting_response.user_id AND bookclub_id = meeting_response.bookclub_id) AS username,
+                    response_status, responded_at
         """;
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new UserMeetingResponse(
                 rs.getLong("meeting_id"),
-                rs.getLong("user_id"),
+                rs.getString("username"),
                 rs.getString("response_status"),
                 rs.getString("responded_at").toString()
                 ),
-                meetingId, clubId, username);
+                meetingId, responseStatus, clubId, username);
     }
 
     public List<UserMeetingResponse> getUserMeetingResponse(Long clubId){
-        return null;
+        String sql = """
+                select mr.meeting_id, cm.username, mr.response_status, mr.responded_at
+                from meeting_response mr
+                join club_member cm on cm.user_id = mr.user_id and cm.bookclub_id = mr.bookclub_id
+                where mr.bookclub_id = ?
+                """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new UserMeetingResponse(
+                rs.getLong("meeting_id"),
+                rs.getString("username"),
+                rs.getString("response_status"),
+                rs.getTimestamp("responded_at").toString()
+        ), clubId);
     }
 }
