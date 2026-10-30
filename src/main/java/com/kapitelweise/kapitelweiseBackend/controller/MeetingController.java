@@ -34,12 +34,13 @@ public class MeetingController {
         return meetingService.getNextMeeting(clubId, username);
     }
 
-    @PostMapping("/clubs/{clubId}/meeting-response/{meetingId}/{responseStatus}")
-    public UserMeetingResponse acceptMeetingInvitation(@PathVariable Long clubId, @PathVariable Long meetingId, @AuthenticationPrincipal String username, @PathVariable String responseStatus){
-        return meetingService.acceptMeeting(clubId, meetingId, username, responseStatus);
+    @PostMapping("/clubs/{clubId}/meeting-response/{meetingId}/attendance/{responseStatus}")
+    public String acceptMeetingInvitation(@PathVariable Long clubId, @PathVariable Long meetingId, @AuthenticationPrincipal String username, @PathVariable String responseStatus){
+         return meetingService.acceptMeeting(clubId, meetingId, username, responseStatus);
+
     }
 
-    @GetMapping("/clubs/{clubId}/meeting-response")
+    @GetMapping("/clubs/{clubId}/meeting")
     public List<UserMeetingResponse> getResponses(@PathVariable Long clubId, @AuthenticationPrincipal String username){
         return meetingService.getUserResponse(clubId,username);
     }

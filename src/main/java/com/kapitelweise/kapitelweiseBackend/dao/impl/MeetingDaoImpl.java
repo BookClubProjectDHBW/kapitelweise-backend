@@ -77,7 +77,7 @@ public class MeetingDaoImpl implements MeetingDao {
         );
     }
 
-    public UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus) {
+    public String saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus) {
         String sql = """
                 INSERT INTO meeting_response 
                 (meeting_id, user_id, bookclub_id, response_status, responded_at)
@@ -92,13 +92,24 @@ public class MeetingDaoImpl implements MeetingDao {
                     (SELECT username FROM club_member WHERE user_id = meeting_response.user_id AND bookclub_id = meeting_response.bookclub_id) AS username,
                     response_status, responded_at
         """;
-        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> new UserMeetingResponse(
-                rs.getLong("meeting_id"),
-                rs.getString("username"),
-                rs.getString("response_status"),
-                rs.getString("responded_at").toString()
-                ),
-                meetingId, responseStatus, clubId, username);
+        return "Answer saved";
+
+    }
+
+    @Override
+    public boolean meetingExists(Long clubId, Long meetingId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM club_meeting WHERE bookclub_id = ? AND id = ?",
+                Integer.class, clubId, meetingId);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean meetingHasStarted(Long clubId, Long meetingId) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM club_meeting WHERE bookclub_id = ? AND id = ? AND starts_at <= CURRENT_TIMESTAMP",
+                Integer.class, clubId, meetingId);
+        return count != null && count > 0;
     }
 
     public List<UserMeetingResponse> getUserMeetingResponse(Long clubId){

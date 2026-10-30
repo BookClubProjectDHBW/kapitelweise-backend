@@ -6,7 +6,6 @@ import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import com.kapitelweise.kapitelweiseBackend.response.UserMeetingResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 import com.kapitelweise.kapitelweiseBackend.dao.MeetingDao;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
@@ -95,12 +94,23 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
         return meetingDao.getMeetingForMember(clubId);
     }
 
-    public UserMeetingResponse acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
-    if(!bookclubDao.isMember(username, clubId)){
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Mitglied des Clubs");
+    public String acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
+        if (responseStatus == null || !(responseStatus.equals("ACCEPTED") || responseStatus.equals("DECLINED"))) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status fehlt oder Wert ist nicht erlaubt");
+        }
+        if (!bookclubDao.isMember(username, clubId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Kein Mitglied");
+        }
+        if (!meetingDao.meetingExists(clubId, meetingId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Das Meeting gibt es in diesem Club nicht");
+        }
+        if (meetingDao.meetingHasStarted(clubId, meetingId)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Meeting hat schon begonnen");
+        }
+
+        return meetingDao.saveAcceptMeeting(clubId, meetingId, username, responseStatus);
     }
-    return meetingDao.saveAcceptMeeting(clubId, meetingId, username, responseStatus);
-    }
+
 
     public List<UserMeetingResponse> getUserResponse(Long clubId, String username){
     if(!bookclubDao.isUserAdmin(username, clubId)){

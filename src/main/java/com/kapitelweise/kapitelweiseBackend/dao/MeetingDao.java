@@ -10,6 +10,8 @@ public interface MeetingDao {
 
     MeetingResponse saveMeeting(Long clubId, MeetingRequest request);
     MeetingResponse getMeetingForMember(Long clubId);
-    UserMeetingResponse saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus);
+    String saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus);
+    boolean meetingExists(Long clubId, Long meetingId);
+    boolean meetingHasStarted(Long clubId, Long meetingId);
     List<UserMeetingResponse> getUserMeetingResponse(Long clubId);
 }
