@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS meeting_response (
                                                 meeting_id    BIGINT NOT NULL,
                                                 user_id       BIGINT NOT NULL,
                                                 bookclub_id   BIGINT NOT NULL,
-                                                response_status VARCHAR(45) NOT NULL DEFAULT 'DECLINED' CHECK (response_status IN ('ACCEPTED', 'DECLINED')),
+                                                response_status VARCHAR(45) NOT NULL DEFAULT 'OPEN' CHECK (response_status IN ('ACCEPTED', 'DECLINED','OPEN')),
                                                 responded_at  TIMESTAMP NOT NULL DEFAULT now(),
 
 
