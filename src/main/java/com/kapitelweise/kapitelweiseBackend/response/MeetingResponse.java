@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
         "description",
         "starts_at",
         "ends_at",
-        "location"
+        "location",
+        "response_status"
 })
 public class MeetingResponse {
 
@@ -38,12 +39,21 @@ public class MeetingResponse {
     @JsonProperty("location")
     private String location;
 
+    @JsonProperty("response_status")
+    private String responseStatus;
+
     public MeetingResponse() {
     }
 
     public MeetingResponse(Long id, Long bookId, String title,
                            String description, LocalDateTime startsAt,
                            LocalDateTime endsAt, String location) {
+        this(id, bookId, title, description, startsAt, endsAt, location, null);
+    }
+
+    public MeetingResponse(Long id, Long bookId, String title,
+                           String description, LocalDateTime startsAt,
+                           LocalDateTime endsAt, String location, String responseStatus) {
         this.id = id;
         this.bookId = bookId;
         this.title = title;
@@ -51,6 +61,7 @@ public class MeetingResponse {
         this.startsAt = startsAt;
         this.endsAt = endsAt;
         this.location = location;
+        this.responseStatus = responseStatus;
     }
 
     public Long getId() {
@@ -107,5 +118,13 @@ public class MeetingResponse {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(String responseStatus) {
+        this.responseStatus = responseStatus;
     }
 }

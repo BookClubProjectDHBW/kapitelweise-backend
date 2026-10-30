@@ -56,11 +56,17 @@ public class MeetingDaoImpl implements MeetingDao {
     }
 
     @Override
-    public MeetingResponse getMeetingForMember(Long clubId) {
+    public MeetingResponse getMeetingForMember(Long clubId, String username) {
         String sql = """
-                SELECT id, book_id, title, description, starts_at, ends_at, location
-                FROM club_meeting
-                WHERE bookclub_id = ?; 
+                SELECT m.id, m.book_id, m.title, m.description, m.starts_at, m.ends_at, m.location,
+                       mr.response_status
+                FROM club_meeting m
+                LEFT JOIN club_member cm ON cm.bookclub_id = m.bookclub_id AND cm.username = ?
+                LEFT JOIN meeting_response mr ON mr.meeting_id = m.id
+                    AND mr.bookclub_id = m.bookclub_id AND mr.user_id = cm.user_id
+                WHERE m.bookclub_id = ?
+                ORDER BY m.starts_at
+                LIMIT 1
         """;
 
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
@@ -71,9 +77,10 @@ public class MeetingDaoImpl implements MeetingDao {
                         rs.getString("description"),
                         rs.getObject("starts_at", LocalDateTime.class),
                         rs.getObject("ends_at", LocalDateTime.class),
-                        rs.getString("location")
+                        rs.getString("location"),
+                        rs.getString("response_status")
         ),
-                clubId
+                username, clubId
         );
     }
 
@@ -88,10 +95,8 @@ public class MeetingDaoImpl implements MeetingDao {
                 do update set 
                 response_status = EXCLUDED.response_status,
                 responded_at = now()
-                Returning meeting_id,
-                    (SELECT username FROM club_member WHERE user_id = meeting_response.user_id AND bookclub_id = meeting_response.bookclub_id) AS username,
-                    response_status, responded_at
         """;
+        jdbcTemplate.update(sql, meetingId, responseStatus, clubId, username);
         return "Answer saved";
 
     }

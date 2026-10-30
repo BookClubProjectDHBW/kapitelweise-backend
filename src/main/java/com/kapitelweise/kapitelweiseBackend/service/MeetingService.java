@@ -91,7 +91,7 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
         if(!bookclubDao.isMember(username, clubId)){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Mitglied des Clubs");
         }
-        return meetingDao.getMeetingForMember(clubId);
+        return meetingDao.getMeetingForMember(clubId, username);
     }
 
     public String acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
