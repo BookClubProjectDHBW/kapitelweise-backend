@@ -2,34 +2,46 @@
 package com.kapitelweise.kapitelweiseBackend.service;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
+import com.kapitelweise.kapitelweiseBackend.dao.MeetingDao;
 import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
+import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import com.kapitelweise.kapitelweiseBackend.dao.MeetingDao;
-import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MeetingService {
 
-private final BookclubDao bookclubDao;
-private final MeetingDao meetingDao;
+    private final BookclubDao bookclubDao;
+    private final MeetingDao meetingDao;
 
-public MeetingService(BookclubDao bookclubDao, MeetingDao meetingDao) {
-    this.bookclubDao = bookclubDao;
-    this.meetingDao = meetingDao;
-}
-@Transactional
-public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String username) {
-    validateMeetingCreation(clubId, request, username);
-    return meetingDao.saveMeeting(clubId, request);
-}
+    public MeetingService(BookclubDao bookclubDao, MeetingDao meetingDao) {
+        this.bookclubDao = bookclubDao;
+        this.meetingDao = meetingDao;
+    }
+
+    @Transactional
+    public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String username) {
+        validateMeetingCreation(clubId, request, username);
+        return meetingDao.saveMeeting(clubId, request);
+    }
+
+    public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
+        if (!bookclubDao.isMember(username, clubId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "Nur Mitglieder dürfen Treffen abrufen!"
+            );
+        }
+
+        return meetingDao.getUpcomingMeetings(clubId);
+    }
+
     public void validateMeetingCreation(Long clubId, MeetingRequest request, String username) {
-
         if (!bookclubDao.isUserAdmin(username, clubId)) {
             throw new ResponseStatusException(
                     HttpStatus.FORBIDDEN,
