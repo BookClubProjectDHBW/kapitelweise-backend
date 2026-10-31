@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.*;
 
 @JsonRootName(value = "AlexaRO")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AlexaRO
 {
     protected final static String TYPENAME = "Alexa";
