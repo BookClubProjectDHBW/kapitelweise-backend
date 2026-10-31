@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.dao;
 
 import com.kapitelweise.kapitelweiseBackend.domain.SuggestionEvent;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 
@@ -26,4 +27,5 @@ public interface BookclubDao {
     List<SuggestionEvent> getPendingSuggestions();
     //void updateSuggestion(Long suggestionId, String status, String title, String author, Integer pages, Integer firstPublishYear);
     String deleteBook(Long clubId);
+    List<BookClubResponse> getBookClubForMember(String username);
 }

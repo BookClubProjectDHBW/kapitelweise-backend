@@ -5,6 +5,7 @@ import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.dao.MeetingDao;
 import com.kapitelweise.kapitelweiseBackend.request.MeetingRequest;
 import com.kapitelweise.kapitelweiseBackend.response.MeetingResponse;
+import com.kapitelweise.kapitelweiseBackend.response.UserMeetingResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,4 +97,37 @@ public class MeetingService {
             );
         }
     }
+
+    public MeetingResponse getNextMeeting(Long clubId,String username){
+        if(!bookclubDao.isMember(username, clubId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Mitglied des Clubs");
+        }
+        return meetingDao.getMeetingForMember(clubId, username);
+    }
+
+    public String acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
+        if (responseStatus == null || !(responseStatus.equals("ACCEPTED") || responseStatus.equals("DECLINED"))) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status fehlt oder Wert ist nicht erlaubt");
+        }
+        if (!bookclubDao.isMember(username, clubId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Kein Mitglied");
+        }
+        if (!meetingDao.meetingExists(clubId, meetingId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Das Meeting gibt es in diesem Club nicht");
+        }
+        if (meetingDao.meetingHasStarted(clubId, meetingId)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Meeting hat schon begonnen");
+        }
+
+        return meetingDao.saveAcceptMeeting(clubId, meetingId, username, responseStatus);
+    }
+
+
+    public List<UserMeetingResponse> getUserResponse(Long clubId, Long meetingId, String username){
+    if(!bookclubDao.isUserAdmin(username, clubId)){
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Admin des Buchclubs");
+    }
+    return meetingDao.getUserMeetingResponse(clubId, meetingId);
+    }
 }
+

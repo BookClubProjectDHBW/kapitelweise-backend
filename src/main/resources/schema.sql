@@ -1,10 +1,3 @@
-
-
--- Schema nutzen um asynchrone Kommunikation per Queue zu ermöglichen.
--- Aktuell nutzen wir die selbe user tabelle für auth und dieses backend, dadurch haben wir keine getrennten services --> Schema nutzung!
-Create SCHEMA  if not exists  detailpage;
-SET search_path TO detailpage, public;
-
 create table if not exists club_member(
                                         user_id BIGINT not null,
                                         username varchar(50) not null,
@@ -71,9 +64,6 @@ DELETE FROM club_suggestions older
 CREATE UNIQUE INDEX IF NOT EXISTS club_suggestions_one_per_member
     ON club_suggestions (bookclub_id, suggested_by);
 
-CREATE UNIQUE INDEX IF NOT EXISTS invitation_one_pending
-    ON invitation (bookclub_id, invited_user_id) WHERE invitation_status = 'PENDING';
-
 
 
 -- Termin eines Buchclubs: pro Club höchstens einer, der Admin ersetzt ihn durch einen neuen
@@ -125,7 +115,7 @@ CREATE TABLE IF NOT EXISTS meeting_response (
                                                 meeting_id    BIGINT NOT NULL,
                                                 user_id       BIGINT NOT NULL,
                                                 bookclub_id   BIGINT NOT NULL,
-                                                response_status VARCHAR(45) NOT NULL DEFAULT 'DECLINED' CHECK (response_status IN ('ACCEPTED', 'DECLINED')),
+                                                response_status VARCHAR(45) NOT NULL DEFAULT 'OPEN' CHECK (response_status IN ('ACCEPTED', 'DECLINED','OPEN')),
                                                 responded_at  TIMESTAMP NOT NULL DEFAULT now(),
 
 

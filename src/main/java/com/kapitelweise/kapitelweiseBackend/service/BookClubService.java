@@ -3,6 +3,7 @@ package com.kapitelweise.kapitelweiseBackend.service;
 
 import com.kapitelweise.kapitelweiseBackend.dao.BookclubDao;
 import com.kapitelweise.kapitelweiseBackend.request.BookRequest;
+import com.kapitelweise.kapitelweiseBackend.response.BookClubResponse;
 import com.kapitelweise.kapitelweiseBackend.response.BookResponse;
 import com.kapitelweise.kapitelweiseBackend.response.SuggestionsResponse;
 import org.slf4j.Logger;
@@ -132,7 +133,11 @@ public class BookClubService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Aktuell gibt es kein offenes Buch!");
         }
             return bookclubDao.deleteBook(clubId);
+    }
 
+    //Buchclubs für Alexa, damit der User seine IDs kennt
+    public List<BookClubResponse> getClubs(String username){
+        return bookclubDao.getBookClubForMember(username);
     }
 }
 

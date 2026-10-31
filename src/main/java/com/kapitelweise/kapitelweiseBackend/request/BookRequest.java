@@ -38,9 +38,6 @@ public class BookRequest {
      * No args constructor for use in serialization
      *
      */
-    public BookRequest() {
-    }
-
     public BookRequest(String title, String isbn, Integer pages, String author, Integer firstPublishYear) {
         super();
         this.title = title;
