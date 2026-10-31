@@ -84,6 +84,42 @@ public class MeetingDaoImpl implements MeetingDao {
         );
     }
 
+@Override
+public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
+    String sql = """
+            SELECT m.id, m.book_id, m.title, m.description,
+                   m.starts_at, m.ends_at, m.location,
+                   COALESCE(mr.response_status, 'OPEN') AS response_status
+            FROM club_meeting m
+            LEFT JOIN club_member cm
+                ON cm.bookclub_id = m.bookclub_id
+                AND cm.username = ?
+            LEFT JOIN meeting_response mr
+                ON mr.meeting_id = m.id
+                AND mr.bookclub_id = m.bookclub_id
+                AND mr.user_id = cm.user_id
+            WHERE m.bookclub_id = ?
+              AND m.starts_at > CURRENT_TIMESTAMP
+            ORDER BY m.starts_at ASC
+            """;
+
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new MeetingResponse(
+                    rs.getLong("id"),
+                    rs.getObject("book_id", Long.class),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getObject("starts_at", LocalDateTime.class),
+                    rs.getObject("ends_at", LocalDateTime.class),
+                    rs.getString("location"),
+                    rs.getString("response_status")
+            ),
+            username,
+            clubId
+    );
+}
+
+
     public String saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus) {
         String sql = """
                 INSERT INTO meeting_response 
