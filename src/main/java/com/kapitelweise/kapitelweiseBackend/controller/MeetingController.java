@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-
+import java.util.List;
 @RestController
 public class MeetingController {
 
@@ -30,5 +30,18 @@ public class MeetingController {
                 request,
                 principal.getName()
         );
+        
     }
+
+@GetMapping("/clubs/{clubId}/meeting")
+public List<MeetingResponse> getUpcomingMeetings(
+        @PathVariable("clubId") Long clubId,
+        Principal principal) {
+
+    return meetingService.getUpcomingMeetings(
+            clubId,
+            principal.getName()
+    );
+}
+
 }
