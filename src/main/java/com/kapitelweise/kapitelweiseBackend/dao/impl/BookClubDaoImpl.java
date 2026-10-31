@@ -233,15 +233,14 @@ public class BookClubDaoImpl implements BookclubDao {
     @Override
     public List<BookClubResponse> getBookClubForMember(String username) {
         String sql = """
-        select bookclub.name, bookclub.id as club_id
-        from bookclub
-        join club_member on club_member.bookclub_id = bookclub.id
-        where club_member.username = ?;
+        select distinct bookclub_id
+        from club_member
+        where username = ?;
         """;
         return jdbcTemplate.query(sql,(rs, rowNum) ->
                         new BookClubResponse(
-                                rs.getLong("club_id"),
-                                rs.getString("name")
+                                rs.getLong("bookclub_id"),
+                                null
                         ),
                 username
         );
