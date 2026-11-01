@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MeetingController {
@@ -41,12 +42,22 @@ public List<MeetingResponse> getUpcomingMeetings(
     );
 }
 
+@PutMapping("/clubs/{clubId}/meetings/{meetingId}/attendance")
+public Map<String, String> acceptMeetingInvitation(
+        @PathVariable Long clubId,
+        @PathVariable Long meetingId,
+        Principal principal,
+        @RequestBody Map<String, String> request) {
 
-    @PutMapping("/clubs/{clubId}/meetings/{meetingId}/attendance/{responseStatus}")
-    public String acceptMeetingInvitation(@PathVariable Long clubId, @PathVariable Long meetingId, @AuthenticationPrincipal String username, @PathVariable String responseStatus){
-         return meetingService.acceptMeeting(clubId, meetingId, username, responseStatus);
+    String status = request.get("status");
 
-    }
+    meetingService.acceptMeeting(
+            clubId, meetingId, principal.getName(), status
+    );
+
+    return Map.of("status", status);
+}
+
 
     @GetMapping("/clubs/{clubId}/meetings/{meetingId}/attendance")
     public List<UserMeetingResponse> getResponses(@PathVariable Long clubId,@PathVariable Long meetingId, @AuthenticationPrincipal String username){
