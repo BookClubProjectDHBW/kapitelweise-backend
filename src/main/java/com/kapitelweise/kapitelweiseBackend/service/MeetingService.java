@@ -123,11 +123,24 @@ public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
     }
 
 
-    public List<UserMeetingResponse> getUserResponse(Long clubId, Long meetingId, String username){
-    if(!bookclubDao.isUserAdmin(username, clubId)){
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Admin des Buchclubs");
+    
+public List<UserMeetingResponse> getUserResponse(Long clubId, Long meetingId, String username) {
+    if (!bookclubDao.isUserAdmin(username, clubId)) {
+        throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "Du bist kein Admin des Buchclubs"
+        );
     }
+
+    if (!meetingDao.meetingExists(clubId, meetingId)) {
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Das Treffen gibt es in diesem Club nicht"
+        );
+    }
+
     return meetingDao.getUserMeetingResponse(clubId, meetingId);
-    }
+}
+
 }
 
