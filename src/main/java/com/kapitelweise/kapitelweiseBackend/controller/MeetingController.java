@@ -29,10 +29,18 @@ public class MeetingController {
         );
     }
 
-    @GetMapping("/clubs/{clubId}/meeting")
-    public MeetingResponse getMeeting(@PathVariable("clubId") Long clubId, @AuthenticationPrincipal String username){
-        return meetingService.getNextMeeting(clubId, username);
-    }
+
+@GetMapping("/clubs/{clubId}/meeting")
+public List<MeetingResponse> getUpcomingMeetings(
+        @PathVariable("clubId") Long clubId,
+        Principal principal) {
+
+    return meetingService.getUpcomingMeetings(
+            clubId,
+            principal.getName()
+    );
+}
+
 
     @PutMapping("/clubs/{clubId}/meetings/{meetingId}/attendance/{responseStatus}")
     public String acceptMeetingInvitation(@PathVariable Long clubId, @PathVariable Long meetingId, @AuthenticationPrincipal String username, @PathVariable String responseStatus){
