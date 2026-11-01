@@ -94,6 +94,17 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
         return meetingDao.getMeetingForMember(clubId, username);
     }
 
+public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
+    if (!bookclubDao.isMember(username, clubId)) {
+        throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "Du bist kein Mitglied des Clubs"
+        );
+    }
+
+    return meetingDao.getUpcomingMeetings(clubId, username);
+}
+
     public String acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
         if (responseStatus == null || !(responseStatus.equals("ACCEPTED") || responseStatus.equals("DECLINED"))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status fehlt oder Wert ist nicht erlaubt");
