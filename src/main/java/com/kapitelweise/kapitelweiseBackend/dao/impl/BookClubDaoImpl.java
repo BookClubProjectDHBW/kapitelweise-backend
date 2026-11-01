@@ -221,8 +221,10 @@ public class BookClubDaoImpl implements BookclubDao {
     @Override
     public String deleteBook(Long clubId){
         String sql = """
-                DELETE FROM club_book
-                where bookclub_id = ?
+                UPDATE club_book
+                set book_status = 'FINISHED',
+                    finished_at = now()
+                where bookclub_id = ? and book_status = 'CURRENT'
         """;
         jdbcTemplate.update(sql, clubId);
 
