@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "meetingId",
         "username",
-        "responseStatus",
+        "status",
         "respondedAt"
 })
 @Generated("jsonschema2pojo")
@@ -25,7 +25,7 @@ public class UserMeetingResponse {
     private Long meetingId;
     @JsonProperty("username")
     private String username;
-    @JsonProperty("responseStatus")
+    @JsonProperty("status")
     private String responseStatus;
     @JsonProperty("respondedAt")
     private String respondedAt;
@@ -67,12 +67,12 @@ public class UserMeetingResponse {
         this.username = username;
     }
 
-    @JsonProperty("responseStatus")
+    @JsonProperty("status")
     public String getResponseStatus() {
         return responseStatus;
     }
 
-    @JsonProperty("responseStatus")
+    @JsonProperty("status")
     public void setResponseStatus(String responseStatus) {
         this.responseStatus = responseStatus;
     }
@@ -109,7 +109,7 @@ public class UserMeetingResponse {
         sb.append('=');
         sb.append(((this.username == null)?"<null>":this.username));
         sb.append(',');
-        sb.append("responseStatus");
+        sb.append("status");
         sb.append('=');
         sb.append(((this.responseStatus == null)?"<null>":this.responseStatus));
         sb.append(',');

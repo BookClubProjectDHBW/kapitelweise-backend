@@ -153,19 +153,34 @@ public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
         return count != null && count > 0;
     }
 
-    public List<UserMeetingResponse> getUserMeetingResponse(Long clubId, Long meetingId) {
-        String sql = """
-                select mr.meeting_id, cm.username, mr.response_status, mr.responded_at
-                from meeting_response mr
-                join club_member cm on cm.user_id = mr.user_id and cm.bookclub_id = mr.bookclub_id
-                where mr.bookclub_id = ? and mr.meeting_id = ?
-                """;
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new UserMeetingResponse(
-                rs.getLong("meeting_id"),
-                rs.getString("username"),
-                rs.getString("response_status"),
-                rs.getTimestamp("responded_at").toString()
-        ), clubId, meetingId);
-    }
+@Override
+public List<UserMeetingResponse> getUserMeetingResponse(Long clubId, Long meetingId) {
+    String sql = """
+            SELECT cm.username,
+                   COALESCE(mr.response_status, 'OPEN') AS response_status,
+                   mr.responded_at
+            FROM club_member cm
+            LEFT JOIN meeting_response mr
+                ON mr.user_id = cm.user_id
+                AND mr.bookclub_id = cm.bookclub_id
+                AND mr.meeting_id = ?
+            WHERE cm.bookclub_id = ?
+            ORDER BY cm.username
+            """;
+
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new UserMeetingResponse(
+                    meetingId,
+                    rs.getString("username"),
+                    rs.getString("response_status"),
+                    rs.getTimestamp("responded_at") == null
+                            ? null
+                            : rs.getTimestamp("responded_at").toString()
+            ),
+            meetingId,
+            clubId
+    );
+}
+
 }
