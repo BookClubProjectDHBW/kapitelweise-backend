@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
         "starts_at",
         "ends_at",
         "location",
-        "response_status"
+        "my_attendance_status"
 })
 public class MeetingResponse {
 
@@ -39,8 +39,10 @@ public class MeetingResponse {
     @JsonProperty("location")
     private String location;
 
-    @JsonProperty("response_status")
+  
+    @JsonProperty("my_attendance_status")
     private String responseStatus;
+
 
     public MeetingResponse() {
     }

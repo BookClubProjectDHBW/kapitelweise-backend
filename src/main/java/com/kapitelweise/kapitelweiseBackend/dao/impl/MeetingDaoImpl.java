@@ -84,6 +84,42 @@ public class MeetingDaoImpl implements MeetingDao {
         );
     }
 
+@Override
+public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
+    String sql = """
+            SELECT m.id, m.book_id, m.title, m.description,
+                   m.starts_at, m.ends_at, m.location,
+                   COALESCE(mr.response_status, 'OPEN') AS response_status
+            FROM club_meeting m
+            LEFT JOIN club_member cm
+                ON cm.bookclub_id = m.bookclub_id
+                AND cm.username = ?
+            LEFT JOIN meeting_response mr
+                ON mr.meeting_id = m.id
+                AND mr.bookclub_id = m.bookclub_id
+                AND mr.user_id = cm.user_id
+            WHERE m.bookclub_id = ?
+              AND m.starts_at > CURRENT_TIMESTAMP
+            ORDER BY m.starts_at ASC
+            """;
+
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new MeetingResponse(
+                    rs.getLong("id"),
+                    rs.getObject("book_id", Long.class),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getObject("starts_at", LocalDateTime.class),
+                    rs.getObject("ends_at", LocalDateTime.class),
+                    rs.getString("location"),
+                    rs.getString("response_status")
+            ),
+            username,
+            clubId
+    );
+}
+
+
     public String saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus) {
         String sql = """
                 INSERT INTO meeting_response 
@@ -117,19 +153,34 @@ public class MeetingDaoImpl implements MeetingDao {
         return count != null && count > 0;
     }
 
-    public List<UserMeetingResponse> getUserMeetingResponse(Long clubId, Long meetingId) {
-        String sql = """
-                select mr.meeting_id, cm.username, mr.response_status, mr.responded_at
-                from meeting_response mr
-                join club_member cm on cm.user_id = mr.user_id and cm.bookclub_id = mr.bookclub_id
-                where mr.bookclub_id = ? and mr.meeting_id = ?
-                """;
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new UserMeetingResponse(
-                rs.getLong("meeting_id"),
-                rs.getString("username"),
-                rs.getString("response_status"),
-                rs.getTimestamp("responded_at").toString()
-        ), clubId, meetingId);
-    }
+@Override
+public List<UserMeetingResponse> getUserMeetingResponse(Long clubId, Long meetingId) {
+    String sql = """
+            SELECT cm.username,
+                   COALESCE(mr.response_status, 'OPEN') AS response_status,
+                   mr.responded_at
+            FROM club_member cm
+            LEFT JOIN meeting_response mr
+                ON mr.user_id = cm.user_id
+                AND mr.bookclub_id = cm.bookclub_id
+                AND mr.meeting_id = ?
+            WHERE cm.bookclub_id = ?
+            ORDER BY cm.username
+            """;
+
+    return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new UserMeetingResponse(
+                    meetingId,
+                    rs.getString("username"),
+                    rs.getString("response_status"),
+                    rs.getTimestamp("responded_at") == null
+                            ? null
+                            : rs.getTimestamp("responded_at").toString()
+            ),
+            meetingId,
+            clubId
+    );
+}
+
 }

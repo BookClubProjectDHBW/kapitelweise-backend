@@ -94,6 +94,17 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
         return meetingDao.getMeetingForMember(clubId, username);
     }
 
+public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
+    if (!bookclubDao.isMember(username, clubId)) {
+        throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "Du bist kein Mitglied des Clubs"
+        );
+    }
+
+    return meetingDao.getUpcomingMeetings(clubId, username);
+}
+
     public String acceptMeeting(Long clubId, Long meetingId, String username, String responseStatus){
         if (responseStatus == null || !(responseStatus.equals("ACCEPTED") || responseStatus.equals("DECLINED"))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status fehlt oder Wert ist nicht erlaubt");
@@ -112,11 +123,24 @@ public MeetingResponse createMeeting(Long clubId, MeetingRequest request, String
     }
 
 
-    public List<UserMeetingResponse> getUserResponse(Long clubId, Long meetingId, String username){
-    if(!bookclubDao.isUserAdmin(username, clubId)){
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Du bist kein Admin des Buchclubs");
+    
+public List<UserMeetingResponse> getUserResponse(Long clubId, Long meetingId, String username) {
+    if (!bookclubDao.isUserAdmin(username, clubId)) {
+        throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "Du bist kein Admin des Buchclubs"
+        );
     }
+
+    if (!meetingDao.meetingExists(clubId, meetingId)) {
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Das Treffen gibt es in diesem Club nicht"
+        );
+    }
+
     return meetingDao.getUserMeetingResponse(clubId, meetingId);
-    }
+}
+
 }
 
