@@ -76,12 +76,15 @@ public class AmazonSQSService {
             try {
                 MemberEvent event = jsonMapper.readValue(message.getBody(), MemberEvent.class);
 
-                if (event.type().equals("MEMBER_JOINED")) {
-                    memberDao.upsertMember(event.userId(), event.username(), event.bookclubId(), event.role());
-                    log.info(event.username() + " ist jetzt Mitglied von Club " + event.bookclubId());
-                } else {
-                    log.warn("Unbekannter Event-Typ in clubMembers: " + event.type());
-                }
+            if (event.type().equals("MEMBER_JOINED")) {
+                memberDao.upsertMember(event.userId(), event.username(), event.bookclubId(), event.role());
+                log.info(event.username() + " ist jetzt Mitglied von Club " + event.bookclubId());
+            } else if (event.type().equals("MEMBER_LEFT")) {
+                memberDao.removeMember(event.userId(), event.bookclubId());
+                log.info(event.username() + " hat Club " + event.bookclubId() + " verlassen");
+            } else {
+                log.warn("Unbekannter Event-Typ in clubMembers: " + event.type());
+            }
                 sqs.deleteMessage(MEMBERS_QUEUE_URL, message.getReceiptHandle());
             } catch (Exception e) {
                 log.error("SQS-Nachricht konnte nicht verarbeitet werden: " + e.getMessage());

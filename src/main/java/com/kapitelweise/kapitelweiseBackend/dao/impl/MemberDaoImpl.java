@@ -26,4 +26,11 @@ public class MemberDaoImpl implements MemberDao {
 
         jdbcTemplate.update(sql, userId, username, bookclubId, role);
     }
+    @Override
+public void removeMember(Long userId, Long bookclubId) {
+    jdbcTemplate.update(
+            "DELETE FROM club_member WHERE user_id = ? AND bookclub_id = ?",
+            userId, bookclubId
+    );
+}
 }
