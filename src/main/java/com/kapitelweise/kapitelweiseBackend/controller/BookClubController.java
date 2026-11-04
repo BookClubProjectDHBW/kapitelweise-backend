@@ -24,7 +24,7 @@ public class BookClubController {
 
     // Das Prinzipal übergibt den username der Person, die den Request auslöst (Spring Security)
     // suggestion Endpunkt
-    @PostMapping("/clubs/{clubId}/proposals")
+    @PostMapping("/clubs/{clubId}/suggestions")
     public SuggestionsResponse postSuggestion(@PathVariable("clubId") Long ClubId, @RequestBody BookRequest request, Principal principal){
         return bookClubService.saveBookSuggestion(ClubId, request, principal.getName());
 

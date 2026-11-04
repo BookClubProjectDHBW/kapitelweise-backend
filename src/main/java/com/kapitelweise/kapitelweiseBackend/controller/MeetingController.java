@@ -31,7 +31,7 @@ public class MeetingController {
     }
 
 
-@GetMapping("/clubs/{clubId}/meeting")
+@GetMapping("/clubs/{clubId}/meetings")
 public List<MeetingResponse> getUpcomingMeetings(
         @PathVariable("clubId") Long clubId,
         Principal principal) {
