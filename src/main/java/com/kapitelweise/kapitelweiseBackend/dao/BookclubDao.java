@@ -15,10 +15,10 @@ public interface BookclubDao {
     SuggestionsResponse saveBooksSuggestion(Long clubId, BookRequest request, String username);
     boolean isMember(String username, Long clubId);
     List<SuggestionsResponse> getBookSuggestions(Long clubId, String username);
-    boolean checkExistence(Long clubId, Long proposalId);
-    boolean checkStatus(Long clubId, Long proposalId);
+    boolean checkExistence(Long clubId, Long suggestionId);
+    boolean checkStatus(Long clubId, Long suggestionId);
     boolean activeBook(Long clubId);
-    BookResponse saveCurrentBook(Long clubId, Long proposalId);
+    BookResponse saveCurrentBook(Long clubId, Long suggestionId);
     BookResponse getCurrentBook(Long clubId);
     void deleteSuggestion(String username, Long clubId);
     void deleteSuggestions(Long clubId);

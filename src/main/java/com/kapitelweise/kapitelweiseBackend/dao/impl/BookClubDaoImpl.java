@@ -102,18 +102,18 @@ public class BookClubDaoImpl implements BookclubDao {
     }
 
     @Override
-    public boolean checkExistence(Long clubId, Long proposalId){
+    public boolean checkExistence(Long clubId, Long suggestionId){
         Integer isThisSuggestionValid = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM club_suggestions WHERE id = ? and bookclub_id = ?",
-                Integer.class, proposalId, clubId);
+                Integer.class, suggestionId, clubId);
         return isThisSuggestionValid != null && isThisSuggestionValid > 0;
     }
 
     @Override
-    public boolean checkStatus(Long clubId, Long proposalId){
+    public boolean checkStatus(Long clubId, Long suggestionId){
         Integer isThisSuggestionValid = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM club_suggestions WHERE id = ? and bookclub_id = ? and suggestion_status = 'READY'",
-                Integer.class, proposalId, clubId);
+                Integer.class, suggestionId, clubId);
         return isThisSuggestionValid != null && isThisSuggestionValid > 0;
     }
 
@@ -127,7 +127,7 @@ public class BookClubDaoImpl implements BookclubDao {
 
     // kopiert den Vorschlag nach club_book, book_status und started_at kommen aus den DB-Defaults
     @Override
-    public BookResponse saveCurrentBook(Long clubId, Long proposalId) {
+    public BookResponse saveCurrentBook(Long clubId, Long suggestionId) {
         String sql = """
                 INSERT INTO club_book (bookclub_id, title, isbn, pages, author, first_publish_year)
                 SELECT bookclub_id, title, isbn, pages, author, first_publish_year
@@ -148,7 +148,7 @@ public class BookClubDaoImpl implements BookclubDao {
                                 rs.getObject("started_at", LocalDateTime.class),
                                 rs.getObject("finished_at", LocalDateTime.class)
                         ),
-                proposalId, clubId);
+                suggestionId, clubId);
     }
 
     @Override

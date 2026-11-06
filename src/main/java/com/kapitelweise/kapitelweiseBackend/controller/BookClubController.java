@@ -36,9 +36,9 @@ public class BookClubController {
     }
 
 
-    @PostMapping("/clubs/{clubId}/current-book/{proposalId}")
-    public BookResponse setCurrentBook(@PathVariable("clubId") Long clubId, @PathVariable("proposalId") Long proposalId, @AuthenticationPrincipal String username){
-        return bookClubService.setCurrentBook(clubId, proposalId, username);
+    @PostMapping("/clubs/{clubId}/current-book/{suggestionId}")
+    public BookResponse setCurrentBook(@PathVariable("clubId") Long clubId, @PathVariable("suggestionId") Long suggestionId, @AuthenticationPrincipal String username){
+        return bookClubService.setCurrentBook(clubId, suggestionId, username);
     }
 
 

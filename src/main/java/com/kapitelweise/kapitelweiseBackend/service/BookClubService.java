@@ -89,19 +89,19 @@ public class BookClubService {
     }
 
     @Transactional
-    public BookResponse setCurrentBook(Long clubId, Long proposalId, String username){
+    public BookResponse setCurrentBook(Long clubId, Long suggestionId, String username){
         if(!bookclubDao.isUserAdmin(username, clubId)){
             log.warn(username + " ist kein Admin von Club " + clubId);
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Du bist kein Admin!");
         }
 
-        if(!bookclubDao.checkExistence(clubId, proposalId)){
-            log.warn("Vorschlag " + proposalId + " gibt es in Club " + clubId + " nicht");
+        if(!bookclubDao.checkExistence(clubId, suggestionId)){
+            log.warn("Vorschlag " + suggestionId + " gibt es in Club " + clubId + " nicht");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Diesen Vorschlag gibts nicht du Schlingel!");
         }
 
-        if(!bookclubDao.checkStatus(clubId, proposalId)){
-            log.warn("Vorschlag " + proposalId + " ist nicht READY");
+        if(!bookclubDao.checkStatus(clubId, suggestionId)){
+            log.warn("Vorschlag " + suggestionId + " ist nicht READY");
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Dieser Vorschlag kann nicht abgegeben werden");
         }
 
@@ -112,8 +112,8 @@ public class BookClubService {
 
         // falls zwei Requests gleichzeitig durch activeBook kommen, lehnt der Unique Index den zweiten ab
         try {
-            BookResponse book = bookclubDao.saveCurrentBook(clubId, proposalId);
-            log.info("Vorschlag " + proposalId + " ist jetzt das aktuelle Buch von Club " + clubId);
+            BookResponse book = bookclubDao.saveCurrentBook(clubId, suggestionId);
+            log.info("Vorschlag " + suggestionId + " ist jetzt das aktuelle Buch von Club " + clubId);
 
             bookclubDao.deleteSuggestions(clubId);
             log.info("Löschen im " + clubId + "hat auch geklappt");
