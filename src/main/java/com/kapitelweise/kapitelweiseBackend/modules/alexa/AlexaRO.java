@@ -98,10 +98,6 @@ public class AlexaRO
 }
 
 
-// @JsonRawValue public String version;
-// private String version;
-// private boolean shouldEndSession;
-// private String outputSpeech;
 
 
 
