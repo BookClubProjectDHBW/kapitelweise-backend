@@ -55,6 +55,7 @@ public class AmazonSQSService {
     }
 
 
+    // Mit Hilfe der KI entwickelt
     @Scheduled(fixedDelay = 60000)
     public void sendSuggestionAgain(){
         List<SuggestionEvent> pending = bookclubDao.getPendingSuggestions();
