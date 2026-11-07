@@ -12,16 +12,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "club_id",
-        "clubname"
+        "club_id"
 })
 @Generated("jsonschema2pojo")
 public class BookClubResponse {
 
     @JsonProperty("club_id")
     private Long clubId;
-    @JsonProperty("clubname")
-    private String clubname;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -32,10 +29,8 @@ public class BookClubResponse {
     public BookClubResponse() {
     }
 
-    public BookClubResponse(Long clubId, String clubname) {
-        super();
+    public BookClubResponse(Long clubId) {
         this.clubId = clubId;
-        this.clubname = clubname;
     }
 
     @JsonProperty("club_id")
@@ -46,16 +41,6 @@ public class BookClubResponse {
     @JsonProperty("club_id")
     public void setClubId(Long clubId) {
         this.clubId = clubId;
-    }
-
-    @JsonProperty("clubname")
-    public String getClubname() {
-        return clubname;
-    }
-
-    @JsonProperty("clubname")
-    public void setClubname(String clubname) {
-        this.clubname = clubname;
     }
 
     @JsonAnyGetter
@@ -75,10 +60,6 @@ public class BookClubResponse {
         sb.append("clubId");
         sb.append('=');
         sb.append(((this.clubId == null)?"<null>":this.clubId));
-        sb.append(',');
-        sb.append("clubname");
-        sb.append('=');
-        sb.append(((this.clubname == null)?"<null>":this.clubname));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');

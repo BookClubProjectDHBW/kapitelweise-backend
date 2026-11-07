@@ -21,6 +21,7 @@ public class AlexaService {
         this.jwtService = jwtService;
     }
 
+    // Wurde mit der Unterstützung von KI entwickelt, da Fachwissen gefehlt hat
     public AlexaRO handle(AlexaRO request) {
         String type = request == null || request.getRequest() == null ? null : request.getRequest().getType();
         if ("LaunchRequest".equals(type)) {
@@ -45,34 +46,35 @@ public class AlexaService {
 
 
 
-            //Ausgabe aller Buchclubs mit ID
+            //Ausgabe aller Buchclubs eines Users mit ID
             if ("ClubsIntent".equals(name)) {
                 List<BookClubResponse> bookclubs = bookClubService.getClubs(username);
                 String clubs = bookclubs.stream()
-                        .map(club -> club.getClubname()  + ", mit der ID " + club.getClubId())
+                        .map(club -> "mit der ID " + club.getClubId())
                         .reduce((a,b) -> a + ". " + b)
                         .orElse("Du bist aktuell in keinem Buchclub Mitglied");
                 return response("Deine Buchclubs sind: " + clubs, true);
             }
 
             if (clubId == null) return response("Bitte nenne auch die ID deines Buchclubs.", false);
-            //Für das bekommen des aktuellen Buchs
+            //Für das Bekommen des aktuellen Buchs
             if ("CurrentBookIntent".equals(name) || "GetCurrentBookIntent".equals(name)) {
                 BookResponse book = bookClubService.getCurrentBook(clubId, username);
                 return response("Das aktuelle Buch ist " + book.getTitle() + authorPhrase(book.getAuthor()) + ".", true);
             }
 
 
-           // Für das Bekommen seiner Vorschläge
+           // Übergibt Vorschläge eines Nutzers, mit KI unterstützung enwickelt.
+            // Andere Intents sind eigenentwickelt auf dieser Grundlage
             if ("SuggestionsIntent".equals(name) || "GetSuggestionsIntent".equals(name)) {
                 List<SuggestionsResponse> suggestions = bookClubService.returnAllSuggestions(clubId, username);
                 if (suggestions.isEmpty()) return response("Für diesen Buchclub gibt es gerade keine Vorschläge.", true);
-                String titles = suggestions.stream()
+                String title = suggestions.stream()
                         .map(SuggestionsResponse::getTitle)
-                        .filter(title -> title != null && !title.isBlank())
-                        .limit(5).reduce((a, b) -> a + ", " + b)
+                        .filter(value -> value != null && !value.isBlank())
+                        .findFirst()
                         .orElse("keine benannten Vorschläge");
-                return response("Die Buchvorschläge sind: " + titles + ".", true);
+                return response("Der Buchvorschlag ist: " + title + ".", true);
             }
             return response("Diesen Alexa-Aufruf kenne ich nicht. Frage nach dem aktuellen Buch oder den Vorschlägen.", true);
 
@@ -86,7 +88,7 @@ public class AlexaService {
         }
     }
 
-    //prüft die Anmeldung bzw. Token des Users
+    //prüft den Token des Users. mithilfe von KI erstellt
     private String linkedUsername(AlexaRO request) {
         SessionRO session = request.getSession();
         String token = session == null || session.getUser() == null ? null : session.getUser().getAccessToken();

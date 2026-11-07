@@ -242,8 +242,7 @@ public class BookClubDaoImpl implements BookclubDao {
         """;
         return jdbcTemplate.query(sql,(rs, rowNum) ->
                         new BookClubResponse(
-                                rs.getLong("bookclub_id"),
-                                null
+                                rs.getLong("bookclub_id")
                         ),
                 username
         );

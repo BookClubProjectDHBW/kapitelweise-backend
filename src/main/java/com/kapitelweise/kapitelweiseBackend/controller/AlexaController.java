@@ -15,6 +15,7 @@ public class AlexaController {
         this.alexaService = alexaService;
     }
 
+    //Allgemeiner Test, falls die Alexa nicht mehr funktioniert
     @GetMapping("/alexa")
     public String reachable() {
         return "Alexa-Endpunkt erreichbar";
