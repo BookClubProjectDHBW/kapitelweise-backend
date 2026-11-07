@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS meeting_response (
                                                 responded_at  TIMESTAMP NOT NULL DEFAULT now(),
 
 
-    -- Termin gehört zu diesem Club; beim Löschen des Termins verschwinden die Antworten
+    -- Termin gehört zu diesem Club, beim Löschen des Termins verschwinden die Antworten
                                                 CONSTRAINT fk_response_meeting
                                                     FOREIGN KEY (meeting_id, bookclub_id)
                                                         REFERENCES club_meeting (id, bookclub_id)
