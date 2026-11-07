@@ -55,34 +55,6 @@ public class MeetingDaoImpl implements MeetingDao {
         );
     }
 
-    @Override
-    public MeetingResponse getMeetingForMember(Long clubId, String username) {
-        String sql = """
-                SELECT m.id, m.book_id, m.title, m.description, m.starts_at, m.ends_at, m.location,
-                       mr.response_status
-                FROM club_meeting m
-                LEFT JOIN club_member cm ON cm.bookclub_id = m.bookclub_id AND cm.username = ?
-                LEFT JOIN meeting_response mr ON mr.meeting_id = m.id
-                    AND mr.bookclub_id = m.bookclub_id AND mr.user_id = cm.user_id
-                WHERE m.bookclub_id = ?
-                ORDER BY m.starts_at
-                LIMIT 1
-        """;
-
-        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
-                new MeetingResponse(
-                        rs.getLong("id"),
-                        rs.getObject("book_id", Long.class),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getObject("starts_at", LocalDateTime.class),
-                        rs.getObject("ends_at", LocalDateTime.class),
-                        rs.getString("location"),
-                        rs.getString("response_status")
-        ),
-                username, clubId
-        );
-    }
 
 @Override
 public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {

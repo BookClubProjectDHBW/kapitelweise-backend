@@ -43,14 +43,8 @@ public List<MeetingResponse> getUpcomingMeetings(
 }
 
 @PutMapping("/clubs/{clubId}/meetings/{meetingId}/attendance")
-public Map<String, String> acceptMeetingInvitation(
-        @PathVariable Long clubId,
-        @PathVariable Long meetingId,
-        Principal principal,
-        @RequestBody Map<String, String> request) {
-
+public Map<String, String> acceptMeetingInvitation(@PathVariable Long clubId, @PathVariable Long meetingId, Principal principal, @RequestBody Map<String, String> request) {
     String status = request.get("status");
-
     meetingService.acceptMeeting(
             clubId, meetingId, principal.getName(), status
     );
