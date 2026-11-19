@@ -21,7 +21,7 @@ public class AlexaService {
         this.jwtService = jwtService;
     }
 
-    // Wurde mit der Unterstützung von KI entwickelt, da Fachwissen gefehlt hat
+    // KI-Log Nr. 48
     public AlexaRO handle(AlexaRO request) {
         String type = request == null || request.getRequest() == null ? null : request.getRequest().getType();
         if ("LaunchRequest".equals(type)) {
@@ -64,8 +64,7 @@ public class AlexaService {
             }
 
 
-           // Übergibt Vorschläge eines Nutzers, mit KI unterstützung enwickelt.
-            // Andere Intents sind eigenentwickelt auf dieser Grundlage
+           // KI-Log Nr. 48
             if ("SuggestionsIntent".equals(name) || "GetSuggestionsIntent".equals(name)) {
                 List<SuggestionsResponse> suggestions = bookClubService.returnAllSuggestions(clubId, username);
                 if (suggestions.isEmpty()) return response("Für diesen Buchclub gibt es gerade keine Vorschläge.", true);
@@ -88,7 +87,7 @@ public class AlexaService {
         }
     }
 
-    //prüft den Token des Users. mithilfe von KI erstellt
+    // KI-Log Nr. 49
     private String linkedUsername(AlexaRO request) {
         SessionRO session = request.getSession();
         String token = session == null || session.getUser() == null ? null : session.getUser().getAccessToken();

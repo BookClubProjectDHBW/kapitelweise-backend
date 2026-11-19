@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS club_book (
 
 
 -- pro Club darf nur ein Buch CURRENT sein, ein zweites lehnt die DB ab
--- Idee von KI, kannten diese Vorgehensweise nicht - hat für uns aber Sinn gemacht.
+-- KI-Log Nr. 37
 CREATE UNIQUE INDEX IF NOT EXISTS club_book_one_current
     ON club_book (bookclub_id) WHERE book_status = 'CURRENT';
 
@@ -61,7 +61,7 @@ DELETE FROM club_suggestions older
       AND older.suggested_by = newer.suggested_by
       AND older.id < newer.id;
 
--- Mit Hilfe der KI entwickelt
+-- KI-Log Nr. 38
 CREATE UNIQUE INDEX IF NOT EXISTS club_suggestions_one_per_member
     ON club_suggestions (bookclub_id, suggested_by);
 
@@ -136,6 +136,6 @@ CREATE TABLE IF NOT EXISTS meeting_response (
 CREATE INDEX IF NOT EXISTS idx_response_member
     ON meeting_response (user_id, bookclub_id);
 
--- Mit Hilfe der KI entwickelt
+-- KI-Log Nr. 47
 CREATE UNIQUE INDEX IF NOT EXISTS meeting_response_one_per_member
     ON meeting_response (meeting_id, user_id);

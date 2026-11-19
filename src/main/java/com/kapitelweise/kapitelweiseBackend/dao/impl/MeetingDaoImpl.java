@@ -56,6 +56,7 @@ public class MeetingDaoImpl implements MeetingDao {
     }
 
 
+// KI-Log Nr. 55
 @Override
 public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
     String sql = """
@@ -92,6 +93,7 @@ public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
 }
 
 
+    // KI-Log Nr. 55
     public String saveAcceptMeeting(Long clubId, Long meetingId, String username, String responseStatus) {
         String sql = """
                 INSERT INTO meeting_response 
@@ -126,6 +128,7 @@ public List<MeetingResponse> getUpcomingMeetings(Long clubId, String username) {
     }
 
 
+// KI-Log Nr. 55
 @Override
 public List<UserMeetingResponse> getUserMeetingResponse(Long clubId, Long meetingId) {
     String sql = """
