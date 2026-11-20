@@ -38,7 +38,7 @@ public class AmazonSQSService {
         this.jsonMapper = jsonMapper;
     }
 
-    // KI-Log Nr. 33
+    // KI-Log Nr. 36
     public void sendSuggestionCheck(String type, Long suggestionId, Long bookClubId, String isbn){
 
         try {
@@ -56,7 +56,7 @@ public class AmazonSQSService {
     }
 
 
-    // KI-Log Nr. 46
+    // KI-Log Nr. 49
     @Scheduled(fixedDelay = 60000)
     public void sendSuggestionAgain(){
         List<SuggestionEvent> pending = bookclubDao.getPendingSuggestions();
@@ -65,7 +65,7 @@ public class AmazonSQSService {
         }
     }
 
-    // KI-Log Nr. 33
+    // KI-Log Nr. 36
     @Scheduled(fixedDelay = 1000)
     public void pollNewMember(){
         ReceiveMessageRequest request = new ReceiveMessageRequest()
