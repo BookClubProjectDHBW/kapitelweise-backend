@@ -157,7 +157,7 @@ public class BookClubDaoImpl implements BookclubDao {
             DELETE From club_suggestions where bookclub_id = ?""", clubId);
     }
 
-    // KI-Log Nr. 45
+    // KI-Log Nr. 46
     @Override
     public List<SuggestionEvent> getPendingSuggestions(){
         String sql = """

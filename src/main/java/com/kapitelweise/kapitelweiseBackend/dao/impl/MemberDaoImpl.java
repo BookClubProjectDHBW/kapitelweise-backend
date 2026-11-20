@@ -15,7 +15,7 @@ public class MemberDaoImpl implements MemberDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // KI-Log Nr. 30
+    // KI-Log Nr. 31
     @Override
     public void upsertMember(Long userId, String username, Long bookclubId, String role) {
         String sql = """

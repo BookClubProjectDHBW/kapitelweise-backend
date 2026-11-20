@@ -16,7 +16,7 @@ public class AlexaController {
     }
 
     //Allgemeiner Test, falls die Alexa nicht mehr funktioniert
-    // KI-Log Nr. 58
+    // KI-Log Nr. 59
     @GetMapping("/alexa")
     public String reachable() {
         return "Alexa-Endpunkt erreichbar";

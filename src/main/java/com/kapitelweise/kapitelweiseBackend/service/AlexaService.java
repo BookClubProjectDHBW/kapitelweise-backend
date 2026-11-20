@@ -21,7 +21,7 @@ public class AlexaService {
         this.jwtService = jwtService;
     }
 
-    // KI-Log Nr. 48
+    // KI-Log Nr. 49
     public AlexaRO handle(AlexaRO request) {
         String type = request == null || request.getRequest() == null ? null : request.getRequest().getType();
         if ("LaunchRequest".equals(type)) {
@@ -64,7 +64,7 @@ public class AlexaService {
             }
 
 
-           // KI-Log Nr. 48
+           // KI-Log Nr. 49
             if ("SuggestionsIntent".equals(name) || "GetSuggestionsIntent".equals(name)) {
                 List<SuggestionsResponse> suggestions = bookClubService.returnAllSuggestions(clubId, username);
                 if (suggestions.isEmpty()) return response("Für diesen Buchclub gibt es gerade keine Vorschläge.", true);
@@ -87,7 +87,7 @@ public class AlexaService {
         }
     }
 
-    // KI-Log Nr. 49
+    // KI-Log Nr. 50
     private String linkedUsername(AlexaRO request) {
         SessionRO session = request.getSession();
         String token = session == null || session.getUser() == null ? null : session.getUser().getAccessToken();
