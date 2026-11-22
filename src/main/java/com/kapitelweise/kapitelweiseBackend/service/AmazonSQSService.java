@@ -56,7 +56,7 @@ public class AmazonSQSService {
     }
 
 
-    // KI-Log Nr. 49
+    // KI-Log Nr. 50
     @Scheduled(fixedDelay = 60000)
     public void sendSuggestionAgain(){
         List<SuggestionEvent> pending = bookclubDao.getPendingSuggestions();
